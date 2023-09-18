@@ -188,7 +188,7 @@ public class GameActivity extends AppCompatActivity {
 
     // Changes game screen to GameWinActivity
     private void launchGameWinActivity() {
-        Intent intent = new Intent(this, GameWinActivity.class);
+        Intent intent = new Intent(this, GameEndActivity.class);
         startActivity(intent);
         finish();
     }
