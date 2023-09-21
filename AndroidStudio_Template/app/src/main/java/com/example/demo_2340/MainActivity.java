@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
         Button exitButton = findViewById(R.id.exitButton);
         exitButton.setOnClickListener(v -> {
             // Finish the current activity (exit the game)
+            setContentView(R.layout.activity_game_end);
             finish();
         });
 
@@ -40,9 +41,15 @@ public class MainActivity extends AppCompatActivity {
                     difficulty = 0.5;
                     break;
             }
+            //calling home screen- game activity
             Intent game = new Intent(MainActivity.this, GameActivity.class);
+            //initial config screen pending
+
+            //calling maze game screen when enter the dungeon btn clicked
+            Intent game2 = new Intent(MainActivity.this, MazeGameActivity.class);
             game.putExtra("difficulty", difficulty);
             startActivity(game);
+            startActivity(game2);
             finish();
         });
     }
