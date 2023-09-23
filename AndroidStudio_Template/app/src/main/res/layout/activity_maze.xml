@@ -19,4 +19,3 @@
         android:textColor="#FFFFFF"
         android:textSize="30sp" />
 </RelativeLayout>
-    // android:text="Difficulty: "
