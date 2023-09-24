@@ -1,6 +1,7 @@
 package com.example.demo_2340;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,5 +32,10 @@ public class MazeGameActivity extends AppCompatActivity {
             healthPoints = 100;
             textView2.setText("HP: 100");
         }
+        Button exitButton2 = findViewById(R.id.exitButton2);
+        exitButton2.setOnClickListener(v -> {
+            // Button to ending screen
+            setContentView(R.layout.activity_game_end);
+        });
     }
 }
