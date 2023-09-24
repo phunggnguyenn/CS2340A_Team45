@@ -15,8 +15,7 @@ public class MainActivity extends AppCompatActivity {
         Button startBtn = findViewById(R.id.startButton);
         Button exitButton = findViewById(R.id.exitButton);
         exitButton.setOnClickListener(v -> {
-            // Finish the current activity (exit the game)
-            setContentView(R.layout.activity_game_end);
+            // exit the game
             finish();
         });
 
