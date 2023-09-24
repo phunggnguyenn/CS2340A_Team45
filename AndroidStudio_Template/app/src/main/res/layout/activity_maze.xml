@@ -10,8 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
-        android:src="@drawable/maze_image"
-        android:layout_centerInParent="true" />
+        android:src="@drawable/maze_image" />
 
     <TextView
         android:id="@+id/difficultyreciever"
@@ -20,4 +19,24 @@
         android:gravity="center"
         android:textColor="#FFFFFF"
         android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/healthpts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/difficultyreciever"
+        android:layout_marginBottom="-54dp"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp" />
+
+    <Button
+        android:id="@+id/exitButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/mazeImageView"
+        android:layout_alignBottom="@id/mazeImageView"
+        android:layout_marginLeft="254dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="-3dp"
+        android:text="Ending Screen" />
 </RelativeLayout>
