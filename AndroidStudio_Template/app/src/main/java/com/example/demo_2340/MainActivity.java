@@ -5,8 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -22,35 +20,10 @@ public class MainActivity extends AppCompatActivity {
             finish();
         });
 
-        // Set difficulty based on difficulty checked
+        // When start button is clicked
         startBtn.setOnClickListener(v -> {
-            RadioGroup difficultyRadioGroup = findViewById(R.id.difficultyRadioGroup);
-            double difficulty = 1;
-
-            switch (difficultyRadioGroup.getCheckedRadioButtonId()) {
-                case R.id.radioEasy:
-                    difficulty = 0.5;
-                    break;
-                case R.id.radioMedium:
-                    difficulty = 0.75;
-                    break;
-                case R.id.radioHard:
-                    difficulty = 1;
-                    break;
-                default:
-                    difficulty = 0.5;
-                    break;
-            }
-            //calling home screen- game activity
-            Intent game = new Intent(MainActivity.this, GameActivity.class);
-            //initial config screen pending
-
-            //calling maze game screen when enter the dungeon btn clicked
-            Intent game2 = new Intent(MainActivity.this, MazeGameActivity.class);
-            game.putExtra("difficulty", difficulty);
-            startActivity(game);
-            startActivity(game2);
-            finish();
+            Intent initial_config = new Intent(MainActivity.this, InitialConfigActivity.class);
+            startActivity(initial_config);
         });
     }
 }
