@@ -62,14 +62,10 @@ public class MazeGameActivity extends AppCompatActivity {
     }
     private int getCharacterImageResource(int avatarId) {
         switch (avatarId) {
-            case R.id.imageAvatar1:
-                return R.drawable.avatar1;
-            case R.id.imageAvatar2:
-                return R.drawable.avatar2;
-            case R.id.imageAvatar3:
-                return R.drawable.avatar3;
-            default:
-                return R.drawable.avatar1;
+        case R.id.imageAvatar1: return R.drawable.avatar1;
+        case R.id.imageAvatar2: return R.drawable.avatar2;
+        case R.id.imageAvatar3: return R.drawable.avatar3;
+        default: return R.drawable.avatar1;
         }
     }
 }
