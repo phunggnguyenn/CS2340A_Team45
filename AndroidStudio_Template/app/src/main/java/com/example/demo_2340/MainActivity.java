@@ -21,8 +21,8 @@ public class MainActivity extends AppCompatActivity {
 
         // When start button is clicked
         startBtn.setOnClickListener(v -> {
-            Intent initial_config = new Intent(MainActivity.this, InitialConfigActivity.class);
-            startActivity(initial_config);
+            Intent initialConfig = new Intent(MainActivity.this, InitialConfigActivity.class);
+            startActivity(initialConfig);
         });
     }
 }

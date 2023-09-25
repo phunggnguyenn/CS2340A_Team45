@@ -8,9 +8,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 //launchMazeGameActivity() method in GameActivity.java will launch the maze background
 public class MazeGameActivity extends AppCompatActivity {
-    TextView textView;
-    TextView textView2;
-    int healthPoints;
+    private TextView textView;
+    private TextView textView2;
+    private int healthPoints;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
