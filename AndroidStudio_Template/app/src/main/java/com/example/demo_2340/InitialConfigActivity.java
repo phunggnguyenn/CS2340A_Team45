@@ -12,6 +12,7 @@ import android.widget.ImageView;
 
 public class InitialConfigActivity extends AppCompatActivity {
     private ImageView selectedAvatar = null;
+    private int selectedAvatarId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +51,10 @@ public class InitialConfigActivity extends AppCompatActivity {
                     // Continue to the game screen with the selected values.
                     double difficulty = getDifficultyFromRadioButton(selectedRadioButtonId);
                     // You can start the game activity with the player's name and difficulty level.
-                    startGameActivity(playerName, difficulty);
+                    if (selectedAvatar != null) {
+                        selectedAvatarId = selectedAvatar.getId();
+                    }
+                    startGameActivity(playerName, difficulty, selectedAvatarId);
                 }
             }
         });
@@ -65,10 +69,11 @@ public class InitialConfigActivity extends AppCompatActivity {
         }
     }
 
-    private void startGameActivity(String playerName, double difficulty) {
+    private void startGameActivity(String playerName, double difficulty, int selectedAvatarId) {
         Intent gameIntent = new Intent(this, MazeGameActivity.class);
         gameIntent.putExtra("playerName", playerName);
         gameIntent.putExtra("difficulty", difficulty);
+        gameIntent.putExtra("selectedAvatarId", selectedAvatarId);
         startActivity(gameIntent);
         finish(); // Finish the initial config activity
     }
