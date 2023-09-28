@@ -30,7 +30,7 @@ public class MazeGameActivity extends AppCompatActivity {
         if (receivedDifficulty == 1.0) {
             textView.setText("Difficulty: Hard");
             healthPoints = 100;
-            textView2.setText("HP: 150");
+            textView2.setText("HP: 100");
         } else if (receivedDifficulty == 0.75) {
             textView.setText("Difficulty: Medium");
             healthPoints = 125;
@@ -38,7 +38,7 @@ public class MazeGameActivity extends AppCompatActivity {
         } else {
             textView.setText("Difficulty: Easy");
             healthPoints = 150;
-            textView2.setText("HP: 100");
+            textView2.setText("HP: 150");
         }
         RelativeLayout layout = findViewById(R.id.RelativeLayoutId);
 
