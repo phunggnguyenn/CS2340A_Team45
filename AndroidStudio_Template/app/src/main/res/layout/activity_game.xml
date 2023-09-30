@@ -8,6 +8,7 @@
 
     <!-- added the activity_maze xml file as the background-->
     <include layout="@layout/activity_maze" />
+    <include layout="@layout/activity_room3" />
 
     <RelativeLayout
         android:layout_width="match_parent"
