@@ -44,11 +44,22 @@ public class RoomThree extends AppCompatActivity {
                 int top = row * (tileHeight + margin);
 
                 ImageView tilesImageView = new ImageView(this);
-                if ((row%4==1 || col%5==1) || (row%4==2 && col%4==0) || (row%4==3 && col%4==0)
-                        || (row%3==2 && col%4==3 )|| (row%3==1 && col%5==6) || (col%9==0 && row%5==0)) {
-                    tilesImageView.setImageResource(R.drawable.red_tile);
-                } else {
+                if ((row == 0 && (col != 10)
+                    || (row == 1 && ((col == 0) || (col == 5) || (col == 9)))
+                    || (row == 2 && (col == 3 || col == 5 || col < 2))
+                    || (row == 3 && (col == 5 || col > 6 ))
+                    || (row == 4 && (col == 5 || col == 7 || col == 9 || col == 11))
+                    || (row == 5 && ((col > 0 && col < 4) || col == 5))
+                    || (row == 6 && (col == 3 || col == 6 || col == 8))
+                    || (row == 7 && (((col > 0) && (col < 4)) || (col == 8)))
+                    || (row == 8 && ((col > 7 && col < 10) || col == 3))
+                    || (row == 9 && (col == 7))
+                    || (row == 10 && ((col > 1 && col < 6) || (col > 8)))
+                    || (row == 11 && (col == 2 || col == 4 || col == 9 || col == 11))
+                    || (row == 13 && col != 1))) {
                     tilesImageView.setImageResource(R.drawable.black_tile);
+                } else {
+                    tilesImageView.setImageResource(R.drawable.red_tile);
                 }
                 tilesImageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
                 RelativeLayout.LayoutParams redTilesParams = new RelativeLayout.LayoutParams(tileWidth, tileHeight);
