@@ -1,11 +1,13 @@
 package com.example.demo_2340;
 
 
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,7 +24,9 @@ public class RoomOne extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_room1);
         RelativeLayout room1Layout = findViewById(R.id.room1Layout);
-
+        Intent receiverIntent = getIntent();
+        String playerName = receiverIntent.getStringExtra("playerName");
+        Double receivedDifficulty = receiverIntent.getDoubleExtra("difficulty", 0.75);
         // tile dimensions
         int tileWidth = 80;
         int tileHeight = 80;
@@ -54,6 +58,20 @@ public class RoomOne extends AppCompatActivity {
                 room1Layout.addView(tilesImageView, redTilesParams);
             }
         }
+        Button room2btn = findViewById(R.id.room2btn);
+        room2btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startRoom2Activity(playerName, receivedDifficulty);
+            }
+        });
+    }
+    private void startRoom2Activity(String playerName, double receivedDifficulty) {
+        Intent room2Intent = new Intent(this, RoomTwo.class);
+        room2Intent.putExtra("playerName", playerName);
+        room2Intent.putExtra("difficulty", receivedDifficulty);
+        startActivity(room2Intent);
+        finish(); // Finish the room1 activity
     }
 }
 

@@ -18,7 +18,14 @@
             android:layout_marginTop="130dp"
             android:layout_centerInParent="true">
 
-
         </RelativeLayout>
+        <Button
+            android:id="@+id/room2btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="310dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="-3dp"
+            android:text="Room 2"/>
     </RelativeLayout>
 </RelativeLayout>

@@ -1,17 +1,20 @@
 package com.example.demo_2340;
 
 
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,7 +25,9 @@ public class RoomTwo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_room2);
         RelativeLayout room2Layout = findViewById(R.id.room2Layout);
-
+        Intent receiverIntent = getIntent();
+        String playerName = receiverIntent.getStringExtra("playerName");
+        Double receivedDifficulty = receiverIntent.getDoubleExtra("difficulty", 0.75);
         // tile dimensions
         int tileWidth = 80;
         int tileHeight = 80;
@@ -54,6 +59,20 @@ public class RoomTwo extends AppCompatActivity {
                 room2Layout.addView(tilesImageView, redTilesParams);
             }
         }
+        Button room3btn = findViewById(R.id.room3btn);
+        room3btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startRoom3Activity(playerName, receivedDifficulty);
+            }
+        });
+    }
+    private void startRoom3Activity(String playerName, double receivedDifficulty) {
+        Intent room3Intent = new Intent(this, RoomThree.class);
+        room3Intent.putExtra("playerName", playerName);
+        room3Intent.putExtra("difficulty", receivedDifficulty);
+        startActivity(room3Intent);
+        finish(); // Finish the room2 activity
     }
 }
 
