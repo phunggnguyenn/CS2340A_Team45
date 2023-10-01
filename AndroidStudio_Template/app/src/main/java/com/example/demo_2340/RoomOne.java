@@ -15,13 +15,13 @@ import android.widget.RelativeLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class RoomThree extends AppCompatActivity {
+public class RoomOne extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_room3);
-        RelativeLayout room3Layout = findViewById(R.id.room3Layout);
+        setContentView(R.layout.activity_room1);
+        RelativeLayout room1Layout = findViewById(R.id.room1Layout);
 
         // tile dimensions
         int tileWidth = 80;
@@ -51,7 +51,7 @@ public class RoomThree extends AppCompatActivity {
                 redTilesParams.leftMargin = left;
                 redTilesParams.topMargin = top;
 
-                room3Layout.addView(tilesImageView, redTilesParams);
+                room1Layout.addView(tilesImageView, redTilesParams);
             }
         }
     }
