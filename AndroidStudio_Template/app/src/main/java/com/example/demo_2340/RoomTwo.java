@@ -34,7 +34,7 @@ public class RoomTwo extends AppCompatActivity {
 
         // # rows and cols in room3 grid
         int numRows = 14;
-        int numColumns = 13;
+        int numColumns = 12;
 
         int margin = 10;
 

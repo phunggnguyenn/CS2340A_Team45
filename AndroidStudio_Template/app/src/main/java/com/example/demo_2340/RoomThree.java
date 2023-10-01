@@ -33,7 +33,7 @@ public class RoomThree extends AppCompatActivity {
 
         // # rows and cols in room3 grid
         int numRows = 14;
-        int numColumns = 13;
+        int numColumns = 12;
 
         int margin = 10;
 
@@ -48,7 +48,7 @@ public class RoomThree extends AppCompatActivity {
                         || (row%3==2 && col%4==3 )|| (row%3==1 && col%5==6) || (col%9==0 && row%5==0)) {
                     tilesImageView.setImageResource(R.drawable.red_tile);
                 } else {
-                    tilesImageView.setImageResource(R.drawable.blacktile2);
+                    tilesImageView.setImageResource(R.drawable.black_tile);
                 }
                 tilesImageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
                 RelativeLayout.LayoutParams redTilesParams = new RelativeLayout.LayoutParams(tileWidth, tileHeight);
