@@ -57,7 +57,7 @@ public class RoomOne extends AppCompatActivity {
                     || (row == 10 && col == 11)
                     || (row == 11 && ((col > 0 && col < 4) || (col > 4 && col < 8)))
                     || (row == 13 && col!= 5)) {
-                    tilesImageView.setImageResource(R.drawable.blacktile2);
+                    tilesImageView.setImageResource(R.drawable.blacktile3);
                 } else {
                     tilesImageView.setImageResource(R.drawable.red_tile);
                 }

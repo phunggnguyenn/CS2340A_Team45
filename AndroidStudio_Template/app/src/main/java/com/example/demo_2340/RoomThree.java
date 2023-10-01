@@ -57,7 +57,7 @@ public class RoomThree extends AppCompatActivity {
                     || (row == 10 && ((col > 1 && col < 6) || (col > 8)))
                     || (row == 11 && (col == 2 || col == 4 || col == 9 || col == 11))
                     || (row == 13 && col != 1))) {
-                    tilesImageView.setImageResource(R.drawable.black_tile);
+                    tilesImageView.setImageResource(R.drawable.blacktile3);
                 } else {
                     tilesImageView.setImageResource(R.drawable.red_tile);
                 }
