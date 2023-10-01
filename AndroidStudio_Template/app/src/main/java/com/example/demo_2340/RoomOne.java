@@ -17,13 +17,13 @@ import android.widget.RelativeLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class RoomThree extends AppCompatActivity {
+public class RoomOne extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_room3);
-        RelativeLayout room3Layout = findViewById(R.id.room3Layout);
+        setContentView(R.layout.activity_room1);
+        RelativeLayout room1Layout = findViewById(R.id.room1Layout);
         Intent receiverIntent = getIntent();
         String playerName = receiverIntent.getStringExtra("playerName");
         Double receivedDifficulty = receiverIntent.getDoubleExtra("difficulty", 0.75);
@@ -44,19 +44,19 @@ public class RoomThree extends AppCompatActivity {
                 int top = row * (tileHeight + margin);
 
                 ImageView tilesImageView = new ImageView(this);
-                if ((row == 0 && (col != 10)
-                    || (row == 1 && ((col == 0) || (col == 5) || (col == 9)))
-                    || (row == 2 && (col == 3 || col == 5 || col < 2))
-                    || (row == 3 && (col == 5 || col > 6 ))
-                    || (row == 4 && (col == 5 || col == 7 || col == 9 || col == 11))
-                    || (row == 5 && ((col > 0 && col < 4) || col == 5))
-                    || (row == 6 && (col == 3 || col == 6 || col == 8))
-                    || (row == 7 && (((col > 0) && (col < 4)) || (col == 8)))
-                    || (row == 8 && ((col > 7 && col < 10) || col == 3))
-                    || (row == 9 && (col == 7))
-                    || (row == 10 && ((col > 1 && col < 6) || (col > 8)))
-                    || (row == 11 && (col == 2 || col == 4 || col == 9 || col == 11))
-                    || (row == 13 && col != 1))) {
+                if ((row == 0 && ((col < 8) || (col > 8)))
+                    || (row == 1 && col < 1)
+                    || (row == 2 && ((col < 2) || (col > 4 && col < 11)))
+                    || (row == 3 && col == 9)
+                    || (row == 4 && (col < 8))
+                    || (row == 5 && ((col == 1) || (col == 3) || (col == 6) || (col > 8 && col < 11)))
+                    || (row == 6 && ((col == 6) || (col == 10)))
+                    || (row == 7 && (((col > 2) && (col < 5)) || (col == 10)))
+                    || (row == 8 && ((col > 1 && col < 4) || (col > 5 && col < 9)))
+                    || (row == 9 && ((col > 2) && (col < 5) || col == 6 || col == 8 || col == 11))
+                    || (row == 10 && col == 11)
+                    || (row == 11 && ((col > 0 && col < 4) || (col > 4 && col < 8)))
+                    || (row == 13 && col!= 5)) {
                     tilesImageView.setImageResource(R.drawable.blacktile3);
                 } else {
                     tilesImageView.setImageResource(R.drawable.red_tile);
@@ -66,22 +66,22 @@ public class RoomThree extends AppCompatActivity {
                 redTilesParams.leftMargin = left;
                 redTilesParams.topMargin = top;
 
-                room3Layout.addView(tilesImageView, redTilesParams);
+                room1Layout.addView(tilesImageView, redTilesParams);
             }
         }
-        Button ending = findViewById(R.id.endingscreen);
-        ending.setOnClickListener(new View.OnClickListener() {
+        Button room2btn = findViewById(R.id.room2btn);
+        room2btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startGameEndActivity(playerName, receivedDifficulty);
+                startRoom2Activity(playerName, receivedDifficulty);
             }
         });
     }
-    private void startGameEndActivity(String playerName, double receivedDifficulty) {
-        Intent endIntent = new Intent(this, GameEndActivity.class);
-        endIntent.putExtra("playerName", playerName);
-        endIntent.putExtra("difficulty", receivedDifficulty);
-        startActivity(endIntent);
+    private void startRoom2Activity(String playerName, double receivedDifficulty) {
+        Intent room2Intent = new Intent(this, RoomTwo.class);
+        room2Intent.putExtra("playerName", playerName);
+        room2Intent.putExtra("difficulty", receivedDifficulty);
+        startActivity(room2Intent);
         finish(); // Finish the room1 activity
     }
 }
