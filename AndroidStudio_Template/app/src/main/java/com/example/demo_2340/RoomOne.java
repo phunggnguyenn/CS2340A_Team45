@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -14,10 +15,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class RoomOne extends AppCompatActivity {
+    // Initial Score and Handler
+    private int score = 1000;
+    private TextView scoreTextView;
+    private Handler handler = new Handler();
+    private Runnable scoreUpdater = new Runnable() {
+        @Override
+        public void run() {
+            updateScore(-1);
+            handler.postDelayed(this,1000);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +83,10 @@ public class RoomOne extends AppCompatActivity {
             }
         }
         Button room2btn = findViewById(R.id.room2btn);
+        scoreTextView = findViewById(R.id.scoreTextView);
+
+        // Start updating the score
+        handler.postDelayed(scoreUpdater, 1000);
         room2btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,8 +98,17 @@ public class RoomOne extends AppCompatActivity {
         Intent room2Intent = new Intent(this, RoomTwo.class);
         room2Intent.putExtra("playerName", playerName);
         room2Intent.putExtra("difficulty", receivedDifficulty);
+        room2Intent.putExtra("score", score);
         startActivity(room2Intent);
         finish(); // Finish the room1 activity
+    }
+    private void updateScore(int change) {
+        score += change;
+        if (score < 0) {
+            score = 0; // Ensure the score doesn't go below 0
+        }
+        // Update the TextView to display the updated score
+        scoreTextView.setText("Score: " + score);
     }
 }
 
