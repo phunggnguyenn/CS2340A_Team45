@@ -1,7 +1,6 @@
 package com.example.demo_2340;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -15,8 +14,7 @@ public class MainActivity extends AppCompatActivity {
         Button startBtn = findViewById(R.id.startButton);
         Button exitButton = findViewById(R.id.exitButton);
         exitButton.setOnClickListener(v -> {
-            // exit the game
-            finish();
+            finish(); // exit the game
         });
 
         // When start button is clicked
