@@ -12,6 +12,7 @@ import org.junit.Test;
 
 public class MyAppTest {
     @Test
+    //Member: MAHATHI GUMUDAVELLI
     //this method is supposed to check if the player name is valid (no null, white space, empty)
     public void testPlayerName() {
         // Creating an instance of MazeGameActivity
@@ -26,8 +27,8 @@ public class MyAppTest {
         savedInstanceState2.putParcelable("intent", testIntent2);
         mazeGameActivity.publicOnCreateWrapper(savedInstanceState2);
 
-        assertFalse(mazeGameActivity.getTextView3().getText() != null &&
-                !mazeGameActivity.getTextView3().getText().toString().trim().isEmpty());
+        assertFalse(mazeGameActivity.getTextView3().getText() != null
+                && !mazeGameActivity.getTextView3().getText().toString().trim().isEmpty());
 
         //Testing white space player name
         Intent testIntent3 = new Intent();
@@ -38,8 +39,8 @@ public class MyAppTest {
         savedInstanceState3.putParcelable("intent", testIntent3);
         mazeGameActivity.publicOnCreateWrapper(savedInstanceState3);
 
-        assertFalse(mazeGameActivity.getTextView3().getText() != null &&
-                !mazeGameActivity.getTextView3().getText().toString().trim().isEmpty());
+        assertFalse(mazeGameActivity.getTextView3().getText() != null
+                && !mazeGameActivity.getTextView3().getText().toString().trim().isEmpty());
 
         // Testing null player name
         Intent testIntent4 = new Intent();
@@ -51,11 +52,12 @@ public class MyAppTest {
         savedInstanceState4.putParcelable("intent", testIntent4);
         mazeGameActivity.publicOnCreateWrapper(savedInstanceState4);
 
-        assertFalse(mazeGameActivity.getTextView3().getText() != null &&
-                !mazeGameActivity.getTextView3().getText().toString().trim().isEmpty());
+        assertFalse(mazeGameActivity.getTextView3().getText() != null
+                && !mazeGameActivity.getTextView3().getText().toString().trim().isEmpty());
     }
 
     @Test
+    //Member: MAHATHI GUMUDAVELLI
     //This method's for checking if its assigning correct HP according to difficulty level
     public void testHealthPointsBasedOnDifficulty() {
         MazeGameActivity mazeGameActivity = new MazeGameActivity();
