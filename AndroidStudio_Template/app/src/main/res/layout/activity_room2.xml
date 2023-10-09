@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/scoreTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:textColor="#FFFFFF"
+        android:elevation="10dp"
+        android:textSize="18sp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#111111">
+        <!--I LEFT A 130 MARGIN BELOW TO DISPLAY HEALTH, SCORE, ETC ON TOP OF SCREEN-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/room2Layout"
+            android:background="#000000"
+            android:layout_marginTop="130dp"
+            android:layout_centerInParent="true">
+
+
+        </RelativeLayout>
+        <Button
+            android:id="@+id/room3btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="310dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="-3dp"
+            android:text="Room 3"/>
+    </RelativeLayout>
+</RelativeLayout>

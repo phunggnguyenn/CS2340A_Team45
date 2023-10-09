@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/scoreTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:textColor="#FFFFFF"
+        android:elevation="10dp"
+        android:textSize="18sp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#000000">
+        <!--I LEFT A 130 MARGIN BELOW TO DISPLAY HEALTH, SCORE, ETC ON TOP OF SCREEN-->
+        <RelativeLayout
+            android:id="@+id/room3Layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="130dp"
+            android:background="#000000">
+
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/endingscreen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="290dp"
+            android:layout_marginBottom="-3dp"
+            android:text="Ending Screen"/>
+    </RelativeLayout>
+</RelativeLayout>
