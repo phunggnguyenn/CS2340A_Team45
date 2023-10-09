@@ -17,6 +17,7 @@ public class MazeGameActivity extends AppCompatActivity {
      TextView textView2;
     TextView textView3;
     int healthPoints;
+    private int avatarId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,7 +26,7 @@ public class MazeGameActivity extends AppCompatActivity {
         textView = (TextView) findViewById(R.id.difficultyreceiver);
         textView2 = (TextView) findViewById(R.id.healthpts);
 
-        int avatarId = receiverIntent.getIntExtra("selectedAvatarId", R.id.imageAvatar2);
+        int avatar = receiverIntent.getIntExtra("avatar", R.id.imageAvatar2);
         String playerName = receiverIntent.getStringExtra("playerName");
         textView3 = (TextView) findViewById(R.id.playerName);
         textView3.setText("Player Name: " + playerName);
@@ -44,32 +45,36 @@ public class MazeGameActivity extends AppCompatActivity {
             healthPoints = 150;
             textView2.setText("HP: 150");
         }
-        /** LinearLayout layout = findViewById(R.id.LinearLayoutId);
+        ImageView avatarImage = findViewById(R.id.imageAvatar);
+        switch (avatar) {
+            case R.id.imageAvatar1:
+                avatarId = R.drawable.avatar1;
+                avatarImage.setImageResource(R.drawable.avatar1);
+                break;
+            case R.id.imageAvatar2:
+                avatarId = R.drawable.avatar2;
+                avatarImage.setImageResource(R.drawable.avatar2);
+                break;
+            case R.id.imageAvatar3:
+                avatarId = R.drawable.avatar3;
+                avatarImage.setImageResource(R.drawable.avatar3);
+                break;
+        }
+        // create player class
+        Player player = new Player(playerName, healthPoints, avatarId);
 
-        ImageView characterImageView = new ImageView(this);
-        characterImageView.setImageResource(getCharacterImageResource(avatarId));
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                300, 300);
-        params.topMargin = 500;
-        characterImageView.setLayoutParams(params);
-        characterImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-
-        // Add the character
-        layout.addView(characterImageView);
-        */
 
         Button room1btn = findViewById(R.id.room1btn);
         room1btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startRoom1Activity(playerName, receivedDifficulty);
+                startRoom1Activity(player);
             }
         });
     }
-    private void startRoom1Activity(String playerName, double receivedDifficulty) {
+    private void startRoom1Activity(Player player) {
         Intent room1Intent = new Intent(this, RoomOne.class);
-        room1Intent.putExtra("playerName", playerName);
-        room1Intent.putExtra("difficulty", receivedDifficulty);
+        room1Intent.putExtra("player", player);
         startActivity(room1Intent);
         finish(); // Finish the initial_game activity
     }
@@ -83,14 +88,4 @@ public class MazeGameActivity extends AppCompatActivity {
     public void publicOnCreateWrapper(Bundle savedInstanceState) {
         onCreate(savedInstanceState);
     }
-    /**
-    private int getCharacterImageResource(int avatarId) {
-        switch (avatarId) {
-        case R.id.imageAvatar1: return R.drawable.avatar1;
-        case R.id.imageAvatar2: return R.drawable.avatar2;
-        case R.id.imageAvatar3: return R.drawable.avatar3;
-        default: return R.drawable.avatar1;
-        }
-    }
-     */
 }
