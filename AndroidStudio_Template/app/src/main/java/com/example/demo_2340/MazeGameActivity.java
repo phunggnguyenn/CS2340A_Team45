@@ -13,10 +13,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 //launchMazeGameActivity() method in GameActivity.java will launch the maze background
 public class MazeGameActivity extends AppCompatActivity {
-    private TextView textView;
-    private TextView textView2;
-    private TextView textView3;
-    private int healthPoints;
+     TextView textView;
+     TextView textView2;
+    TextView textView3;
+    int healthPoints;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +72,16 @@ public class MazeGameActivity extends AppCompatActivity {
         room1Intent.putExtra("difficulty", receivedDifficulty);
         startActivity(room1Intent);
         finish(); // Finish the initial_game activity
+    }
+//methods to call these vars from test package
+    public TextView getTextView3() {
+        return textView3;
+    }
+    public int getHP() {
+        return healthPoints;
+    }
+    public void publicOnCreateWrapper(Bundle savedInstanceState) {
+        onCreate(savedInstanceState);
     }
     /**
     private int getCharacterImageResource(int avatarId) {
