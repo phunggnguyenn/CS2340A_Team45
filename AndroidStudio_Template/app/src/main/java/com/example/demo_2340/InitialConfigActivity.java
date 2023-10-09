@@ -70,7 +70,7 @@ public class InitialConfigActivity extends AppCompatActivity {
         Intent gameIntent = new Intent(this, MazeGameActivity.class);
         gameIntent.putExtra("playerName", playerName);
         gameIntent.putExtra("difficulty", difficulty);
-        gameIntent.putExtra("selectedAvatarId", selectedAvatar.getId());
+        gameIntent.putExtra("avatar", selectedAvatar.getId());
         startActivity(gameIntent);
         finish(); // Finish the initial config activity
     }
