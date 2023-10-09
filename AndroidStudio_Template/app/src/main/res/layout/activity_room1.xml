@@ -30,6 +30,13 @@
             android:layout_centerInParent="true"
             android:layout_marginTop="130dp"
             android:background="#000000">
+            <ImageView
+                android:id="@+id/imageAvatar"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="97dp"
+                android:src="@drawable/avatar3"
+                android:elevation="10dp"/>
 
         </RelativeLayout>
 
@@ -42,4 +49,30 @@
             android:layout_marginBottom="-3dp"
             android:text="Room 2" />
     </RelativeLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/playerNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Player Name: "
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="530dp"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"/>
+        <TextView
+            android:id="@+id/healthPointsTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Health Points: "
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="0dp"
+            android:layout_toEndOf="@id/playerNameTextView"
+            android:layout_alignBottom="@id/playerNameTextView"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"/>
+    </LinearLayout>
 </RelativeLayout>
