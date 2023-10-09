@@ -23,7 +23,6 @@ public class RoomOne extends AppCompatActivity {
     // Initial Score and Handler
     private int score = 1000;
     private TextView scoreTextView;
-    private Player player;
     private Handler handler = new Handler();
     private Runnable scoreUpdater = new Runnable() {
         @Override
@@ -39,11 +38,8 @@ public class RoomOne extends AppCompatActivity {
         setContentView(R.layout.activity_room1);
         RelativeLayout room1Layout = findViewById(R.id.room1Layout);
         Intent receiverIntent = getIntent();
-        player = (Player) receiverIntent.getSerializableExtra("player");
-        TextView playerNameTextView = findViewById(R.id.playerNameTextView);
-        TextView healthPointsTextView = findViewById(R.id.healthPointsTextView);
-        playerNameTextView.setText("Player Name: " + player.getPlayerName());
-        healthPointsTextView.setText("Health Points: " + player.getHealthPoints());
+        String playerName = receiverIntent.getStringExtra("playerName");
+        Double receivedDifficulty = receiverIntent.getDoubleExtra("difficulty", 0.75);
         // tile dimensions
         int tileWidth = 80;
         int tileHeight = 80;
@@ -86,10 +82,6 @@ public class RoomOne extends AppCompatActivity {
                 room1Layout.addView(tilesImageView, redTilesParams);
             }
         }
-        ImageView avatarImageView = findViewById(R.id.imageAvatar);
-        avatarImageView.setImageResource(player.getAvatarId());
-
-
         Button room2btn = findViewById(R.id.room2btn);
         scoreTextView = findViewById(R.id.scoreTextView);
 
@@ -98,13 +90,14 @@ public class RoomOne extends AppCompatActivity {
         room2btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startRoom2Activity(player);
+                startRoom2Activity(playerName, receivedDifficulty);
             }
         });
     }
-    private void startRoom2Activity(Player player) {
+    private void startRoom2Activity(String playerName, double receivedDifficulty) {
         Intent room2Intent = new Intent(this, RoomTwo.class);
-        room2Intent.putExtra("player", player);
+        room2Intent.putExtra("playerName", playerName);
+        room2Intent.putExtra("difficulty", receivedDifficulty);
         room2Intent.putExtra("score", score);
         startActivity(room2Intent);
         finish(); // Finish the room1 activity
