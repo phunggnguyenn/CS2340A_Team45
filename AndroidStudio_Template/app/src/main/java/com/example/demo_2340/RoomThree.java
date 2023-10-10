@@ -100,6 +100,7 @@ public class RoomThree extends AppCompatActivity {
         Intent endIntent = new Intent(this, GameEndActivity.class);
         endIntent.putExtra("playerName", playerName);
         endIntent.putExtra("difficulty", receivedDifficulty);
+        endIntent.putExtra("score", score);
         startActivity(endIntent);
         finish(); // Finish the room1 activity
     }
