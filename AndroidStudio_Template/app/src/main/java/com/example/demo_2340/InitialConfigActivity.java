@@ -12,7 +12,6 @@ import android.widget.ImageView;
 
 public class InitialConfigActivity extends AppCompatActivity {
     private ImageView selectedAvatar = null;
-    private int selectedAvatarId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,9 +28,7 @@ public class InitialConfigActivity extends AppCompatActivity {
         handleAvatarSelection(avatar2); // default selection
 
         avatar1.setOnClickListener(v -> handleAvatarSelection(avatar1));
-
         avatar2.setOnClickListener(v -> handleAvatarSelection(avatar2));
-
         avatar3.setOnClickListener(v -> handleAvatarSelection(avatar3));
 
         EditText editTextName = findViewById(R.id.editTextName);
@@ -52,9 +49,9 @@ public class InitialConfigActivity extends AppCompatActivity {
                     double difficulty = getDifficultyFromRadioButton(selectedRadioButtonId);
                     // You can start the game activity with the player's name and difficulty level.
                     if (selectedAvatar != null) {
-                        selectedAvatarId = selectedAvatar.getId();
+                        startGameActivity(playerName, difficulty, selectedAvatar);
                     }
-                    startGameActivity(playerName, difficulty, selectedAvatarId);
+
                 }
             }
         });
@@ -69,11 +66,11 @@ public class InitialConfigActivity extends AppCompatActivity {
         }
     }
 
-    private void startGameActivity(String playerName, double difficulty, int selectedAvatarId) {
+    private void startGameActivity(String playerName, double difficulty, ImageView selectedAvatar) {
         Intent gameIntent = new Intent(this, MazeGameActivity.class);
         gameIntent.putExtra("playerName", playerName);
         gameIntent.putExtra("difficulty", difficulty);
-        gameIntent.putExtra("selectedAvatarId", selectedAvatarId);
+        gameIntent.putExtra("avatar", selectedAvatar.getId());
         startActivity(gameIntent);
         finish(); // Finish the initial config activity
     }
