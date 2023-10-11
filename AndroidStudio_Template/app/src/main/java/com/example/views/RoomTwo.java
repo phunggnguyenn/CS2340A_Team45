@@ -1,25 +1,21 @@
-package com.example.demo_2340;
+package com.example.views;
 
 
 import android.content.Intent;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
-import android.widget.FrameLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
+
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
+import com.example.demo_2340.R;
 
-public class RoomThree extends AppCompatActivity {
+public class RoomTwo extends AppCompatActivity {
     private int score;
     private TextView scoreTextView;
     private Handler handler = new Handler();
@@ -34,14 +30,14 @@ public class RoomThree extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_room3);
-
+        setContentView(R.layout.activity_room2);
+        // Retrieve the score value from the Intent
         Intent scoreIntent = getIntent();
         score = scoreIntent.getIntExtra("score", 1000);
         scoreTextView = findViewById(R.id.scoreTextView);
         scoreTextView.setText("Score: " + score);
 
-        RelativeLayout room3Layout = findViewById(R.id.room3Layout);
+        RelativeLayout room2Layout = findViewById(R.id.room2Layout);
         Intent receiverIntent = getIntent();
         String playerName = receiverIntent.getStringExtra("playerName");
         Double receivedDifficulty = receiverIntent.getDoubleExtra("difficulty", 0.75);
@@ -62,19 +58,18 @@ public class RoomThree extends AppCompatActivity {
                 int top = row * (tileHeight + margin);
 
                 ImageView tilesImageView = new ImageView(this);
-                if ((row == 0 && (col != 10)
-                    || (row == 1 && ((col == 0) || (col == 5) || (col == 9)))
-                    || (row == 2 && (col == 3 || col == 5 || col < 2))
-                    || (row == 3 && (col == 5 || col > 6 ))
-                    || (row == 4 && (col == 5 || col == 7 || col == 9 || col == 11))
-                    || (row == 5 && ((col > 0 && col < 4) || col == 5))
-                    || (row == 6 && (col == 3 || col == 6 || col == 8))
-                    || (row == 7 && (((col > 0) && (col < 4)) || (col == 8)))
-                    || (row == 8 && ((col > 7 && col < 10) || col == 3))
-                    || (row == 9 && (col == 7))
-                    || (row == 10 && ((col > 1 && col < 6) || (col > 8)))
-                    || (row == 11 && (col == 2 || col == 4 || col == 9 || col == 11))
-                    || (row == 13 && col != 1))) {
+                if ((row == 0 && (col != 1)
+                    || (row == 1 && ((col == 0) || (col > 2 && col < 5) || (col == 7) || (col == 9)))
+                    || (row == 2 && (col == 2 || col == 4 || col == 9))
+                    || (row == 3 && (col == 2 || col == 6 || (col > 7 && col < 10)))
+                    || (row == 4 && (col == 3 || col == 8 || col == 10 || (col > 4 && col < 7)))
+                    || (row == 5 && (col < 2))
+                    || (row == 6 && ((col == 0) || (col > 2 && col < 5) || (col > 5 && col < 8)))
+                    || (row == 7 && (((col > 6) && (col < 10)) || (col == 3) || col == 11))
+                    || (row == 8 && ((col > 1 && col < 6) || col == 7))
+                    || (row == 9 && (col == 2 || col == 4 || col > 9))
+                    || (row == 11 && (col > 0))
+                    || (row == 13 && col != 8))) {
                     tilesImageView.setImageResource(R.drawable.blacktile3);
                 } else {
                     tilesImageView.setImageResource(R.drawable.red_tile);
@@ -84,25 +79,26 @@ public class RoomThree extends AppCompatActivity {
                 redTilesParams.leftMargin = left;
                 redTilesParams.topMargin = top;
 
-                room3Layout.addView(tilesImageView, redTilesParams);
+                room2Layout.addView(tilesImageView, redTilesParams);
             }
         }
-        Button ending = findViewById(R.id.endingscreen);
+        Button room3btn = findViewById(R.id.room3btn);
+        // Start updating the score
         handler.postDelayed(scoreUpdater, 1000);
-        ending.setOnClickListener(new View.OnClickListener() {
+        room3btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startGameEndActivity(playerName, receivedDifficulty);
+                startRoom3Activity(playerName, receivedDifficulty);
             }
         });
     }
-    private void startGameEndActivity(String playerName, double receivedDifficulty) {
-        Intent endIntent = new Intent(this, GameEndActivity.class);
-        endIntent.putExtra("playerName", playerName);
-        endIntent.putExtra("difficulty", receivedDifficulty);
-        endIntent.putExtra("score", score);
-        startActivity(endIntent);
-        finish(); // Finish the room3 activity
+    private void startRoom3Activity(String playerName, double receivedDifficulty) {
+        Intent room3Intent = new Intent(this, RoomThree.class);
+        room3Intent.putExtra("playerName", playerName);
+        room3Intent.putExtra("difficulty", receivedDifficulty);
+        room3Intent.putExtra("score", score);
+        startActivity(room3Intent);
+        finish(); // Finish the room2 activity
     }
     private void updateScore(int change) {
         score += change;
@@ -111,6 +107,9 @@ public class RoomThree extends AppCompatActivity {
         }
         // Update the TextView to display the updated score
         scoreTextView.setText("Score: " + score);
+    }
+    public int getScore() {
+        return score;
     }
 }
 

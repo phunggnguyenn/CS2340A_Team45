@@ -6,9 +6,9 @@ import static org.junit.Assert.*;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.demo_2340.MazeGameActivity;
-import com.example.demo_2340.RoomOne;
-import com.example.demo_2340.RoomTwo;
+import com.example.views.MazeGameActivity;
+import com.example.views.RoomOne;
+import com.example.views.RoomTwo;
 
 import org.junit.Test;
 

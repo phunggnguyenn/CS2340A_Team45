@@ -1,5 +1,7 @@
-package com.example.demo_2340;
+package com.example.model;
 
+
+import com.example.views.GameEndActivity;
 
 import java.util.ArrayList;
 import java.util.Collections;
