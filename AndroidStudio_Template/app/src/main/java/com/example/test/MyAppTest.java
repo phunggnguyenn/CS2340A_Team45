@@ -2,11 +2,13 @@ package com.example.test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-
+import static org.junit.Assert.*;
 import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.demo_2340.MazeGameActivity;
+import com.example.demo_2340.RoomOne;
+import com.example.demo_2340.RoomTwo;
 
 import org.junit.Test;
 
@@ -100,7 +102,25 @@ public class MyAppTest {
         int actualHealthPoints3 = mazeGameActivity.getHP();
         assertEquals(125, actualHealthPoints3);
     }
-
-
+    @Test
+    //Member: MARIA JOTHISH
+    //Test checking if score is always greater than 0.
+    public void scoreGreaterThanZero() {
+        RoomOne roomOne = new RoomOne();
+        assertEquals(1000, roomOne.getScore());
+        roomOne.updateScore(-2000);
+        assertTrue(roomOne.getScore() >= 0);
+    }
+    @Test
+    //Member: MARIA JOTHISH
+    //Test checking if room1 ending score is equal to room 2 starting score.
+    public void scoreTransferR1toR2() {
+        RoomOne roomOne = new RoomOne();
+        RoomTwo roomTwo = new RoomTwo();
+        roomOne.updateScore(-500);
+        int roomOneScore = roomOne.getScore();
+        int roomTwoScore = roomTwo.getScore();
+        assertEquals(roomOneScore, roomTwoScore);
+    }
 }
 

@@ -108,13 +108,16 @@ public class RoomOne extends AppCompatActivity {
         startActivity(room2Intent);
         finish(); // Finish the room1 activity
     }
-    private void updateScore(int change) {
+    public void updateScore(int change) {
         score += change;
         if (score < 0) {
             score = 0; // Ensure the score doesn't go below 0
         }
         // Update the TextView to display the updated score
         scoreTextView.setText("Score: " + score);
+    }
+    public int getScore() {
+        return score;
     }
 }
 
