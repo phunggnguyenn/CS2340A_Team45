@@ -102,7 +102,7 @@ public class RoomThree extends AppCompatActivity {
         endIntent.putExtra("difficulty", receivedDifficulty);
         endIntent.putExtra("score", score);
         startActivity(endIntent);
-        finish(); // Finish the room1 activity
+        finish(); // Finish the room3 activity
     }
     private void updateScore(int change) {
         score += change;
