@@ -61,7 +61,7 @@ public class MazeGameActivity extends AppCompatActivity {
                 break;
         }
         // create player class
-        Player player = new Player(playerName, healthPoints, avatarId);
+        Player player = Player.getInstance(playerName, healthPoints, avatarId);
 
 
         Button room1btn = findViewById(R.id.room1btn);
