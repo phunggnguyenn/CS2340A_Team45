@@ -1,4 +1,4 @@
-package com.example.demo_2340;
+package com.example.views;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,8 +10,11 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import android.widget.ImageView;
 
+import com.example.demo_2340.R;
+import com.example.viewmodels.InitialConfigViewModel;
+
 public class InitialConfigActivity extends AppCompatActivity {
-    private ImageView selectedAvatar = null;
+    private InitialConfigViewModel viewModel = new InitialConfigViewModel();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,11 +28,11 @@ public class InitialConfigActivity extends AppCompatActivity {
         avatar2.setAlpha(0.3f);
         ImageView avatar3 = findViewById(R.id.imageAvatar3);
         avatar3.setAlpha(0.3f);
-        handleAvatarSelection(avatar2); // default selection
+        viewModel.handleAvatarSelection(avatar2); // default selection
 
-        avatar1.setOnClickListener(v -> handleAvatarSelection(avatar1));
-        avatar2.setOnClickListener(v -> handleAvatarSelection(avatar2));
-        avatar3.setOnClickListener(v -> handleAvatarSelection(avatar3));
+        avatar1.setOnClickListener(v -> viewModel.handleAvatarSelection(avatar1));
+        avatar2.setOnClickListener(v -> viewModel.handleAvatarSelection(avatar2));
+        avatar3.setOnClickListener(v -> viewModel.handleAvatarSelection(avatar3));
 
         EditText editTextName = findViewById(R.id.editTextName);
         RadioGroup difficultyRadioGroup = findViewById(R.id.difficultyRadioGroup);
@@ -45,25 +48,14 @@ public class InitialConfigActivity extends AppCompatActivity {
                     Toast.makeText(InitialConfigActivity.this,
                             "Please fill out all fields", Toast.LENGTH_SHORT).show();
                 } else {
-                    // Continue to the game screen with the selected values.
-                    double difficulty = getDifficultyFromRadioButton(selectedRadioButtonId);
+                    viewModel.getDifficultyFromRadioButton(selectedRadioButtonId);
                     // You can start the game activity with the player's name and difficulty level.
-                    if (selectedAvatar != null) {
-                        startGameActivity(playerName, difficulty, selectedAvatar);
+                    if (viewModel.getSelectedAvatar() != null) {
+                        startGameActivity(playerName, viewModel.getDifficulty(), viewModel.getSelectedAvatar());
                     }
-
                 }
             }
         });
-    }
-
-    private double getDifficultyFromRadioButton(int radioButtonId) {
-        switch (radioButtonId) {
-        case R.id.radioEasy: return 0.5;
-        case R.id.radioMedium: return 0.75;
-        case R.id.radioHard: return 1;
-        default: return 0.5; // Default difficulty
-        }
     }
 
     private void startGameActivity(String playerName, double difficulty, ImageView selectedAvatar) {
@@ -75,13 +67,4 @@ public class InitialConfigActivity extends AppCompatActivity {
         finish(); // Finish the initial config activity
     }
 
-    private void handleAvatarSelection(ImageView avatar) {
-        if (selectedAvatar != null) {
-            // Deselect the previously selected avatar
-            selectedAvatar.setAlpha(0.3f); // Restore opacity to 30%
-        }
-        // Select the clicked avatar
-        selectedAvatar = avatar;
-        avatar.setAlpha(1.0f); // Set opacity to 100% to indicate selection
-    }
 }
