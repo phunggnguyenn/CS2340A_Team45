@@ -2,12 +2,14 @@ package com.example.demo_2340;
 import android.content.Intent;
 import android.graphics.RectF;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.views.GameEndActivity;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
