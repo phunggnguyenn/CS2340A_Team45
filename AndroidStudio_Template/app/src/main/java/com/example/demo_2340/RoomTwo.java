@@ -112,5 +112,8 @@ public class RoomTwo extends AppCompatActivity {
         // Update the TextView to display the updated score
         scoreTextView.setText("Score: " + score);
     }
+    public int getScore() {
+        return score;
+    }
 }
 
