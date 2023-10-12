@@ -22,6 +22,13 @@ public class Player implements Serializable{
         return player;
     }
 
+    public void setHealthPoints(int healthPoints) {
+        if (healthPoints < 0) {
+            this.healthPoints = 0;
+        } else {
+            this.healthPoints = healthPoints;
+        }
+    }
     public String getPlayerName() {
         return playerName;
     }
