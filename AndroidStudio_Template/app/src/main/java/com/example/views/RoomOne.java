@@ -15,20 +15,14 @@ import android.widget.TextView;
 
 import com.example.model.Player;
 import com.example.demo_2340.R;
+import com.example.viewmodels.RoomOneViewModel;
 
 public class RoomOne extends AppCompatActivity {
+    private RoomOneViewModel viewModel;
     // Initial Score and Handler
-    private int score = 1000;
-    private TextView scoreTextView;
-    private Handler handler = new Handler();
     private Player player;
-    private Runnable scoreUpdater = new Runnable() {
-        @Override
-        public void run() {
-            updateScore(-1);
-            handler.postDelayed(this,1000);
-        }
-    };
+    private TextView scoreTextView;
+    private Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +35,7 @@ public class RoomOne extends AppCompatActivity {
         TextView healthPointsTextView = findViewById(R.id.healthPointsTextView);
         playerNameTextView.setText("Player Name: " + player.getPlayerName());
         healthPointsTextView.setText("Health Points: " + player.getHealthPoints());
+        viewModel = new RoomOneViewModel(player);
         // tile dimensions
         int tileWidth = 80;
         int tileHeight = 80;
@@ -90,7 +85,15 @@ public class RoomOne extends AppCompatActivity {
         scoreTextView = findViewById(R.id.scoreTextView);
 
         // Start updating the score
-        handler.postDelayed(scoreUpdater, 1000);
+        handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                viewModel.updateScore(-1);
+                scoreTextView.setText("Score: " + viewModel.getScore());
+                handler.postDelayed(this, 1000);
+            }
+        }, 1000);
         room2btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,20 +104,16 @@ public class RoomOne extends AppCompatActivity {
     private void startRoom2Activity(Player player) {
         Intent room2Intent = new Intent(this, RoomTwo.class);
         room2Intent.putExtra("player", player);
-        room2Intent.putExtra("score", score);
+        room2Intent.putExtra("score", viewModel.getScore());
         startActivity(room2Intent);
         finish(); // Finish the room1 activity
     }
+
     public void updateScore(int change) {
-        score += change;
-        if (score < 0) {
-            score = 0; // Ensure the score doesn't go below 0
-        }
-        // Update the TextView to display the updated score
-        scoreTextView.setText("Score: " + score);
+        viewModel.getScore();
     }
     public int getScore() {
-        return score;
+        return viewModel.getScore();
     }
 }
 
