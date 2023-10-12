@@ -40,7 +40,7 @@ public class Leaderboard extends GameEndActivity {
         scoresList.add(score);
 
         // Sort the scores in descending order
-        Collections.sort(scoresList, Collections.reverseOrder());
+        Collections.sort(scoresList, new ScoreEntry());
     }
 
     /**
