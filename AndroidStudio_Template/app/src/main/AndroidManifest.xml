@@ -10,11 +10,35 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.S0">
         <activity
-            android:name="com.example.demo_2340.MainActivity"
+            android:name="com.example.views.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.example.views.RoomTwo"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.example.views.RoomOne"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.example.views.RoomThree"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -24,17 +48,18 @@
         <activity android:name=".GameWinActivity"
             android:exported="false" />
         <activity
-            android:name=".GameEndActivity"
+            android:name="com.example.views.GameEndActivity"
             android:exported="true">
         </activity>
         <activity
-            android:name=".MazeGameActivity"
+            android:name="com.example.views.MazeGameActivity"
             android:exported="true">
         </activity>
         <activity
-            android:name=".InitialConfigActivity"
+            android:name="com.example.views.InitialConfigActivity"
             android:exported="true">
         </activity>
+
 
     </application>
 
