@@ -113,7 +113,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
-                    android:text="10/09/2023, 6:27PM"
+                    android:text="10/09/2023 6:27PM"
                     android:textColor="#FFFFFF"
                     android:textSize="7sp" />
             </TableRow>
@@ -148,7 +148,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
-                    android:text="10/09/2023, 6:00PM"
+                    android:text="10/09/2023 6:00PM"
                     android:textColor="#FFFFFF"
                     android:textSize="7sp" />
             </TableRow>
@@ -183,9 +183,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
-                    android:text="10/09/2023, 5:35PM"
+                    android:text="10/09/2023 5:35PM"
                     android:textColor="#FFFFFF"
-                    android:textSize="8sp" />
+                    android:textSize="7sp" />
             </TableRow>
 
             <TableRow>
@@ -218,7 +218,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
-                    android:text="10/05/2023, 2:16AM"
+                    android:text="10/05/2023 2:16AM"
                     android:textColor="#FFFFFF"
                     android:textSize="7sp" />
             </TableRow>
@@ -253,7 +253,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
-                    android:text="10/03/2023, 12:40PM"
+                    android:text="10/03/2023 12:40PM"
                     android:textColor="#FFFFFF"
                     android:textSize="7sp" />
             </TableRow>
