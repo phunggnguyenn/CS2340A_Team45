@@ -14,7 +14,6 @@ public class Player implements Serializable{
         this.playerName = playerName;
         this.healthPoints = healthPoints;
         this.avatarId = avatarId;
-        //testtttingggggg heereeeeeeee
     }
     public static Player getInstance(String playerName, int healthPoints, int avatarId) {
         if (player == null) {
