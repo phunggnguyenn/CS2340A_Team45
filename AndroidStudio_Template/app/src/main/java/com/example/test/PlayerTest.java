@@ -5,7 +5,6 @@ import org.junit.Test;
 import org.junit.Before;
 import static org.junit.Assert.*;
 
-// Tests the Player class
 public class PlayerTest {
     private Player player1;
     private Player player2;
@@ -14,11 +13,15 @@ public class PlayerTest {
         player1 = Player.getInstance("Player 1", 100, 1);
         player2 = Player.getInstance("Player 2", 200, 2);
     }
+    // Member: Jaeung Woo
+    // This method tests if Singleton pattern applies properly
     @Test
     public void testSingleton() {
         // Check if both references point to the same instance
         assertSame(player1, player2);
     }
+    // Member: Jaeung Woo
+    // This method tests if Singleton pattern applies properly by checking values
     @Test
     public void testValues() {
         // Check if the properties are correctly set
