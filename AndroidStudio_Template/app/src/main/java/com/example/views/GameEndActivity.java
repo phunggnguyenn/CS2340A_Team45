@@ -20,10 +20,10 @@ public class GameEndActivity extends AppCompatActivity {
     private Leaderboard leaderboard;
 
     // Get references to the TextViews in XML layout
-    TextView[] rankTextViews = new TextView[5];
-    TextView[] playerNameTextViews = new TextView[5];
-    TextView[] scoreTextViews = new TextView[5];
-    TextView[] dateTimeTextViews = new TextView[5];
+    private TextView[] rankTextViews = new TextView[5];
+    private TextView[] playerNameTextViews = new TextView[5];
+    private TextView[] scoreTextViews = new TextView[5];
+    private TextView[] dateTimeTextViews = new TextView[5];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,8 +69,10 @@ public class GameEndActivity extends AppCompatActivity {
 
         for (int i = 0; i < topScores.size(); i++) {
             // Set rank and score
-            rankTextViews[i] = findViewById(getResources().getIdentifier("rank" + (i + 1) + "TextView", "id", getPackageName()));
-            scoreTextViews[i] = findViewById(getResources().getIdentifier("score" + (i + 1) + "TextView", "id", getPackageName()));
+            rankTextViews[i] = findViewById(getResources().getIdentifier("rank" + (i + 1)
+                    + "TextView", "id", getPackageName()));
+            scoreTextViews[i] = findViewById(getResources().getIdentifier("score" + (i + 1)
+                    + "TextView", "id", getPackageName()));
             rankTextViews[i].setText(String.valueOf(i + 1));
             scoreTextViews[i].setText(String.valueOf(topScores.get(i)));
         }

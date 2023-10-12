@@ -23,7 +23,7 @@ public class RoomTwo extends AppCompatActivity {
         @Override
         public void run() {
             updateScore(-1);
-            handler.postDelayed(this,1000);
+            handler.postDelayed(this, 1000);
         }
     };
 
@@ -59,7 +59,8 @@ public class RoomTwo extends AppCompatActivity {
 
                 ImageView tilesImageView = new ImageView(this);
                 if ((row == 0 && (col != 1)
-                    || (row == 1 && ((col == 0) || (col > 2 && col < 5) || (col == 7) || (col == 9)))
+                    || (row == 1 && ((col == 0) || (col > 2 && col < 5)
+                        || (col == 7) || (col == 9)))
                     || (row == 2 && (col == 2 || col == 4 || col == 9))
                     || (row == 3 && (col == 2 || col == 6 || (col > 7 && col < 10)))
                     || (row == 4 && (col == 3 || col == 8 || col == 10 || (col > 4 && col < 7)))
@@ -75,7 +76,8 @@ public class RoomTwo extends AppCompatActivity {
                     tilesImageView.setImageResource(R.drawable.red_tile);
                 }
                 tilesImageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                RelativeLayout.LayoutParams redTilesParams = new RelativeLayout.LayoutParams(tileWidth, tileHeight);
+                RelativeLayout.LayoutParams redTilesParams = new RelativeLayout.LayoutParams(
+                        tileWidth, tileHeight);
                 redTilesParams.leftMargin = left;
                 redTilesParams.topMargin = top;
 

@@ -51,7 +51,8 @@ public class InitialConfigActivity extends AppCompatActivity {
                     viewModel.getDifficultyFromRadioButton(selectedRadioButtonId);
                     // You can start the game activity with the player's name and difficulty level.
                     if (viewModel.getSelectedAvatar() != null) {
-                        startGameActivity(playerName, viewModel.getDifficulty(), viewModel.getSelectedAvatar());
+                        startGameActivity(playerName, viewModel.getDifficulty(),
+                                viewModel.getSelectedAvatar());
                     }
                 }
             }
