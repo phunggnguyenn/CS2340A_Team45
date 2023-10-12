@@ -34,6 +34,8 @@ public class GameEndActivity extends AppCompatActivity {
         scoreTextView = findViewById(R.id.scoreTextView);
         scoreTextView.setText("Score: " + score);
 
+        TextView currentScore = findViewById(R.id.textView7);
+        currentScore.setText(String.valueOf(score));
         leaderboard = Leaderboard.getInstance();
 
         // Add the current score to the leaderboard
