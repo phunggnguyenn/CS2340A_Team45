@@ -14,9 +14,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.demo_2340.R;
+import com.example.viewmodels.RoomThreeViewModel;
+import com.example.model.Player;
+import com.example.viewmodels.RoomTwoViewModel;
 
 public class RoomThree extends AppCompatActivity {
-    private int score;
+    private Player player;
+    private RoomThreeViewModel viewModel;
     private TextView scoreTextView;
     private Handler handler = new Handler();
     private Runnable scoreUpdater = new Runnable() {
@@ -32,15 +36,14 @@ public class RoomThree extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_room3);
 
-        Intent scoreIntent = getIntent();
-        score = scoreIntent.getIntExtra("score", 1000);
+        Intent receiverIntent = getIntent();
+        int score = receiverIntent.getIntExtra("score", 1000);
+        player = (Player) receiverIntent.getSerializableExtra("player");
         scoreTextView = findViewById(R.id.scoreTextView);
         scoreTextView.setText("Score: " + score);
 
         RelativeLayout room3Layout = findViewById(R.id.room3Layout);
-        Intent receiverIntent = getIntent();
-        String playerName = receiverIntent.getStringExtra("playerName");
-        Double receivedDifficulty = receiverIntent.getDoubleExtra("difficulty", 0.75);
+        viewModel = new RoomThreeViewModel(player, score);
         // tile dimensions
         int tileWidth = 80;
         int tileHeight = 80;
@@ -84,30 +87,41 @@ public class RoomThree extends AppCompatActivity {
                 room3Layout.addView(tilesImageView, redTilesParams);
             }
         }
+        ImageView avatarImageView = findViewById(R.id.imageAvatar);
+        avatarImageView.setImageResource(player.getAvatarId());
+        // Start updating the score
+        handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                viewModel.updateScore(-1);
+                scoreTextView.setText("Score: " + viewModel.getScore());
+                handler.postDelayed(this, 1000);
+            }
+        }, 1000);
+
         Button ending = findViewById(R.id.endingscreen);
-        handler.postDelayed(scoreUpdater, 1000);
+        // Start updating the score
         ending.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startGameEndActivity(playerName, receivedDifficulty);
+                startGameEndActivity(player);
             }
         });
     }
-    private void startGameEndActivity(String playerName, double receivedDifficulty) {
+
+    private void startGameEndActivity(Player player) {
         Intent endIntent = new Intent(this, GameEndActivity.class);
-        endIntent.putExtra("playerName", playerName);
-        endIntent.putExtra("difficulty", receivedDifficulty);
-        endIntent.putExtra("score", score);
+        endIntent.putExtra("player", player);
+        endIntent.putExtra("score", viewModel.getScore());
         startActivity(endIntent);
         finish(); // Finish the room3 activity
     }
-    private void updateScore(int change) {
-        score += change;
-        if (score < 0) {
-            score = 0; // Ensure the score doesn't go below 0
-        }
-        // Update the TextView to display the updated score
-        scoreTextView.setText("Score: " + score);
+    public void updateScore(int change) {
+        viewModel.getScore();
+    }
+    public int getScore() {
+        return viewModel.getScore();
     }
 }
 

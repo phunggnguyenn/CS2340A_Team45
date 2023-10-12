@@ -2,7 +2,6 @@ package com.example.views;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
@@ -38,22 +37,19 @@ public class InitialConfigActivity extends AppCompatActivity {
         RadioGroup difficultyRadioGroup = findViewById(R.id.difficultyRadioGroup);
         Button continueButton = findViewById(R.id.continueButton);
 
-        continueButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String playerName = editTextName.getText().toString().trim();
-                int selectedRadioButtonId = difficultyRadioGroup.getCheckedRadioButtonId();
-                // Display an error message if not all fields filled out
-                if (playerName.isEmpty() || selectedRadioButtonId == -1) {
-                    Toast.makeText(InitialConfigActivity.this,
-                            "Please fill out all fields", Toast.LENGTH_SHORT).show();
-                } else {
-                    viewModel.getDifficultyFromRadioButton(selectedRadioButtonId);
-                    // You can start the game activity with the player's name and difficulty level.
-                    if (viewModel.getSelectedAvatar() != null) {
-                        startGameActivity(playerName, viewModel.getDifficulty(),
-                                viewModel.getSelectedAvatar());
-                    }
+        continueButton.setOnClickListener(v -> {
+            String playerName = editTextName.getText().toString().trim();
+            int selectedRadioButtonId = difficultyRadioGroup.getCheckedRadioButtonId();
+            // Display an error message if not all fields filled out
+            if (playerName.isEmpty() || selectedRadioButtonId == -1) {
+                Toast.makeText(InitialConfigActivity.this,
+                        "Please fill out all fields", Toast.LENGTH_SHORT).show();
+            } else {
+                viewModel.setPlayerName(playerName);
+                viewModel.getDifficultyFromRadioButton(selectedRadioButtonId);
+                // You can start the game activity with the player's name and difficulty level.
+                if (viewModel.getSelectedAvatar() != null) {
+                    startGameActivity(playerName, viewModel.getDifficulty(), viewModel.getSelectedAvatar());
                 }
             }
         });
