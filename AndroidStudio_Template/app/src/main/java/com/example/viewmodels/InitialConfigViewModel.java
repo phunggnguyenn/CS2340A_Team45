@@ -2,10 +2,12 @@ package com.example.viewmodels;
 
 import android.widget.ImageView;
 import com.example.demo_2340.R;
+import com.example.views.InitialConfigActivity;
 
 public class InitialConfigViewModel {
     private double difficulty;
     private ImageView selectedAvatar;
+    private String playerName;
 
     public void handleAvatarSelection(ImageView avatar) {
         if (selectedAvatar != null) {
@@ -35,5 +37,11 @@ public class InitialConfigViewModel {
     }
     public ImageView getSelectedAvatar() {
         return selectedAvatar;
+    }
+    public String getPlayerName() {
+        return playerName;
+    }
+    public void setPlayerName(String playerName) {
+        this.playerName = playerName;
     }
 }
