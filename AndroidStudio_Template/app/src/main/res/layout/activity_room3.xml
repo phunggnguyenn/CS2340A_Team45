@@ -27,6 +27,13 @@
             android:layout_centerInParent="true"
             android:layout_marginTop="130dp"
             android:background="#000000">
+            <ImageView
+                android:id="@+id/imageAvatar"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="97dp"
+                android:src="@drawable/avatar3"
+                android:elevation="10dp"/>
 
 
         </RelativeLayout>

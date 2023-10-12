@@ -14,33 +14,28 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.demo_2340.R;
+import com.example.viewmodels.RoomTwoViewModel;
+import com.example.model.Player;
 
 public class RoomTwo extends AppCompatActivity {
-    private int score;
+    private Player player;
+    private RoomTwoViewModel viewModel;
     private TextView scoreTextView;
     private Handler handler = new Handler();
-    private Runnable scoreUpdater = new Runnable() {
-        @Override
-        public void run() {
-            updateScore(-1);
-            handler.postDelayed(this,1000);
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_room2);
         // Retrieve the score value from the Intent
-        Intent scoreIntent = getIntent();
-        score = scoreIntent.getIntExtra("score", 1000);
+        Intent receiverIntent = getIntent();
+        int score = receiverIntent.getIntExtra("score", 1000);
+        player = (Player) receiverIntent.getSerializableExtra("player");
         scoreTextView = findViewById(R.id.scoreTextView);
         scoreTextView.setText("Score: " + score);
-
         RelativeLayout room2Layout = findViewById(R.id.room2Layout);
-        Intent receiverIntent = getIntent();
-        String playerName = receiverIntent.getStringExtra("playerName");
-        Double receivedDifficulty = receiverIntent.getDoubleExtra("difficulty", 0.75);
+        Player player = (Player) receiverIntent.getSerializableExtra("player");
+        viewModel = new RoomTwoViewModel(player, score);
         // tile dimensions
         int tileWidth = 80;
         int tileHeight = 80;
@@ -82,34 +77,41 @@ public class RoomTwo extends AppCompatActivity {
                 room2Layout.addView(tilesImageView, redTilesParams);
             }
         }
+        ImageView avatarImageView = findViewById(R.id.imageAvatar);
+        avatarImageView.setImageResource(player.getAvatarId());
+        // Start updating the score
+        handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                viewModel.updateScore(-1);
+                scoreTextView.setText("Score: " + viewModel.getScore());
+                handler.postDelayed(this, 1000);
+            }
+        }, 1000);
+
         Button room3btn = findViewById(R.id.room3btn);
         // Start updating the score
-        handler.postDelayed(scoreUpdater, 1000);
         room3btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startRoom3Activity(playerName, receivedDifficulty);
+                startRoom3Activity(player);
             }
         });
     }
-    private void startRoom3Activity(String playerName, double receivedDifficulty) {
+    private void startRoom3Activity(Player player) {
         Intent room3Intent = new Intent(this, RoomThree.class);
-        room3Intent.putExtra("playerName", playerName);
-        room3Intent.putExtra("difficulty", receivedDifficulty);
-        room3Intent.putExtra("score", score);
+        room3Intent.putExtra("player", player);
+        room3Intent.putExtra("score", viewModel.getScore());
         startActivity(room3Intent);
         finish(); // Finish the room2 activity
     }
-    private void updateScore(int change) {
-        score += change;
-        if (score < 0) {
-            score = 0; // Ensure the score doesn't go below 0
-        }
-        // Update the TextView to display the updated score
-        scoreTextView.setText("Score: " + score);
+    public void updateScore(int change) {
+        viewModel.getScore();
     }
     public int getScore() {
-        return score;
+        return viewModel.getScore();
     }
+
 }
 
