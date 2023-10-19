@@ -35,6 +35,7 @@ public class Leaderboard extends GameEndActivity {
         }
         return leaderboard;
     }
+
     public void addScores(int score) {
 
         scoresList.add(score);

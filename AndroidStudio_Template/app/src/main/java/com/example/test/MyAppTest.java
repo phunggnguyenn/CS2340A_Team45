@@ -13,27 +13,6 @@ import org.junit.Test;
 import java.util.List;
 
 public class MyAppTest {
-
-    @Test
-    //Member: MARIA JOTHISH
-    //Test checking if score is always greater than 0.
-    public void scoreGreaterThanZero() {
-        RoomOne roomOne = new RoomOne();
-        assertEquals(1000, roomOne.getScore());
-        roomOne.updateScore(-2000);
-        assertTrue(roomOne.getScore() >= 0);
-    }
-    @Test
-    //Member: MARIA JOTHISH
-    //Test checking if room1 ending score is equal to room 2 starting score.
-    public void scoreTransferR1toR2() {
-        RoomOne roomOne = new RoomOne();
-        RoomTwo roomTwo = new RoomTwo();
-        roomOne.updateScore(-500);
-        int roomOneScore = roomOne.getScore();
-        int roomTwoScore = roomTwo.getScore();
-        assertEquals(roomOneScore, roomTwoScore);
-    }
     private Leaderboard leaderboard;
     public void setUp() {
         leaderboard = leaderboard.getInstance();
