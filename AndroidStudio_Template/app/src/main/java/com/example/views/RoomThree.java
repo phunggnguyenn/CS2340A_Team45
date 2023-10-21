@@ -4,6 +4,7 @@ package com.example.views;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 
@@ -14,15 +15,21 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.demo_2340.R;
+import com.example.model.PlayerMovement;
 import com.example.viewmodels.RoomThreeViewModel;
 import com.example.model.Player;
 import com.example.viewmodels.RoomTwoViewModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RoomThree extends AppCompatActivity {
     private Player player;
     private RoomThreeViewModel viewModel;
     private TextView scoreTextView;
     private Handler handler = new Handler();
+
+    private List<ImageView> blackTilesList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +44,11 @@ public class RoomThree extends AppCompatActivity {
 
         RelativeLayout room3Layout = findViewById(R.id.room3Layout);
         viewModel = new RoomThreeViewModel(player, score);
+
+        //KEYMOVEMENT
+        blackTilesList = new ArrayList<>();
+        room3Layout.setFocusableInTouchMode(true);
+
         // tile dimensions
         int tileWidth = 80;
         int tileHeight = 80;
@@ -68,6 +80,7 @@ public class RoomThree extends AppCompatActivity {
                     || (row == 11 && (col == 2 || col == 4 || col == 9 || col == 11))
                     || (row == 13 && col != 1))) {
                     tilesImageView.setImageResource(R.drawable.blacktile3);
+                    blackTilesList.add(tilesImageView);
                 } else {
                     tilesImageView.setImageResource(R.drawable.red_tile);
                 }
@@ -114,6 +127,27 @@ public class RoomThree extends AppCompatActivity {
     }
     public int getScore() {
         return viewModel.getScore();
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        PlayerMovement playerMovement = new PlayerMovement();
+        playerMovement.move(player, keyCode);
+
+        // Updating player's pos and checking for collisions
+        int newX = player.getX();
+        int newY = player.getY();
+
+        if (player.isValidMove(blackTilesList, newX, newY)) {
+            // If the move is valid, update the player's pos
+            player.setX(newX);
+            player.setY(newY);
+            //updating avatars new pos
+            ImageView avatarImageView = findViewById(R.id.imageAvatar);
+            avatarImageView.setX(newX);
+            avatarImageView.setY(newY);
+        }
+
+        return super.onKeyDown(keyCode, event);
     }
 }
 

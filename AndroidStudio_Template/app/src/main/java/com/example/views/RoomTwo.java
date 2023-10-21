@@ -4,6 +4,7 @@ package com.example.views;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 
@@ -14,14 +15,19 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.demo_2340.R;
+import com.example.model.PlayerMovement;
 import com.example.viewmodels.RoomTwoViewModel;
 import com.example.model.Player;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RoomTwo extends AppCompatActivity {
     private Player player;
     private RoomTwoViewModel viewModel;
     private TextView scoreTextView;
     private Handler handler = new Handler();
+    private List<ImageView> blackTilesList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +42,10 @@ public class RoomTwo extends AppCompatActivity {
         RelativeLayout room2Layout = findViewById(R.id.room2Layout);
         Player player = (Player) receiverIntent.getSerializableExtra("player");
         viewModel = new RoomTwoViewModel(player, score);
+        //KEYMOVEMENT
+        blackTilesList = new ArrayList<>();
+        room2Layout.setFocusableInTouchMode(true);
+
         // tile dimensions
         int tileWidth = 80;
         int tileHeight = 80;
@@ -111,6 +121,27 @@ public class RoomTwo extends AppCompatActivity {
     }
     public int getScore() {
         return viewModel.getScore();
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        PlayerMovement playerMovement = new PlayerMovement();
+        playerMovement.move(player, keyCode);
+
+        // Updating player's pos and checking for collisions
+        int newX = player.getX();
+        int newY = player.getY();
+
+        if (player.isValidMove(blackTilesList, newX, newY)) {
+            // If the move is valid, update the player's position
+            player.setX(newX);
+            player.setY(newY);
+            //updating avatars new pos
+            ImageView avatarImageView = findViewById(R.id.imageAvatar);
+            avatarImageView.setX(newX);
+            avatarImageView.setY(newY);
+        }
+
+        return super.onKeyDown(keyCode, event);
     }
 
 }
