@@ -15,7 +15,13 @@ import android.widget.TextView;
 
 import com.example.model.Player;
 import com.example.demo_2340.R;
+import com.example.model.PlayerMovement;
 import com.example.viewmodels.RoomOneViewModel;
+
+import java.util.ArrayList;
+import java.util.List;
+import android.view.KeyEvent;
+
 
 public class RoomOne extends AppCompatActivity {
     private RoomOneViewModel viewModel;
@@ -23,6 +29,9 @@ public class RoomOne extends AppCompatActivity {
     private Player player;
     private TextView scoreTextView;
     private Handler handler;
+
+    private List<ImageView> blackTilesList; //contains ref of black tiles aka collisions/walls
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +45,10 @@ public class RoomOne extends AppCompatActivity {
         playerNameTextView.setText("Player Name: " + player.getPlayerName());
         healthPointsTextView.setText("Health Points: " + player.getHealthPoints());
         viewModel = new RoomOneViewModel(player);
+        //KEYMOVEMENT
+        blackTilesList = new ArrayList<>();
+        room1Layout.setFocusableInTouchMode(true);
+
         // tile dimensions
         int tileWidth = 80;
         int tileHeight = 80;
@@ -67,6 +80,7 @@ public class RoomOne extends AppCompatActivity {
                     || (row == 11 && ((col > 0 && col < 4) || (col > 4 && col < 8)))
                     || (row == 13 && col!= 5)) {
                     tilesImageView.setImageResource(R.drawable.blacktile3);
+                    blackTilesList.add(tilesImageView);
                 } else {
                     tilesImageView.setImageResource(R.drawable.red_tile);
                 }
@@ -77,6 +91,7 @@ public class RoomOne extends AppCompatActivity {
 
                 room1Layout.addView(tilesImageView, redTilesParams);
             }
+
         }
         ImageView avatarImageView = findViewById(R.id.imageAvatar);
         avatarImageView.setImageResource(player.getAvatarId());
@@ -100,7 +115,10 @@ public class RoomOne extends AppCompatActivity {
                 startRoom2Activity(player);
             }
         });
+
+
     }
+
     private void startRoom2Activity(Player player) {
         Intent room2Intent = new Intent(this, RoomTwo.class);
         room2Intent.putExtra("player", player);
@@ -115,5 +133,30 @@ public class RoomOne extends AppCompatActivity {
     public int getScore() {
         return viewModel.getScore();
     }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        PlayerMovement playerMovement = new PlayerMovement();
+        playerMovement.move(player, keyCode);
+
+        // Updating player's pos and checking for collisions
+        int newX = player.getX();
+        int newY = player.getY();
+
+        if (player.isValidMove(blackTilesList, newX, newY)) {
+            // If the move is valid, update the player's pos
+            player.setX(newX);
+            player.setY(newY);
+           //updating avatars new pos
+            ImageView avatarImageView = findViewById(R.id.imageAvatar);
+            avatarImageView.setX(newX);
+            avatarImageView.setY(newY);
+        }
+
+        return super.onKeyDown(keyCode, event);
+    }
+
+
+
 }
 
