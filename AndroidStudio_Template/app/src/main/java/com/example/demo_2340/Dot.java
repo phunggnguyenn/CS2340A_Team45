@@ -3,7 +3,8 @@ package com.example.demo_2340;
 
 
 public class Dot {
-    private float x, y;
+    private float x;
+    private float y;
     private int radius;
     private boolean isVisible;
     private static final long MAX_LIFETIME = 10000; // Time out after 10 seconds

@@ -2,7 +2,7 @@ package com.example.viewmodels;
 
 import android.widget.ImageView;
 import com.example.demo_2340.R;
-import com.example.views.InitialConfigActivity;
+
 
 public class InitialConfigViewModel {
     private double difficulty;
@@ -21,15 +21,17 @@ public class InitialConfigViewModel {
 
     public void getDifficultyFromRadioButton(int radioButtonId) {
         switch (radioButtonId) {
-            case R.id.radioEasy:
-                difficulty = 0.5;
-                break;
-            case R.id.radioMedium:
-                difficulty = 0.75;
-                break;
-            case R.id.radioHard:
-                difficulty = 1;
-                break;
+        case R.id.radioEasy:
+            difficulty = 0.5;
+            break;
+        case R.id.radioMedium:
+            difficulty = 0.75;
+            break;
+        case R.id.radioHard:
+            difficulty = 1;
+            break;
+        default:
+            break;
         }
     }
     public double getDifficulty() {

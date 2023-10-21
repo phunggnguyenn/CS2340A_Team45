@@ -2,7 +2,6 @@ package com.example.test;
 
 import com.example.model.Player;
 import com.example.viewmodels.RoomOneViewModel;
-import com.example.viewmodels.RoomTwoViewModel;
 
 import org.junit.Test;
 import org.junit.Before;

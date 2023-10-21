@@ -1,12 +1,9 @@
 package com.example.test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.*;
 import com.example.model.Leaderboard;
-import com.example.views.MazeGameActivity;
-import com.example.views.RoomOne;
-import com.example.views.RoomTwo;
+
 
 import org.junit.Test;
 
