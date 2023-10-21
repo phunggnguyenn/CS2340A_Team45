@@ -34,6 +34,8 @@ public class GameEndActivity extends AppCompatActivity {
         scoreTextView = findViewById(R.id.scoreTextView);
         scoreTextView.setText("Score: " + score);
 
+        TextView currentScore = findViewById(R.id.textView7);
+        currentScore.setText(String.valueOf(score));
         leaderboard = Leaderboard.getInstance();
 
         // Add the current score to the leaderboard
@@ -69,10 +71,12 @@ public class GameEndActivity extends AppCompatActivity {
 
         for (int i = 0; i < topScores.size(); i++) {
             // Set rank and score
-            rankTextViews[i] = findViewById(getResources().getIdentifier("rank" + (i + 1)
-                    + "TextView", "id", getPackageName()));
-            scoreTextViews[i] = findViewById(getResources().getIdentifier("score" + (i + 1)
-                    + "TextView", "id", getPackageName()));
+            rankTextViews[i] = findViewById(
+                    getResources().getIdentifier("rank" + (i + 1) + "TextView", "id",
+                            getPackageName()));
+            scoreTextViews[i] = findViewById(
+                    getResources().getIdentifier("score" + (i + 1) + "TextView", "id",
+                            getPackageName()));
             rankTextViews[i].setText(String.valueOf(i + 1));
             scoreTextViews[i].setText(String.valueOf(topScores.get(i)));
         }
@@ -92,5 +96,18 @@ public class GameEndActivity extends AppCompatActivity {
     public int getScore() {
         return score;
     }
-}
 
+    public TextView[] getRankTextViews() {
+        return rankTextViews;
+    }
+    public TextView[] getPlayerNameTextViews() {
+        return playerNameTextViews;
+    }
+    public TextView[] getScoreTextViews() {
+        return scoreTextViews;
+    }
+    public TextView[] getDateTimeTextViews() {
+        return dateTimeTextViews;
+    }
+
+}

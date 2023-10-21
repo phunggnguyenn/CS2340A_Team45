@@ -13,10 +13,10 @@ import com.example.demo_2340.R;
 
 //launchMazeGameActivity() method in GameActivity.java will launch the maze background
 public class MazeGameActivity extends AppCompatActivity {
-     TextView textView;
-     TextView textView2;
-    TextView textView3;
-    int healthPoints;
+    private TextView textView;
+    private TextView textView2;
+    private TextView textView3;
+    private int healthPoints;
     private int avatarId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,21 +47,27 @@ public class MazeGameActivity extends AppCompatActivity {
         }
         ImageView avatarImage = findViewById(R.id.imageAvatar);
         switch (avatar) {
-            case R.id.imageAvatar1:
-                avatarId = R.drawable.avatar1;
-                avatarImage.setImageResource(R.drawable.avatar1);
-                break;
-            case R.id.imageAvatar2:
-                avatarId = R.drawable.avatar2;
-                avatarImage.setImageResource(R.drawable.avatar2);
-                break;
-            case R.id.imageAvatar3:
-                avatarId = R.drawable.avatar3;
-                avatarImage.setImageResource(R.drawable.avatar3);
-                break;
+        case R.id.imageAvatar1:
+            avatarId = R.drawable.avatar1;
+            avatarImage.setImageResource(R.drawable.avatar1);
+            break;
+        case R.id.imageAvatar2:
+            avatarId = R.drawable.avatar2;
+            avatarImage.setImageResource(R.drawable.avatar2);
+            break;
+        case R.id.imageAvatar3:
+            avatarId = R.drawable.avatar3;
+            avatarImage.setImageResource(R.drawable.avatar3);
+            break;
+        default:
+            break;
         }
         // create player class
-        Player player = Player.getInstance(playerName, healthPoints, avatarId);
+        int playerWidth = avatarImage.getWidth();
+        int playerHeight = avatarImage.getHeight();
+        RoomOne roomOne = new RoomOne();
+        Player player = Player.getInstance(playerName, healthPoints, avatarId,
+                playerWidth, playerHeight);
 
 
         Button room1btn = findViewById(R.id.room1btn);
@@ -78,7 +84,7 @@ public class MazeGameActivity extends AppCompatActivity {
         startActivity(room1Intent);
         finish(); // Finish the initial_game activity
     }
-//methods to call these vars from test package
+    //methods to call these vars from test package
     public TextView getTextView3() {
         return textView3;
     }
@@ -88,4 +94,20 @@ public class MazeGameActivity extends AppCompatActivity {
     public void publicOnCreateWrapper(Bundle savedInstanceState) {
         onCreate(savedInstanceState);
     }
+
+    //ACCESSOR methods for instances - to pass checkstyle
+    private TextView getTextView1() {
+        return textView;
+    }
+
+    private TextView getTextView2() {
+        return textView2;
+    }
+    private TextView getTextView3Private() {
+        return textView3;
+    }
+    private int getHPPrivate() {
+        return healthPoints;
+    }
 }
+

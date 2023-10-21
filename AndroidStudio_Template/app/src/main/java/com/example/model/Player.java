@@ -1,23 +1,35 @@
 package com.example.model;
 
 import java.io.Serializable;
+import android.widget.ImageView;
+import java.util.List;
 
 
-public class Player implements Serializable{
+public class Player implements Serializable {
+    private int x; //for movement
+    private int y; //for movement
+    private int playerWidth;
+    private int playerHeight;
     private String playerName;
     private int healthPoints;
     private int avatarId;
     private static Player player;
 
-    // Private constructor to prevent instantiation from other classes
-    private Player(String playerName, int healthPoints, int avatarId) {
+
+    private Player(String playerName, int healthPoints, int avatarId,
+                   int playerWidth, int playerHeight) {
         this.playerName = playerName;
         this.healthPoints = healthPoints;
         this.avatarId = avatarId;
+        this.x = 0;
+        this.y = 0;
+        this.playerHeight = playerHeight;
+        this.playerWidth = playerWidth;
     }
-    public static Player getInstance(String playerName, int healthPoints, int avatarId) {
+    public static Player getInstance(String playerName, int healthPoints, int avatarId,
+                                     int playerWidth, int playerHeight) {
         if (player == null) {
-            player = new Player(playerName, healthPoints, avatarId);
+            player = new Player(playerName, healthPoints, avatarId, playerWidth, playerHeight);
         }
         return player;
     }
@@ -38,4 +50,61 @@ public class Player implements Serializable{
     public int getAvatarId() {
         return avatarId;
     }
+
+    public int getX() {
+        return x;
+    }
+    public int getY() {
+        return y;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    //these are the MOVEMENT METHODS
+    public void moveUp() {
+        this.y -= 10;
+    }
+    public void moveDown() {
+        this.y += 10;
+    }
+    public void moveLeft() {
+        this.x -= 10;
+    }
+    public void moveRight() {
+        this.x  += 10;
+    }
+
+    //this method is supposed to check for collisions with black tiles
+    // and check if it goes beyond screenheight
+    //but its not working that way rn
+    //Made blacktilesList containing references of all blackTiles (walls)
+    // Feel free to delete it
+    public boolean isValidMove(List<ImageView> blackTilesList, int x, int y) {
+        int playerRight = x + playerWidth;
+        int playerBottom = y + playerHeight;
+        //int screenWidth = getScreenHeight() - from gameActivity class
+        //int screenHeight = getScreenHeight() - from gameActivity class;
+        for (ImageView blackTile : blackTilesList) {
+            int blackTileLeft = blackTile.getLeft();
+            int blackTileTop = blackTile.getTop();
+            int blackTileRight = blackTile.getRight();
+            int blackTileBottom = blackTile.getBottom();
+
+            if (playerRight >= blackTileLeft
+                    && x <= blackTileRight
+                    && playerBottom >= blackTileTop
+                    && y <= blackTileBottom) {
+                // theres a collision, so invalid move
+                return false;
+            }
+        }
+        // theres no collision, so valid move
+        return true;
+    }
+
 }
