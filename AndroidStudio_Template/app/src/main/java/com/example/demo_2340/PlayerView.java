@@ -8,7 +8,8 @@ import android.view.View;
 public class PlayerView extends View {
 
     private Paint paint;
-    private float x, y;
+    private float x;
+    private float y;
     private int radius;
 
     public PlayerView(Context context, float x, float y, int radius) {

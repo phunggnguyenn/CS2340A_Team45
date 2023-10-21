@@ -21,12 +21,13 @@ import java.util.TimerTask;
 public class GameActivity extends AppCompatActivity {
 
     private PlayerView playerView;
-    private float playerX, playerY;
+    private float playerX;
+    private float playerY;
     private List<Dot> dots = new ArrayList<>();
     private Random random = new Random();
-    RelativeLayout gameLayout;
-    int screenWidth;
-    int screenHeight;
+    private RelativeLayout gameLayout;
+    private int screenWidth;
+    private int screenHeight;
     private Map<Dot, DotView> dotViewMap = new HashMap<>();
     private Timer dotTimer;
     private static final int MAX_DOTS = 20;
@@ -83,22 +84,24 @@ public class GameActivity extends AppCompatActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         // TODO logic to move the player (remember to check collisions)
         switch (keyCode) {
-            case KeyEvent.KEYCODE_DPAD_DOWN:
-                    playerY -= 10;
-                    checkCollisions();
-                break;
-            case KeyEvent.KEYCODE_DPAD_UP:
-                    playerY += 10;
-                    checkCollisions();
-                break;
-            case KeyEvent.KEYCODE_DPAD_LEFT:
-                    playerX -= 10;
-                    checkCollisions();
-                break;
-            case KeyEvent.KEYCODE_DPAD_RIGHT:
-                    playerX += 10;
-                    checkCollisions();
-                break;
+        case KeyEvent.KEYCODE_DPAD_DOWN:
+            playerY -= 10;
+            checkCollisions();
+            break;
+        case KeyEvent.KEYCODE_DPAD_UP:
+            playerY += 10;
+            checkCollisions();
+            break;
+        case KeyEvent.KEYCODE_DPAD_LEFT:
+            playerX -= 10;
+            checkCollisions();
+            break;
+        case KeyEvent.KEYCODE_DPAD_RIGHT:
+            playerX += 10;
+            checkCollisions();
+            break;
+        default:
+            break;
         }
         return true;
     }
@@ -125,17 +128,16 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
+    /** @noinspection checkstyle:TodoComment*/
     // Maintains 20 dots on screen
     private void respawnDotsIfNeeded() {
-        // TODO: if dots drop below 20, respawn dots
         while (dots.size() < MAX_DOTS) {
             respawnDot();
         }
     }
 
-    // Recreates the dots. Respawn mechanic
+    /** @noinspection checkstyle:TodoComment*/ // Recreates the dots. Respawn mechanic
     private void respawnDot() {
-        //TODO: randomly spawn a dot (need to make both UI and background class)
         float randomX = random.nextInt(screenWidth);
         float randomY = random.nextInt(screenHeight);
         Dot dot = new Dot(randomX, randomY, 20);
@@ -145,7 +147,7 @@ public class GameActivity extends AppCompatActivity {
         dotViewMap.put(dot, newDot);
     }
 
-    /*
+    /** @noinspection checkstyle:TodoComment, checkstyle:TodoComment */ /*
     Method that checks to see if any collision has occurred.
      */
     private void checkCollisions() {
@@ -161,8 +163,8 @@ public class GameActivity extends AppCompatActivity {
                 if (dotCount >= dotsToWin) {
                     launchGameWinActivity();
                 }
-            } else if (dot.isExpired()) { // TODO: Checks if dots have expired.
-                
+            } else if (dot.isExpired()) {  //checks if dots expired
+                System.out.println("Dot has expired: " + dot);
             }
         }
     }
@@ -178,12 +180,15 @@ public class GameActivity extends AppCompatActivity {
         float dotY = dot.getY();
         int dotRadius = dot.getRadius();
 
-            /*
-            Creates a rectangle around dot, and checks for an intersection between player rect and
-            dot rect. Intersection = collision.
-             */
-        RectF playerRect = new RectF(playerX - playerRadius, playerY - playerRadius, playerX + playerRadius, playerY + playerRadius);
-        RectF dotRect = new RectF(dotX - dotRadius, dotY - dotRadius, dotX + dotRadius, dotY + dotRadius);
+        /*
+        Creates a rectangle around dot, and checks for an intersection between
+        player rect and dot rect. Intersection = collision.
+         */
+        RectF playerRect = new RectF(playerX - playerRadius,
+                playerY - playerRadius, playerX + playerRadius,
+                playerY + playerRadius);
+        RectF dotRect = new RectF(dotX - dotRadius, dotY - dotRadius,
+                dotX + dotRadius, dotY + dotRadius);
 
         return playerRect.intersect(dotRect);
     }
@@ -195,6 +200,16 @@ public class GameActivity extends AppCompatActivity {
         finish();
     }
 
+    //ACCESSOR METHODS - for checkstyle
+    public RelativeLayout getGameLayout() {
+        return gameLayout;
+    }
+    public int getScreenWidth() {
+        return screenWidth;
+    }
+    public int getScreenHeight() {
+        return screenHeight;
+    }
 
 
 }

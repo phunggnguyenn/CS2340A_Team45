@@ -18,7 +18,6 @@ import com.example.demo_2340.R;
 import com.example.model.PlayerMovement;
 import com.example.viewmodels.RoomThreeViewModel;
 import com.example.model.Player;
-import com.example.viewmodels.RoomTwoViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,8 +68,8 @@ public class RoomThree extends AppCompatActivity {
                 if ((row == 0 && (col != 10)
                     || (row == 1 && ((col == 0) || (col == 5) || (col == 9)))
                     || (row == 2 && (col == 3 || col == 5 || col < 2))
-                    || (row == 3 && (col == 5 || col > 6 ))
-                    || (row == 4 && (col == 5 || col == 7 || col == 9 || col == 11))
+                    || (row == 3 && (col == 5 || col > 6))
+                        || (row == 4 && (col == 5 || col == 7 || col == 9 || col == 11))
                     || (row == 5 && ((col > 0 && col < 4) || col == 5))
                     || (row == 6 && (col == 3 || col == 6 || col == 8))
                     || (row == 7 && (((col > 0) && (col < 4)) || (col == 8)))
@@ -85,7 +84,8 @@ public class RoomThree extends AppCompatActivity {
                     tilesImageView.setImageResource(R.drawable.red_tile);
                 }
                 tilesImageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                RelativeLayout.LayoutParams redTilesParams = new RelativeLayout.LayoutParams(tileWidth, tileHeight);
+                RelativeLayout.LayoutParams redTilesParams =
+                        new RelativeLayout.LayoutParams(tileWidth, tileHeight);
                 redTilesParams.leftMargin = left;
                 redTilesParams.topMargin = top;
 

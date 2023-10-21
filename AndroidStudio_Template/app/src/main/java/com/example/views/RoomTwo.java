@@ -64,13 +64,16 @@ public class RoomTwo extends AppCompatActivity {
 
                 ImageView tilesImageView = new ImageView(this);
                 if ((row == 0 && (col != 1)
-                    || (row == 1 && ((col == 0) || (col > 2 && col < 5) || (col == 7) || (col == 9)))
+                    || (row == 1 && ((col == 0) || (col > 2 && col < 5)
+                        || (col == 7) || (col == 9)))
                     || (row == 2 && (col == 2 || col == 4 || col == 9))
                     || (row == 3 && (col == 2 || col == 6 || (col > 7 && col < 10)))
-                    || (row == 4 && (col == 3 || col == 8 || col == 10 || (col > 4 && col < 7)))
+                    || (row == 4 && (col == 3 || col == 8 || col == 10
+                        || (col > 4 && col < 7)))
                     || (row == 5 && (col < 2))
                     || (row == 6 && ((col == 0) || (col > 2 && col < 5) || (col > 5 && col < 8)))
-                    || (row == 7 && (((col > 6) && (col < 10)) || (col == 3) || col == 11))
+                    || (row == 7 && (((col > 6) && (col < 10))
+                        || (col == 3) || col == 11))
                     || (row == 8 && ((col > 1 && col < 6) || col == 7))
                     || (row == 9 && (col == 2 || col == 4 || col > 9))
                     || (row == 11 && (col > 0))
@@ -80,7 +83,8 @@ public class RoomTwo extends AppCompatActivity {
                     tilesImageView.setImageResource(R.drawable.red_tile);
                 }
                 tilesImageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                RelativeLayout.LayoutParams redTilesParams = new RelativeLayout.LayoutParams(tileWidth, tileHeight);
+                RelativeLayout.LayoutParams redTilesParams = new
+                        RelativeLayout.LayoutParams(tileWidth, tileHeight);
                 redTilesParams.leftMargin = left;
                 redTilesParams.topMargin = top;
 

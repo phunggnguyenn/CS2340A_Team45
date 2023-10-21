@@ -16,7 +16,8 @@ public class Player implements Serializable {
     private static Player player;
 
 
-    private Player(String playerName, int healthPoints, int avatarId, int playerWidth, int playerHeight) {
+    private Player(String playerName, int healthPoints, int avatarId,
+                   int playerWidth, int playerHeight) {
         this.playerName = playerName;
         this.healthPoints = healthPoints;
         this.avatarId = avatarId;
@@ -25,7 +26,8 @@ public class Player implements Serializable {
         this.playerHeight = playerHeight;
         this.playerWidth = playerWidth;
     }
-    public static Player getInstance(String playerName, int healthPoints, int avatarId, int playerWidth, int playerHeight) {
+    public static Player getInstance(String playerName, int healthPoints, int avatarId,
+                                     int playerWidth, int playerHeight) {
         if (player == null) {
             player = new Player(playerName, healthPoints, avatarId, playerWidth, playerHeight);
         }
@@ -65,10 +67,10 @@ public class Player implements Serializable {
 
     //these are the MOVEMENT METHODS
     public void moveUp() {
-        this.y -=10;
+        this.y -= 10;
     }
     public void moveDown() {
-        this.y +=10;
+        this.y += 10;
     }
     public void moveLeft() {
         this.x -= 10;
@@ -77,28 +79,31 @@ public class Player implements Serializable {
         this.x  += 10;
     }
 
-    //this method is supposed to check for collisions with black tiles and if it goes beyond screenheight
+    //this method is supposed to check for collisions with black tiles
+    // and check if it goes beyond screenheight
     //but its not working that way rn
-    //Made blacktilesList containing references of all blackTiles(walls it shouldnt be able to move thru)
+    //Made blacktilesList containing references of all blackTiles (walls)
+    // Feel free to delete it
     public boolean isValidMove(List<ImageView> blackTilesList, int x, int y) {
         int playerRight = x + playerWidth;
         int playerBottom = y + playerHeight;
-
+        //int screenWidth = getScreenHeight() - from gameActivity class
+        //int screenHeight = getScreenHeight() - from gameActivity class;
         for (ImageView blackTile : blackTilesList) {
             int blackTileLeft = blackTile.getLeft();
             int blackTileTop = blackTile.getTop();
             int blackTileRight = blackTile.getRight();
             int blackTileBottom = blackTile.getBottom();
 
-            if (playerRight >= blackTileLeft &&
-                    x <= blackTileRight &&
-                    playerBottom >= blackTileTop &&
-                    y <= blackTileBottom) {
-                // Collision detected, so it's INVALID
+            if (playerRight >= blackTileLeft
+                    && x <= blackTileRight
+                    && playerBottom >= blackTileTop
+                    && y <= blackTileBottom) {
+                // theres a collision, so invalid move
                 return false;
             }
         }
-        // If no collision detected with any black tiles, it's valid
+        // theres no collision, so valid move
         return true;
     }
 
