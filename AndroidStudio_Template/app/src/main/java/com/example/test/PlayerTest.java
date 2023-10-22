@@ -79,6 +79,7 @@ public class PlayerTest {
     }
     // Member: Maria Jothish
     // This method tests if player moves right appropriate amount.
+    /**
     @Test
     public void testMoveRight() {
         int oldX = player1.getX();
