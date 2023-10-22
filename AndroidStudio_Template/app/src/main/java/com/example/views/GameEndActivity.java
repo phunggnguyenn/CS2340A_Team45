@@ -76,7 +76,7 @@ public class GameEndActivity extends AppCompatActivity {
                             getPackageName()));
             scoreTextViews[i] = findViewById(
                     getResources().getIdentifier("score" + (i + 1) + "TextView", "id",
-                    getPackageName()));
+                            getPackageName()));
             rankTextViews[i].setText(String.valueOf(i + 1));
             scoreTextViews[i].setText(String.valueOf(topScores.get(i)));
         }
@@ -111,4 +111,3 @@ public class GameEndActivity extends AppCompatActivity {
     }
 
 }
-
