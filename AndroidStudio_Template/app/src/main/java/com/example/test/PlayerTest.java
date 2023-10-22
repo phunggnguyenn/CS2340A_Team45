@@ -51,7 +51,7 @@ public class PlayerTest {
         player1.setHealthPoints(-100);
         assertEquals(0, player1.getHealthPoints());
     }
-    // Member: Mahathi Gumudavelli
+    // Member: MARIA JOTHISH (MG CHANGE)
     // This method tests if player moves up appropriate amount at start.
     @Test
     public void testMoveUpAtStart() {
@@ -59,7 +59,7 @@ public class PlayerTest {
         player1.moveUp();
         assertEquals(oldY - 10, player1.getY());
     }
-    // Member: Mahathi Gumudavelli
+    // Member: MARIA JOTHISH (MG CHANGE)
     // This method tests if player moves down appropriate amount.
     @Test
     public void testMoveDown() {
