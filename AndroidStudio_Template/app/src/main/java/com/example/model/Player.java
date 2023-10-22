@@ -86,8 +86,14 @@ public class Player implements Serializable {
     public int getGoalY() {
         return goalY;
     }
+    public int getPlayerWidth() {
+        return playerWidth;
+    }
+    public int getPlayerHeight() {
+        return playerHeight;
+    }
 
-    //these are the MOVEMENT METHODS
+    //these are the MOVEMENT METHODS (testing purposes)
     public void moveUp() {
         this.y -= 10;
     }
@@ -110,6 +116,7 @@ public class Player implements Serializable {
             observer.playerReachedGoal();
         }
     }
+    // not used in viewModels, only used for testing purposes
     public void move(int keyCode) {
         switch (keyCode) {
             case KeyEvent.KEYCODE_DPAD_DOWN:

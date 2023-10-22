@@ -2,10 +2,12 @@ package com.example.views;
 
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,7 +29,7 @@ public class RoomThree extends AppCompatActivity {
     private RoomThreeViewModel viewModel;
     private TextView scoreTextView;
     private Handler handler = new Handler();
-
+    private ImageView avatarImageView;
     private List<ImageView> blackTilesList;
 
     @Override
@@ -42,7 +44,7 @@ public class RoomThree extends AppCompatActivity {
         scoreTextView.setText("Score: " + score);
 
         RelativeLayout room3Layout = findViewById(R.id.room3Layout);
-        viewModel = new RoomThreeViewModel(player, score);
+        viewModel = new RoomThreeViewModel(player, score, this);
 
         //KEYMOVEMENT
         blackTilesList = new ArrayList<>();
@@ -92,8 +94,16 @@ public class RoomThree extends AppCompatActivity {
                 room3Layout.addView(tilesImageView, redTilesParams);
             }
         }
-        ImageView avatarImageView = findViewById(R.id.imageAvatar);
+        avatarImageView = findViewById(R.id.imageAvatar);
         avatarImageView.setImageResource(player.getAvatarId());
+        ViewGroup.MarginLayoutParams playerLayout = (ViewGroup.MarginLayoutParams) avatarImageView.getLayoutParams();
+        playerLayout.topMargin = 1165;
+        playerLayout.leftMargin = 85;
+        avatarImageView.setLayoutParams(playerLayout);
+        player.setX(playerLayout.leftMargin);
+        player.setY(playerLayout.topMargin);
+        player.setGoalX(715);
+        player.setGoalY(5);
         // Start updating the score
         handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -132,31 +142,8 @@ public class RoomThree extends AppCompatActivity {
     }
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        PlayerMovement playerMovement = new PlayerMovement();
-        playerMovement.move(player, keyCode);
-
-        // Updating player's pos and checking for collisions
-        int newX = player.getX();
-        int newY = player.getY();
-
-        if (player.isValidMove(blackTilesList, newX, newY)) {
-            // If the move is valid, update the player's pos
-            player.setX(newX);
-            player.setY(newY);
-
-            // Check if the player has reached the final exit
-            if (hasPlayerReachedFinalExit(newX, newY)) {
-                // Start the GameEndActivity if the player has reached the exit
-                startGameEndActivity(player);
-            }
-
-            //updating avatars new pos
-            ImageView avatarImageView = findViewById(R.id.imageAvatar);
-            avatarImageView.setX(newX);
-            avatarImageView.setY(newY);
-        }
-
-        return super.onKeyDown(keyCode, event);
+        viewModel.handleKeyEvent(keyCode, blackTilesList, avatarImageView);
+        return true;
     }
 
     // Check if the player has reached the final exit

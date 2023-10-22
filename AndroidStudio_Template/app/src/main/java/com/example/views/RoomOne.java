@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.example.model.Player;
 import com.example.demo_2340.R;
 import com.example.model.PlayerMovement;
+import com.example.model.PlayerMovementStrategy;
 import com.example.viewmodels.RoomOneViewModel;
 
 import java.util.ArrayList;
@@ -31,9 +32,8 @@ public class RoomOne extends AppCompatActivity {
     private Player player;
     private TextView scoreTextView;
     private Handler handler;
-
+    ImageView avatarImageView;
     private List<ImageView> blackTilesList; //contains ref of black tiles aka collisions/walls
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +46,7 @@ public class RoomOne extends AppCompatActivity {
         TextView healthPointsTextView = findViewById(R.id.healthPointsTextView);
         playerNameTextView.setText("Player Name: " + player.getPlayerName());
         healthPointsTextView.setText("Health Points: " + player.getHealthPoints());
-        viewModel = new RoomOneViewModel(player, this);
+
         //KEYMOVEMENT
         blackTilesList = new ArrayList<>();
         room1Layout.setFocusableInTouchMode(true);
@@ -54,6 +54,8 @@ public class RoomOne extends AppCompatActivity {
         //player.addObserver(viewModel);
         player.setGoalX(715);
         player.setGoalY(5);
+
+        viewModel = new RoomOneViewModel(player, this);
 
         // tile dimensions
         int tileWidth = 80;
@@ -101,7 +103,7 @@ public class RoomOne extends AppCompatActivity {
             }
 
         }
-        ImageView avatarImageView = findViewById(R.id.imageAvatar);
+        avatarImageView = findViewById(R.id.imageAvatar);
         avatarImageView.setImageResource(player.getAvatarId());
         ViewGroup.MarginLayoutParams playerLayout = (ViewGroup.MarginLayoutParams) avatarImageView.getLayoutParams();
         playerLayout.topMargin = 1165;
@@ -129,8 +131,6 @@ public class RoomOne extends AppCompatActivity {
                 startRoom2Activity(player);
             }
         });
-
-
     }
 
     private void startRoom2Activity(Player player) {
@@ -144,7 +144,35 @@ public class RoomOne extends AppCompatActivity {
     public int getScore() {
         return viewModel.getScore();
     }
-
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        viewModel.handleKeyEvent(keyCode, blackTilesList, avatarImageView);
+        return true;
+    }
+    /*
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        PlayerMovement playerMovement = new PlayerMovement();
+        ImageView avatarImageView = findViewById(R.id.imageAvatar);
+        int oldX = player.getX();
+        int oldY = player.getY();
+        playerMovement.move(player, keyCode);
+        int newX = player.getX();
+        int newY = player.getY();
+        if (player.isValidMove(blackTilesList, newX, newY)) {
+            player.setX(newX);
+            player.setY(newY);
+            avatarImageView.setX(newX);
+            avatarImageView.setY(newY);
+        } else {
+            player.setX(oldX);
+            player.setY(oldY);
+            avatarImageView.setX(oldX);
+            avatarImageView.setY(oldY);
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+/*
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         int oldX = player.getX();
@@ -179,5 +207,7 @@ public class RoomOne extends AppCompatActivity {
 
         return super.onKeyDown(keyCode, event);
     }
+
+ */
 }
 
