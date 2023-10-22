@@ -72,8 +72,10 @@ public class PlayerTest {
         player1.moveDown();
         assertEquals(oldY, player1.getY());
     }
-    // Member: Maria Jothish
-    // This method tests if player moves left appropriate amount.
+    /**
+     * Member: Maria Jothish
+     * This method tests if player moves left appropriate amount.
+     */
     @Test
     public void testMoveLeftMethod() {
         int oldX = player1.getX();
@@ -81,8 +83,10 @@ public class PlayerTest {
         player1.moveLeft();
         assertEquals(oldX - 10, player1.getX());
     }
-    // Member: Maria Jothish
-    // This method tests if player moves right appropriate amount.
+    /**
+     * Member: Maria Jothish
+     * This method tests if player moves right appropriate amount.
+     */
     @Test
     public void testMoveRightMethod() {
         int oldX = player1.getX();
