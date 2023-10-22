@@ -99,12 +99,14 @@ public class PlayerTest {
     @Test
     public void testIsInvalidMoveOutOfHeight() {
         assertFalse(player1.isValidMove(new ArrayList<>(), 0 , 1170));
+        assertFalse(player1.isValidMove(new ArrayList<>(), 0 , -1));
     }
     // Member: Maria Jothish (CHANGE NAME)
     // This method tests if player moving wider that screen width is a valid move.
     @Test
     public void testIsInvalidMoveOutOfWidth() {
         assertFalse(player1.isValidMove(new ArrayList<>(), 990 , 0));
+        assertFalse(player1.isValidMove(new ArrayList<>(), -1 , 0));
     }
     // Member: Maria Jothish (CHANGE NAME)
     // This method tests if player moves within screen width and height is a valid move.
