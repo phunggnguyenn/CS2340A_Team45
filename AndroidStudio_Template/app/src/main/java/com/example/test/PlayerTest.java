@@ -71,7 +71,6 @@ public class PlayerTest {
         player1.moveDown();
         assertEquals(oldY, player1.getY());
     }
-    /**
     // Member: Maria Jothish
     // This method tests if player moves left appropriate amount.
     @Test
@@ -108,6 +107,4 @@ public class PlayerTest {
     public void testIsValidMove() {
         assertTrue(player1.isValidMove(new ArrayList<>(), 900, 1000));
     }
-    */
-
 }
