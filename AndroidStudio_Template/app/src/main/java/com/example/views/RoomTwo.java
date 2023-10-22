@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,10 +24,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RoomTwo extends AppCompatActivity {
-    private Player player;
     private RoomTwoViewModel viewModel;
+    private Player player;
     private TextView scoreTextView;
-    private Handler handler = new Handler();
+    private Handler handler;
+    ImageView avatarImageView;
     private List<ImageView> blackTilesList;
 
     @Override
@@ -41,7 +43,7 @@ public class RoomTwo extends AppCompatActivity {
         scoreTextView.setText("Score: " + score);
         RelativeLayout room2Layout = findViewById(R.id.room2Layout);
         Player player = (Player) receiverIntent.getSerializableExtra("player");
-        viewModel = new RoomTwoViewModel(player, score);
+        viewModel = new RoomTwoViewModel(player, score, this);
         //KEYMOVEMENT
         blackTilesList = new ArrayList<>();
         room2Layout.setFocusableInTouchMode(true);
@@ -91,8 +93,16 @@ public class RoomTwo extends AppCompatActivity {
                 room2Layout.addView(tilesImageView, redTilesParams);
             }
         }
-        ImageView avatarImageView = findViewById(R.id.imageAvatar);
+        avatarImageView = findViewById(R.id.imageAvatar);
         avatarImageView.setImageResource(player.getAvatarId());
+        ViewGroup.MarginLayoutParams playerLayout = (ViewGroup.MarginLayoutParams) avatarImageView.getLayoutParams();
+        playerLayout.topMargin = 1165;
+        playerLayout.leftMargin = 715;
+        avatarImageView.setLayoutParams(playerLayout);
+        player.setX(playerLayout.leftMargin);
+        player.setY(playerLayout.topMargin);
+        player.setGoalX(895);
+        player.setGoalY(10);
         // Start updating the score
         handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -120,32 +130,13 @@ public class RoomTwo extends AppCompatActivity {
         startActivity(room3Intent);
         finish(); // Finish the room2 activity
     }
-    public void updateScore(int change) {
-        viewModel.getScore();
-    }
     public int getScore() {
         return viewModel.getScore();
     }
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        PlayerMovement playerMovement = new PlayerMovement();
-        playerMovement.move(player, keyCode);
-
-        // Updating player's pos and checking for collisions
-        int newX = player.getX();
-        int newY = player.getY();
-
-        if (player.isValidMove(blackTilesList, newX, newY)) {
-            // If the move is valid, update the player's position
-            player.setX(newX);
-            player.setY(newY);
-            //updating avatars new pos
-            ImageView avatarImageView = findViewById(R.id.imageAvatar);
-            avatarImageView.setX(newX);
-            avatarImageView.setY(newY);
-        }
-
-        return super.onKeyDown(keyCode, event);
+        viewModel.handleKeyEvent(keyCode, blackTilesList, avatarImageView);
+        return true;
     }
 
 }
