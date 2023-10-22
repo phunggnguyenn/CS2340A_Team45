@@ -1,3 +1,6 @@
+/**
+ * Sprint 2 Junit Test for Leaderboard. Disregard for Sprint 3.
+ */
 package com.example.test;
 
 import static org.junit.Assert.assertEquals;
