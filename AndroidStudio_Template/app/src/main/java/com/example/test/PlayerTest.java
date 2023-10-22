@@ -68,7 +68,6 @@ public class PlayerTest {
         player1.moveDown();
         assertEquals(oldY, player1.getY());
     }
-    /**
     // Member: Maria Jothish
     // This method tests if player moves left appropriate amount.
     @Test
@@ -87,6 +86,7 @@ public class PlayerTest {
         player1.moveRight();
         assertEquals(oldX + 10, player1.getX());
     }
+    /**
     // Member: Maria Jothish (CHANGE NAME)
     // This method tests if player moving farther that screen height is a valid move.
     @Test
