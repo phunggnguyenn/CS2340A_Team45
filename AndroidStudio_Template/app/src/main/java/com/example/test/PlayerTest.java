@@ -4,7 +4,6 @@ import com.example.model.Player;
 import org.junit.Test;
 import org.junit.Before;
 import static org.junit.Assert.*;
-
 import java.util.ArrayList;
 
 public class PlayerTest {
@@ -51,16 +50,20 @@ public class PlayerTest {
         player1.setHealthPoints(-100);
         assertEquals(0, player1.getHealthPoints());
     }
-    // Member: MARIA JOTHISH (MG CHANGE)
-    // This method tests if player moves up appropriate amount at start.
+    /**
+     * Member: Mahathi Gumudavelli
+     * This method tests if player moves up appropriate amount at start.
+     */
     @Test
     public void testMoveUpAtStart() {
         int oldY = player1.getY();
         player1.moveUp();
         assertEquals(oldY - 10, player1.getY());
     }
-    // Member: MARIA JOTHISH (MG CHANGE)
-    // This method tests if player moves down appropriate amount.
+    /**
+    * Member: Mahathi Gumudavelli
+    * This method tests if player moves down appropriate amount.
+    */
     @Test
     public void testMoveDown() {
         int oldY = player1.getY();
