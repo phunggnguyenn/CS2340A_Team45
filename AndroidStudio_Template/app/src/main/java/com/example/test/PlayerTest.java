@@ -79,7 +79,6 @@ public class PlayerTest {
     }
     // Member: Maria Jothish
     // This method tests if player moves right appropriate amount.
-    /**
     @Test
     public void testMoveRight() {
         int oldX = player1.getX();
@@ -87,7 +86,6 @@ public class PlayerTest {
         player1.moveRight();
         assertEquals(oldX + 10, player1.getX());
     }
-    /**
     // Member: Maria Jothish (CHANGE NAME)
     // This method tests if player moving farther that screen height is a valid move.
     @Test
@@ -106,6 +104,4 @@ public class PlayerTest {
     public void testIsValidMove() {
         assertTrue(player1.isValidMove(new ArrayList<>(), 900, 1000));
     }
-    */
-
 }
