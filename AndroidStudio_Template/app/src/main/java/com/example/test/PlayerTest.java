@@ -5,6 +5,8 @@ import org.junit.Test;
 import org.junit.Before;
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
 public class PlayerTest {
     private Player player1;
     private Player player2;
@@ -49,4 +51,60 @@ public class PlayerTest {
         player1.setHealthPoints(-100);
         assertEquals(0, player1.getHealthPoints());
     }
+    // Member: Mahathi Gumudavelli
+    // This method tests if player moves up appropriate amount at start.
+    @Test
+    public void testMoveUpAtStart() {
+        int oldY = player1.getY();
+        player1.moveUp();
+        assertEquals(oldY - 10, player1.getY());
+    }
+    // Member: Mahathi Gumudavelli
+    // This method tests if player moves down appropriate amount.
+    @Test
+    public void testMoveDown() {
+        int oldY = player1.getY();
+        player1.moveUp();
+        player1.moveDown();
+        assertEquals(oldY, player1.getY());
+    }
+    /**
+    // Member: Maria Jothish
+    // This method tests if player moves left appropriate amount.
+    @Test
+    public void testMoveLeft() {
+        int oldX = player1.getX();
+        player1.moveUp();
+        player1.moveLeft();
+        assertEquals(oldX - 10, player1.getX());
+    }
+    // Member: Maria Jothish
+    // This method tests if player moves right appropriate amount.
+    @Test
+    public void testMoveRight() {
+        int oldX = player1.getX();
+        player1.moveUp();
+        player1.moveRight();
+        assertEquals(oldX + 10, player1.getX());
+    }
+    // Member: Maria Jothish (CHANGE NAME)
+    // This method tests if player moving farther that screen height is a valid move.
+    @Test
+    public void testIsInvalidMoveOutOfHeight() {
+        assertFalse(player1.isValidMove(new ArrayList<>(), 0 , 1170));
+    }
+    // Member: Maria Jothish (CHANGE NAME)
+    // This method tests if player moving wider that screen width is a valid move.
+    @Test
+    public void testIsInvalidMoveOutOfWidth() {
+        assertFalse(player1.isValidMove(new ArrayList<>(), 990 , 0));
+    }
+    // Member: Maria Jothish (CHANGE NAME)
+    // This method tests if player moves within screen width and height is a valid move.
+    @Test
+    public void testIsValidMove() {
+        assertTrue(player1.isValidMove(new ArrayList<>(), 900, 1000));
+    }
+    */
+
 }
