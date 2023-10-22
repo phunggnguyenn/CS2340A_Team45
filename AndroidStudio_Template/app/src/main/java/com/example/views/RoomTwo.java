@@ -101,8 +101,8 @@ public class RoomTwo extends AppCompatActivity {
         avatarImageView.setLayoutParams(playerLayout);
         player.setX(playerLayout.leftMargin);
         player.setY(playerLayout.topMargin);
-        player.setGoalX(895);
-        player.setGoalY(10);
+        player.setGoalX(85);
+        player.setGoalY(5);
         // Start updating the score
         handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -136,7 +136,10 @@ public class RoomTwo extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         viewModel.handleKeyEvent(keyCode, blackTilesList, avatarImageView);
-        return true;
+        if (viewModel.checkReachedGoal()) {
+            viewModel.moveToNextRoom();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
 }

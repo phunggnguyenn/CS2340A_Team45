@@ -19,6 +19,8 @@ import com.example.model.Player;
 import com.example.demo_2340.R;
 import com.example.model.PlayerMovement;
 import com.example.model.PlayerMovementStrategy;
+import com.example.viewmodels.PlayerObserver;
+import com.example.viewmodels.PlayerObserverStrategy;
 import com.example.viewmodels.RoomOneViewModel;
 
 import java.util.ArrayList;
@@ -32,7 +34,7 @@ public class RoomOne extends AppCompatActivity {
     private Player player;
     private TextView scoreTextView;
     private Handler handler;
-    ImageView avatarImageView;
+    private ImageView avatarImageView;
     private List<ImageView> blackTilesList; //contains ref of black tiles aka collisions/walls
 
     @Override
@@ -147,7 +149,10 @@ public class RoomOne extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         viewModel.handleKeyEvent(keyCode, blackTilesList, avatarImageView);
-        return true;
+        if (viewModel.checkReachedGoal()) {
+            viewModel.moveToNextRoom();
+        }
+        return super.onKeyDown(keyCode, event);
     }
     /*
     @Override

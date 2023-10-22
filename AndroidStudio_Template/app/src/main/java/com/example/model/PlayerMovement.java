@@ -10,16 +10,16 @@ public class PlayerMovement implements PlayerMovementStrategy {
     public void move(Player player, int keyCode) {
         switch (keyCode) {
         case KeyEvent.KEYCODE_DPAD_DOWN:
-            player.setY(player.getY() + 15);
+            player.setY(player.getY() + 10);
             break;
         case KeyEvent.KEYCODE_DPAD_UP:
-            player.setY(player.getY() - 15);
+            player.setY(player.getY() - 10);
             break;
         case KeyEvent.KEYCODE_DPAD_LEFT:
-            player.setX(player.getX() - 15);
+            player.setX(player.getX() - 10);
             break;
         case KeyEvent.KEYCODE_DPAD_RIGHT:
-            player.setX(player.getX() + 15);
+            player.setX(player.getX() + 10);
             break;
         default:
             break;
