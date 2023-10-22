@@ -4,7 +4,9 @@ package com.example.views;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -44,10 +46,14 @@ public class RoomOne extends AppCompatActivity {
         TextView healthPointsTextView = findViewById(R.id.healthPointsTextView);
         playerNameTextView.setText("Player Name: " + player.getPlayerName());
         healthPointsTextView.setText("Health Points: " + player.getHealthPoints());
-        viewModel = new RoomOneViewModel(player);
+        viewModel = new RoomOneViewModel(player, this);
         //KEYMOVEMENT
         blackTilesList = new ArrayList<>();
         room1Layout.setFocusableInTouchMode(true);
+        // this line causes error when moving to next room
+        //player.addObserver(viewModel);
+        player.setGoalX(715);
+        player.setGoalY(5);
 
         // tile dimensions
         int tileWidth = 80;
@@ -97,6 +103,12 @@ public class RoomOne extends AppCompatActivity {
         }
         ImageView avatarImageView = findViewById(R.id.imageAvatar);
         avatarImageView.setImageResource(player.getAvatarId());
+        ViewGroup.MarginLayoutParams playerLayout = (ViewGroup.MarginLayoutParams) avatarImageView.getLayoutParams();
+        playerLayout.topMargin = 1165;
+        playerLayout.leftMargin = 445;
+        avatarImageView.setLayoutParams(playerLayout);
+        player.setX(playerLayout.leftMargin);
+        player.setY(playerLayout.topMargin);
 
         Button room2btn = findViewById(R.id.room2btn);
         scoreTextView = findViewById(R.id.scoreTextView);
@@ -129,36 +141,43 @@ public class RoomOne extends AppCompatActivity {
         finish(); // Finish the room1 activity
     }
 
-    public void updateScore(int change) {
-        viewModel.getScore();
-    }
     public int getScore() {
         return viewModel.getScore();
     }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        PlayerMovement playerMovement = new PlayerMovement();
-        playerMovement.move(player, keyCode);
+        int oldX = player.getX();
+        int oldY = player.getY();
+
+        player.move(keyCode);
 
         // Updating player's pos and checking for collisions
         int newX = player.getX();
         int newY = player.getY();
 
         if (player.isValidMove(blackTilesList, newX, newY)) {
+            Log.d("RoomOne", "Player position: x=" + newX + ", y=" + newY);
+            Log.d("RoomOne", "Goal position: x=" + player.getGoalX() + ", y=" + player.getGoalY());
             // If the move is valid, update the player's pos
             player.setX(newX);
             player.setY(newY);
             //updating avatars new pos
             ImageView avatarImageView = findViewById(R.id.imageAvatar);
-            avatarImageView.setX(newX);
-            avatarImageView.setY(newY);
+            ViewGroup.MarginLayoutParams playerLayout = (ViewGroup.MarginLayoutParams) avatarImageView.getLayoutParams();
+            playerLayout.topMargin = newY; // Update top margin
+            playerLayout.leftMargin = newX; // Update left margin
+            avatarImageView.setLayoutParams(playerLayout);
+            if (newX == player.getGoalX() && newY == player.getGoalY()) {
+                //player.notifyObservers();
+                startRoom2Activity(player);
+            }
+        } else {
+            player.setX(oldX);
+            player.setY(oldY);
         }
 
         return super.onKeyDown(keyCode, event);
     }
-
-
-
 }
 
