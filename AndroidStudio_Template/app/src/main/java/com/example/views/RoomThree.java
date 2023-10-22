@@ -27,6 +27,7 @@ public class RoomThree extends AppCompatActivity {
     private RoomThreeViewModel viewModel;
     private TextView scoreTextView;
     private Handler handler = new Handler();
+    private boolean hasPlayerReachedFinalExit = false;
 
     private List<ImageView> blackTilesList;
 
@@ -104,8 +105,8 @@ public class RoomThree extends AppCompatActivity {
                 handler.postDelayed(this, 1000);
             }
         }, 1000);
-
-        Button ending = findViewById(R.id.endingscreen);
+        //Temporarily removing the temporary next button to navigate to the ending screen for Sprint 3.
+        Button ending = findViewById();
         // Start updating the score
         ending.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,12 +142,31 @@ public class RoomThree extends AppCompatActivity {
             // If the move is valid, update the player's pos
             player.setX(newX);
             player.setY(newY);
+
+            // Check if the player has reached the final exit
+            if (hasPlayerReachedFinalExit(newX, newY)) {
+                // Start the GameEndActivity if the player has reached the exit
+                startGameEndActivity(player);
+            }
+
             //updating avatars new pos
             ImageView avatarImageView = findViewById(R.id.imageAvatar);
             avatarImageView.setX(newX);
             avatarImageView.setY(newY);
+
         }
 
         return super.onKeyDown(keyCode, event);
     }
+
+    // Check if the player has reached the final exit
+    private boolean hasPlayerReachedFinalExit(int x, int y) {
+        int finalExitX = 0;
+        int finalExitY = 0;
+        // Implement your logic to check if the player is at the final exit
+        // For example, you can compare the player's position (x, y) to the exit's position
+        // If they match, return true; otherwise, return false
+        return (x == finalExitX && y == finalExitY); // Adjust these coordinates accordingly
+    }
+
 }
