@@ -75,6 +75,7 @@ public class RoomTwo extends AppCompatActivity {
                         || (row == 11 && (col > 0))
                         || (row == 13 && col != 8))) {
                     tilesImageView.setImageResource(R.drawable.blacktile3);
+                    blackTilesList.add(tilesImageView);
                 } else {
                     tilesImageView.setImageResource(R.drawable.red_tile);
                 }
