@@ -12,6 +12,8 @@ public class InitialConfigTest {
     public void setUp() {
         viewModel = new InitialConfigViewModel();
     }
+    // Member: Edmond Li
+    // Test checking set player name functionality
     @Test
     public void testSetPlayerName() {
         String playerName = "JohnDoe";
