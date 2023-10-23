@@ -5,13 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.widget.ImageView;
-
 import com.example.model.Player;
 import com.example.model.PlayerMovement;
 import com.example.model.PlayerMovementStrategy;
 import com.example.views.GameEndActivity;
-import com.example.views.RoomThree;
-
 import java.util.List;
 
 public class RoomThreeViewModel {
@@ -24,7 +21,6 @@ public class RoomThreeViewModel {
     public RoomThreeViewModel(Player player, int score, Context context) {
         this.score = score;
         this.player = player;
-        this.movementStrategy = new PlayerMovement();
         this.context = context;
     }
     public int getScore() {
@@ -38,7 +34,7 @@ public class RoomThreeViewModel {
         }
     }
     public void handleKeyEvent(int keyCode, List<ImageView> blackTilesList, ImageView avatar) {
-        movementStrategy = new PlayerMovement();
+        movementStrategy = new PlayerMovement(blackTilesList);
         int oldX = player.getX();
         int oldY = player.getY();
         movementStrategy.move(player, keyCode);
