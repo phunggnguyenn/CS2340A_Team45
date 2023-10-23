@@ -108,13 +108,13 @@ public class PlayerTest {
         assertFalse(player1.isValidMove(new ArrayList<>(), 990 , 0));
         assertFalse(player1.isValidMove(new ArrayList<>(), -1 , 0));
     }
-    // Member: Maria Jothish (CHANGE NAME)
+    // Member: Ellie Salisbury
     // This method tests if player moves within screen width and height is a valid move.
     @Test
     public void testIsValidMove() {
         assertTrue(player1.isValidMove(new ArrayList<>(), 900, 1000));
     }
-    // Member: Maria Jothish (CHANGE NAME)
+    // Member: Ellie Salisbury
     // This method tests what happens when KeyEventUp occurs.
     @Test
     public void testKeyCodeUp() {
