@@ -7,7 +7,6 @@ import android.widget.ImageView;
 
 import com.example.viewmodels.PlayerObserver;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -20,7 +19,6 @@ public class Player implements Serializable {
     private int healthPoints;
     private int avatarId;
     private static Player player;
-    private List<PlayerObserver> observers;
     private int goalX;
     private int goalY;
 
@@ -34,7 +32,6 @@ public class Player implements Serializable {
         this.y = 0;
         this.playerHeight = playerHeight;
         this.playerWidth = playerWidth;
-        this.observers = new ArrayList<>();
     }
     public static Player getInstance(String playerName, int healthPoints, int avatarId,
                                      int playerWidth, int playerHeight) {
@@ -106,16 +103,6 @@ public class Player implements Serializable {
     public void moveRight() {
         this.x  += 10;
     }
-    // Observer
-    public void addObserver(PlayerObserver observer) {
-        observers.add(observer);
-    }
-
-    public void notifyObservers() {
-        for (PlayerObserver observer : observers) {
-            observer.playerReachedGoal();
-        }
-    }
     // not used in viewModels, only used for testing purposes
     public void move(int keyCode) {
         switch (keyCode) {
@@ -136,11 +123,7 @@ public class Player implements Serializable {
         }
     }
 
-    //this method is supposed to check for collisions with black tiles
-    // and check if it goes beyond screenheight
-    //but its not working that way rn
-    //Made blacktilesList containing references of all blackTiles (walls)
-    // Feel free to delete it
+    // Used for testing purpose
     public boolean isValidMove(List<ImageView> blackTilesList, int x, int y) {
         int playerRight = x + playerWidth;
         int playerBottom = y + playerHeight;
