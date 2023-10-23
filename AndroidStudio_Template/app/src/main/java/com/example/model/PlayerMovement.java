@@ -25,18 +25,20 @@ public class PlayerMovement implements PlayerMovementStrategy {
             player.setX(player.getX() + 10);
             break;
         default:
-            break;
+            return;
         }
+
     }
     @Override
     public boolean isValidMove(List<ImageView> blackTilesList, int x, int y, Player player) {
         int playerRight = x + player.getPlayerWidth();
         int playerBottom = y + player.getPlayerHeight();
+        int blackTileWidth = 80;
         for (ImageView blackTile : blackTilesList) {
             int blackTileLeft = blackTile.getLeft();
             int blackTileTop = blackTile.getTop();
-            int blackTileRight = blackTile.getRight();
-            int blackTileBottom = blackTile.getBottom();
+            int blackTileRight = blackTileLeft + blackTileWidth;
+            int blackTileBottom = blackTileTop + blackTileWidth;
             // not working as intended
             boolean xOverlap = playerRight > blackTileLeft && x < blackTileRight;
             boolean yOverlap = playerBottom > blackTileTop && y < blackTileBottom;
