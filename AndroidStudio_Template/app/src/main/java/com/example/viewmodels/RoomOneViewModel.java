@@ -4,15 +4,11 @@ import com.example.model.Player;
 import com.example.model.PlayerMovement;
 import com.example.model.PlayerMovementStrategy;
 import com.example.views.RoomTwo;
-import com.example.views.RoomOne;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.widget.ImageView;
-
-import java.io.Serializable;
 import java.util.List;
 
 public class RoomOneViewModel {
@@ -38,7 +34,7 @@ public class RoomOneViewModel {
     }
     // Strategy pattern for handling player input for movement
     public void handleKeyEvent(int keyCode, List<ImageView> blackTilesList, ImageView avatar) {
-        movementStrategy = new PlayerMovement();
+        movementStrategy = new PlayerMovement(blackTilesList);
         int oldX = player.getX();
         int oldY = player.getY();
         movementStrategy.move(player, keyCode);

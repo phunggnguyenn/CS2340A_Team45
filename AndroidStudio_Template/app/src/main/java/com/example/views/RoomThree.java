@@ -1,26 +1,17 @@
 package com.example.views;
 
-
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.KeyEvent;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.example.demo_2340.R;
-import com.example.model.PlayerMovement;
 import com.example.viewmodels.RoomThreeViewModel;
 import com.example.model.Player;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -96,7 +87,8 @@ public class RoomThree extends AppCompatActivity {
         }
         avatarImageView = findViewById(R.id.imageAvatar);
         avatarImageView.setImageResource(player.getAvatarId());
-        ViewGroup.MarginLayoutParams playerLayout = (ViewGroup.MarginLayoutParams) avatarImageView.getLayoutParams();
+        ViewGroup.MarginLayoutParams playerLayout = (ViewGroup.MarginLayoutParams)
+                avatarImageView.getLayoutParams();
         playerLayout.topMargin = 1165;
         playerLayout.leftMargin = 85;
         avatarImageView.setLayoutParams(playerLayout);

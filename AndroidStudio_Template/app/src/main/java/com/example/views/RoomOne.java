@@ -4,25 +4,14 @@ package com.example.views;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.example.model.Player;
 import com.example.demo_2340.R;
-import com.example.model.PlayerMovement;
-import com.example.model.PlayerMovementStrategy;
-import com.example.viewmodels.PlayerObserver;
-import com.example.viewmodels.PlayerObserverStrategy;
 import com.example.viewmodels.RoomOneViewModel;
-
 import java.util.ArrayList;
 import java.util.List;
 import android.view.KeyEvent;
@@ -86,7 +75,8 @@ public class RoomOne extends AppCompatActivity {
                         || (row == 6 && ((col == 6) || (col == 10)))
                         || (row == 7 && (((col > 2) && (col < 5)) || (col == 10)))
                         || (row == 8 && ((col > 1 && col < 4) || (col > 5 && col < 9)))
-                        || (row == 9 && ((col > 2) && (col < 5) || col == 6 || col == 8 || col == 11))
+                        || (row == 9 && ((col > 2) && (col < 5) || col == 6
+                        || col == 8 || col == 11))
                         || (row == 10 && col == 11)
                         || (row == 11 && ((col > 0 && col < 4) || (col > 4 && col < 8)))
                         || (row == 13 && col != 5)) {
@@ -107,7 +97,8 @@ public class RoomOne extends AppCompatActivity {
         }
         avatarImageView = findViewById(R.id.imageAvatar);
         avatarImageView.setImageResource(player.getAvatarId());
-        ViewGroup.MarginLayoutParams playerLayout = (ViewGroup.MarginLayoutParams) avatarImageView.getLayoutParams();
+        ViewGroup.MarginLayoutParams playerLayout = (ViewGroup.MarginLayoutParams)
+                avatarImageView.getLayoutParams();
         playerLayout.topMargin = 1165;
         playerLayout.leftMargin = 445;
         avatarImageView.setLayoutParams(playerLayout);

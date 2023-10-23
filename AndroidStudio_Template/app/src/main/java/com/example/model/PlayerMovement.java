@@ -1,11 +1,14 @@
 package com.example.model;
-import android.media.Image;
+
 import android.view.KeyEvent;
 import android.widget.ImageView;
-
 import java.util.List;
 
 public class PlayerMovement implements PlayerMovementStrategy {
+    private List<ImageView> blackTilesList;
+    public PlayerMovement(List<ImageView> blackTilesList) {
+        this.blackTilesList = blackTilesList;
+    }
     @Override
     public void move(Player player, int keyCode) {
         switch (keyCode) {
@@ -34,7 +37,7 @@ public class PlayerMovement implements PlayerMovementStrategy {
             int blackTileTop = blackTile.getTop();
             int blackTileRight = blackTile.getRight();
             int blackTileBottom = blackTile.getBottom();
-
+            // not working as intended
             boolean xOverlap = playerRight > blackTileLeft && x < blackTileRight;
             boolean yOverlap = playerBottom > blackTileTop && y < blackTileBottom;
 

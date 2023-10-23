@@ -5,21 +5,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.KeyEvent;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.example.demo_2340.R;
-import com.example.model.PlayerMovement;
 import com.example.viewmodels.RoomTwoViewModel;
 import com.example.model.Player;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +21,7 @@ public class RoomTwo extends AppCompatActivity {
     private Player player;
     private TextView scoreTextView;
     private Handler handler;
-    ImageView avatarImageView;
+    private ImageView avatarImageView;
     private List<ImageView> blackTilesList;
 
     @Override
@@ -73,7 +66,8 @@ public class RoomTwo extends AppCompatActivity {
                         || (row == 4 && (col == 3 || col == 8 || col == 10
                         || (col > 4 && col < 7)))
                         || (row == 5 && (col < 2))
-                        || (row == 6 && ((col == 0) || (col > 2 && col < 5) || (col > 5 && col < 8)))
+                        || (row == 6 && ((col == 0) || (col > 2 && col < 5)
+                        || (col > 5 && col < 8)))
                         || (row == 7 && (((col > 6) && (col < 10))
                         || (col == 3) || col == 11))
                         || (row == 8 && ((col > 1 && col < 6) || col == 7))
@@ -95,7 +89,8 @@ public class RoomTwo extends AppCompatActivity {
         }
         avatarImageView = findViewById(R.id.imageAvatar);
         avatarImageView.setImageResource(player.getAvatarId());
-        ViewGroup.MarginLayoutParams playerLayout = (ViewGroup.MarginLayoutParams) avatarImageView.getLayoutParams();
+        ViewGroup.MarginLayoutParams playerLayout = (ViewGroup.MarginLayoutParams)
+                avatarImageView.getLayoutParams();
         playerLayout.topMargin = 1165;
         playerLayout.leftMargin = 715;
         avatarImageView.setLayoutParams(playerLayout);

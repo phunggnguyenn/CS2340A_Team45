@@ -10,8 +10,6 @@ import com.example.model.Player;
 import com.example.model.PlayerMovement;
 import com.example.model.PlayerMovementStrategy;
 import com.example.views.RoomThree;
-import com.example.views.RoomTwo;
-
 import java.util.List;
 
 public class RoomTwoViewModel {
@@ -24,7 +22,6 @@ public class RoomTwoViewModel {
     public RoomTwoViewModel(Player player, int score, Context context) {
         this.score = score;
         this.player = player;
-        this.movementStrategy = new PlayerMovement();
         this.context = context;
     }
     public int getScore() {
@@ -38,7 +35,7 @@ public class RoomTwoViewModel {
         }
     }
     public void handleKeyEvent(int keyCode, List<ImageView> blackTilesList, ImageView avatar) {
-        movementStrategy = new PlayerMovement();
+        movementStrategy = new PlayerMovement(blackTilesList);
         int oldX = player.getX();
         int oldY = player.getY();
         movementStrategy.move(player, keyCode);
