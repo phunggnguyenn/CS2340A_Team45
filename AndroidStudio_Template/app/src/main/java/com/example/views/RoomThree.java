@@ -2,13 +2,11 @@ package com.example.views;
 
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.KeyEvent;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,7 +15,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.demo_2340.R;
-import com.example.model.PlayerMovement;
 import com.example.viewmodels.RoomThreeViewModel;
 import com.example.model.Player;
 
@@ -30,7 +27,7 @@ public class RoomThree extends AppCompatActivity {
     private TextView scoreTextView;
     private Handler handler = new Handler();
     private ImageView avatarImageView;
-    private List<ImageView> blackTilesList;
+    private List<ImageView> blackTilesList; //contains ref of black tiles aka collisions/walls
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,17 +140,36 @@ public class RoomThree extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         viewModel.handleKeyEvent(keyCode, blackTilesList, avatarImageView);
-        return true;
+
+        // Updating player's pos and checking for collisions
+        int newX = player.getX();
+        int newY = player.getY();
+
+        if (player.isValidMove(blackTilesList, newX, newY)) {
+            // If the move is valid, update the player's pos
+            player.setX(newX);
+            player.setY(newY);
+            //updating avatars new pos
+            avatarImageView.setX(newX);
+            avatarImageView.setY(newY);
+
+            // Check if the player has reached the final exit
+            if (hasPlayerReachedFinalExit(newX, newY)) {
+                Log.d("Game", "Player has reached the final exit.");
+                startGameEndActivity(player);
+                return true; // Exit the method to prevent further movement
+            }
+        }
+
+        Log.d("Game", "Player position: X = " + newX + ", Y = " + newY);
+        return super.onKeyDown(keyCode, event);
     }
 
     // Check if the player has reached the final exit
     private boolean hasPlayerReachedFinalExit(int row, int column) {
-        int finalExitX = 14;
-        int finalExitY = 2;
-        // Implement your logic to check if the player is at the final exit
-        // For example, you can compare the player's position (x, y) to the exit's position
-        // If they match, return true; otherwise, return false
-        return (row == finalExitX && column == finalExitY); // Adjust these coordinates accordingly
+        int finalExitX = 895;
+        int finalExitY = 10;
+        return (row == finalExitX && column == finalExitY);
     }
 
 }
