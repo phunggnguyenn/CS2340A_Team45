@@ -1,12 +1,16 @@
 package com.example.viewmodels;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.widget.ImageView;
 
 import com.example.model.Player;
 import com.example.model.PlayerMovement;
 import com.example.model.PlayerMovementStrategy;
+import com.example.views.RoomThree;
+import com.example.views.RoomTwo;
 
 import java.util.List;
 
@@ -15,6 +19,7 @@ public class RoomTwoViewModel {
     private Player player;
     private PlayerMovementStrategy movementStrategy;
     private Context context;
+    private PlayerObserverStrategy observer;
 
     public RoomTwoViewModel(Player player, int score, Context context) {
         this.score = score;
@@ -52,5 +57,16 @@ public class RoomTwoViewModel {
             avatar.setX(oldX);
             avatar.setY(oldY);
         }
+    }
+    public boolean checkReachedGoal() {
+        observer = new PlayerObserver(player);
+        return observer.playerReachedGoal();
+    }
+    public void moveToNextRoom() {
+        Intent room3Intent = new Intent(context, RoomThree.class);
+        room3Intent.putExtra("player", player);
+        room3Intent.putExtra("score", score);
+        context.startActivity(room3Intent);
+        ((Activity) context).finish();
     }
 }

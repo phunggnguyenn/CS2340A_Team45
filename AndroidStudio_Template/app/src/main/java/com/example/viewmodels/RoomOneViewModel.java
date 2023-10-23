@@ -9,16 +9,18 @@ import com.example.views.RoomOne;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.widget.ImageView;
 
 import java.io.Serializable;
 import java.util.List;
 
-public class RoomOneViewModel implements PlayerObserver {
+public class RoomOneViewModel {
     private int score;
     private Player player;
     private PlayerMovementStrategy movementStrategy;
     private Context context;
+    private PlayerObserverStrategy observer;
     public RoomOneViewModel(Player player, Context context) {
         this.score = 1000;
         this.player = player;
@@ -34,17 +36,6 @@ public class RoomOneViewModel implements PlayerObserver {
             score = 0; // Ensure the score doesn't go below 0
         }
     }
-    @Override
-    public void playerReachedGoal() {
-        movePlayerToNextRoom();
-    }
-    private void movePlayerToNextRoom() {
-        Intent room2Intent = new Intent(context, RoomTwo.class);
-        room2Intent.putExtra("player", player);
-        room2Intent.putExtra("score", score);
-        context.startActivity(room2Intent);
-        ((Activity) context).finish();
-    }
     // Strategy pattern for handling player input for movement
     public void handleKeyEvent(int keyCode, List<ImageView> blackTilesList, ImageView avatar) {
         movementStrategy = new PlayerMovement();
@@ -53,6 +44,8 @@ public class RoomOneViewModel implements PlayerObserver {
         movementStrategy.move(player, keyCode);
         int newX = player.getX();
         int newY = player.getY();
+        Log.d("RoomOne", "Player position: x=" + newX + ", y=" + newY);
+        Log.d("RoomOne", "Goal position: x=" + player.getGoalX() + ", y=" + player.getGoalY());
         if (movementStrategy.isValidMove(blackTilesList, newX, newY, player)) {
             player.setX(newX);
             player.setY(newY);
@@ -64,5 +57,16 @@ public class RoomOneViewModel implements PlayerObserver {
             avatar.setX(oldX);
             avatar.setY(oldY);
         }
+    }
+    public boolean checkReachedGoal() {
+        observer = new PlayerObserver(player);
+        return observer.playerReachedGoal();
+    }
+    public void moveToNextRoom() {
+        Intent room2Intent = new Intent(context, RoomTwo.class);
+        room2Intent.putExtra("player", player);
+        room2Intent.putExtra("score", score);
+        context.startActivity(room2Intent);
+        ((Activity) context).finish();
     }
 }
