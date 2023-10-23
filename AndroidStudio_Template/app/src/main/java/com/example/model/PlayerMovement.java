@@ -32,9 +32,10 @@ public class PlayerMovement implements PlayerMovementStrategy {
     }
     @Override
     public boolean isValidMove(List<ImageView> blackTilesList, int x, int y, Player player) {
-        int playerRight = x + player.getPlayerWidth();
-        int playerBottom = y + player.getPlayerHeight();
-        Rect playerRect = new Rect(x, y, x + 60, y + 60);
+        Log.d("BlackTilesList", "BlackTilesList size: " + blackTilesList.size());
+        int playerRight = x + 60;
+        int playerBottom = y + 60;
+        Rect playerRect = new Rect(x, y, playerRight, playerBottom);
         for (ImageView blackTile : blackTilesList) {
             int blackTileLeft = blackTile.getLeft();
             int blackTileTop = blackTile.getTop();
@@ -43,16 +44,13 @@ public class PlayerMovement implements PlayerMovementStrategy {
             Rect blackTileRect = new Rect(blackTileLeft, blackTileTop, blackTileRight, blackTileBottom);
 
             if (playerRect.intersect(blackTileRect)) {
-                Log.d("Collision", "Intersection detected at X: " + x + ", Y: " + y);
-                Log.d("Collision", "Player Rect: " + playerRect.toString());
-                Log.d("Collision", "Black Tile Rect: " + blackTileRect.toString());
                 return false;
             }
 
         }
         int screenWidth = 11 * (90);
         int screenHeight = 13 * (90);
-        if (x < 0 || y < 0 || playerRight > screenWidth || playerBottom > screenHeight) {
+        if (x < 0 || y < 0 || x > screenWidth || y > screenHeight) {
             return false;
         }
         // theres no collision, so valid move
