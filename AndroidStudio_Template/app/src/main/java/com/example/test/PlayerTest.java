@@ -108,13 +108,13 @@ public class PlayerTest {
         assertFalse(player1.isValidMove(new ArrayList<>(), 990 , 0));
         assertFalse(player1.isValidMove(new ArrayList<>(), -1 , 0));
     }
-    // Member: Maria Jothish (CHANGE NAME)
+    // Member: Jaeung Woo
     // This method tests if player moves within screen width and height is a valid move.
     @Test
     public void testIsValidMove() {
         assertTrue(player1.isValidMove(new ArrayList<>(), 900, 1000));
     }
-    // Member: Maria Jothish (CHANGE NAME)
+    // Member: Jaeung Woo
     // This method tests what happens when KeyEventUp occurs.
     @Test
     public void testKeyCodeUp() {
@@ -122,7 +122,7 @@ public class PlayerTest {
         player1.move(KeyEvent.KEYCODE_DPAD_UP);
         assertEquals(oldY - 10, player1.getY());
     }
-    // Member: Maria Jothish (CHANGE NAME)
+    // Member: Ellie Salisbury
     // This method tests what happens when KeyEventDown occurs.
     @Test
     public void testKeyCodeDown() {
@@ -131,7 +131,7 @@ public class PlayerTest {
         player1.move(KeyEvent.KEYCODE_DPAD_DOWN);
         assertEquals(oldY, player1.getY());
     }
-    // Member: Maria Jothish (CHANGE NAME)
+    // Member: Ellie Salisbury
     // This method tests what happens when KeyEventLeft occurs.
     @Test
     public void testKeyCodeLeft() {
@@ -140,7 +140,7 @@ public class PlayerTest {
         player1.move(KeyEvent.KEYCODE_DPAD_LEFT);
         assertEquals(oldX - 10, player1.getX());
     }
-    // Member: Maria Jothish (CHANGE NAME)
+    // Member: Edmond Li
     // This method tests what happens when KeyEventRight occurs.
     @Test
     public void testKeyCodeRight() {
