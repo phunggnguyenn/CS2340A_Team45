@@ -1,5 +1,7 @@
 package com.example.model;
 
+import android.graphics.Rect;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.ImageView;
 import java.util.List;
@@ -33,6 +35,7 @@ public class PlayerMovement implements PlayerMovementStrategy {
     public boolean isValidMove(List<ImageView> blackTilesList, int x, int y, Player player) {
         int playerRight = x + player.getPlayerWidth();
         int playerBottom = y + player.getPlayerHeight();
+<<<<<<< HEAD
         int blackTileWidth = 80;
         for (ImageView blackTile : blackTilesList) {
             int blackTileLeft = blackTile.getLeft();
@@ -42,11 +45,23 @@ public class PlayerMovement implements PlayerMovementStrategy {
             // not working as intended
             boolean xOverlap = playerRight > blackTileLeft && x < blackTileRight;
             boolean yOverlap = playerBottom > blackTileTop && y < blackTileBottom;
+=======
+        Rect playerRect = new Rect(x, y, x + 60, y + 60);
+        for (ImageView blackTile : blackTilesList) {
+            int blackTileLeft = blackTile.getLeft();
+            int blackTileTop = blackTile.getTop();
+            int blackTileRight = blackTile.getRight();
+            int blackTileBottom = blackTile.getBottom();
+            Rect blackTileRect = new Rect(blackTileLeft, blackTileTop, blackTileRight, blackTileBottom);
+>>>>>>> main
 
-            if (xOverlap && yOverlap) {
-                // There's a collision in both X and Y axes, so it's an invalid move
+            if (playerRect.intersect(blackTileRect)) {
+                Log.d("Collision", "Intersection detected at X: " + x + ", Y: " + y);
+                Log.d("Collision", "Player Rect: " + playerRect.toString());
+                Log.d("Collision", "Black Tile Rect: " + blackTileRect.toString());
                 return false;
             }
+
         }
         int screenWidth = 11 * (90);
         int screenHeight = 13 * (90);
