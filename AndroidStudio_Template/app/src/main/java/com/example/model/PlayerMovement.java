@@ -35,19 +35,11 @@ public class PlayerMovement implements PlayerMovementStrategy {
             int blackTileRight = blackTile.getRight();
             int blackTileBottom = blackTile.getBottom();
 
-            // Check 1: boundaries overlap check
-            if (playerRight > blackTileLeft
-                    && x < blackTileRight
-                    && playerBottom > blackTileTop
-                    && y < blackTileBottom) {
-                // theres a collision, so invalid move
-                return false;
-            }
-            // Check 2: inside boundaries check
-            if (x >= blackTileLeft
-                    && playerRight <= blackTileRight
-                    && y >= blackTileTop
-                    && playerBottom <= blackTileBottom) {
+            boolean xOverlap = playerRight > blackTileLeft && x < blackTileRight;
+            boolean yOverlap = playerBottom > blackTileTop && y < blackTileBottom;
+
+            if (xOverlap && yOverlap) {
+                // There's a collision in both X and Y axes, so it's an invalid move
                 return false;
             }
         }
