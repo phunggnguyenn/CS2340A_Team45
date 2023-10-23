@@ -1,14 +1,9 @@
 package com.example.model;
 
 import java.io.Serializable;
-
 import android.view.KeyEvent;
 import android.widget.ImageView;
-
-import com.example.viewmodels.PlayerObserver;
-
 import java.util.List;
-
 
 public class Player implements Serializable {
     private int x; //for movement
@@ -21,6 +16,7 @@ public class Player implements Serializable {
     private static Player player;
     private int goalX;
     private int goalY;
+
 
     private Player(String playerName, int healthPoints, int avatarId,
                    int playerWidth, int playerHeight) {
@@ -157,4 +153,5 @@ public class Player implements Serializable {
         // theres no collision, so valid move
         return true;
     }
+
 }
