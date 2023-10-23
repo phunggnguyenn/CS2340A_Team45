@@ -101,20 +101,20 @@ public class Player implements Serializable {
     // not used in viewModels, only used for testing purposes
     public void move(int keyCode) {
         switch (keyCode) {
-            case KeyEvent.KEYCODE_DPAD_DOWN:
-                moveDown();
-                break;
-            case KeyEvent.KEYCODE_DPAD_UP:
-                moveUp();
-                break;
-            case KeyEvent.KEYCODE_DPAD_LEFT:
-                moveLeft();
-                break;
-            case KeyEvent.KEYCODE_DPAD_RIGHT:
-                moveRight();
-                break;
-            default:
-                break;
+        case KeyEvent.KEYCODE_DPAD_DOWN:
+            moveDown();
+            break;
+        case KeyEvent.KEYCODE_DPAD_UP:
+            moveUp();
+            break;
+        case KeyEvent.KEYCODE_DPAD_LEFT:
+            moveLeft();
+            break;
+        case KeyEvent.KEYCODE_DPAD_RIGHT:
+            moveRight();
+            break;
+        default:
+            break;
         }
     }
 
