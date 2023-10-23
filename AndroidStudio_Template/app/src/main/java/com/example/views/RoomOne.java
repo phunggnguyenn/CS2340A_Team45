@@ -113,8 +113,6 @@ public class RoomOne extends AppCompatActivity {
         avatarImageView.setLayoutParams(playerLayout);
         player.setX(playerLayout.leftMargin);
         player.setY(playerLayout.topMargin);
-
-        Button room2btn = findViewById(R.id.room2btn);
         scoreTextView = findViewById(R.id.scoreTextView);
 
         // Start updating the score
@@ -127,22 +125,7 @@ public class RoomOne extends AppCompatActivity {
                 handler.postDelayed(this, 1000);
             }
         }, 1000);
-        room2btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startRoom2Activity(player);
-            }
-        });
     }
-
-    private void startRoom2Activity(Player player) {
-        Intent room2Intent = new Intent(this, RoomTwo.class);
-        room2Intent.putExtra("player", player);
-        room2Intent.putExtra("score", viewModel.getScore());
-        startActivity(room2Intent);
-        finish(); // Finish the room1 activity
-    }
-
     public int getScore() {
         return viewModel.getScore();
     }
@@ -154,64 +137,4 @@ public class RoomOne extends AppCompatActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
-    /*
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        PlayerMovement playerMovement = new PlayerMovement();
-        ImageView avatarImageView = findViewById(R.id.imageAvatar);
-        int oldX = player.getX();
-        int oldY = player.getY();
-        playerMovement.move(player, keyCode);
-        int newX = player.getX();
-        int newY = player.getY();
-        if (player.isValidMove(blackTilesList, newX, newY)) {
-            player.setX(newX);
-            player.setY(newY);
-            avatarImageView.setX(newX);
-            avatarImageView.setY(newY);
-        } else {
-            player.setX(oldX);
-            player.setY(oldY);
-            avatarImageView.setX(oldX);
-            avatarImageView.setY(oldY);
-        }
-        return super.onKeyDown(keyCode, event);
-    }
-/*
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        int oldX = player.getX();
-        int oldY = player.getY();
-
-        player.move(keyCode);
-
-        // Updating player's pos and checking for collisions
-        int newX = player.getX();
-        int newY = player.getY();
-
-        if (player.isValidMove(blackTilesList, newX, newY)) {
-            Log.d("RoomOne", "Player position: x=" + newX + ", y=" + newY);
-            Log.d("RoomOne", "Goal position: x=" + player.getGoalX() + ", y=" + player.getGoalY());
-            // If the move is valid, update the player's pos
-            player.setX(newX);
-            player.setY(newY);
-            //updating avatars new pos
-            ImageView avatarImageView = findViewById(R.id.imageAvatar);
-            ViewGroup.MarginLayoutParams playerLayout = (ViewGroup.MarginLayoutParams) avatarImageView.getLayoutParams();
-            playerLayout.topMargin = newY; // Update top margin
-            playerLayout.leftMargin = newX; // Update left margin
-            avatarImageView.setLayoutParams(playerLayout);
-            if (newX == player.getGoalX() && newY == player.getGoalY()) {
-                //player.notifyObservers();
-                startRoom2Activity(player);
-            }
-        } else {
-            player.setX(oldX);
-            player.setY(oldY);
-        }
-
-        return super.onKeyDown(keyCode, event);
-    }
-
- */
 }

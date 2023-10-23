@@ -114,31 +114,6 @@ public class RoomThree extends AppCompatActivity {
                 handler.postDelayed(this, 1000);
             }
         }, 1000);
-
-        //Temporarily removing the temporary next button to navigate to the ending screen for Sprint 3.
-        // Button ending = findViewById();
-        // Start updating the score
-        /** ending.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-        startGameEndActivity(player);
-        }
-        }); */
-    }
-
-
-    private void startGameEndActivity(Player player) {
-        Intent endIntent = new Intent(this, GameEndActivity.class);
-        endIntent.putExtra("player", player);
-        endIntent.putExtra("score", viewModel.getScore());
-        startActivity(endIntent);
-        finish(); // Finish the room3 activity
-    }
-    public void updateScore(int change) {
-        viewModel.getScore();
-    }
-    public int getScore() {
-        return viewModel.getScore();
     }
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -148,15 +123,5 @@ public class RoomThree extends AppCompatActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
-
-    // Check if the player has reached the final exit
-    private boolean hasPlayerReachedFinalExit(int row, int column) {
-        int finalExitX = 14;
-        int finalExitY = 2;
-        // Implement your logic to check if the player is at the final exit
-        // For example, you can compare the player's position (x, y) to the exit's position
-        // If they match, return true; otherwise, return false
-        return (row == finalExitX && column == finalExitY); // Adjust these coordinates accordingly
-    }
-
 }
+

@@ -38,9 +38,6 @@
                 android:elevation="10dp"
                 android:focusable="true"
                 android:focusableInTouchMode="true"/>
-
-
         </RelativeLayout>
-
     </RelativeLayout>
 </RelativeLayout>

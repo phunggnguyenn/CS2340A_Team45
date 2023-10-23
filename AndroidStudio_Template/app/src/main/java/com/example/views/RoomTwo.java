@@ -113,22 +113,6 @@ public class RoomTwo extends AppCompatActivity {
                 handler.postDelayed(this, 1000);
             }
         }, 1000);
-
-        Button room3btn = findViewById(R.id.room3btn);
-        // Start updating the score
-        room3btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startRoom3Activity(player);
-            }
-        });
-    }
-    private void startRoom3Activity(Player player) {
-        Intent room3Intent = new Intent(this, RoomThree.class);
-        room3Intent.putExtra("player", player);
-        room3Intent.putExtra("score", viewModel.getScore());
-        startActivity(room3Intent);
-        finish(); // Finish the room2 activity
     }
     public int getScore() {
         return viewModel.getScore();
