@@ -22,7 +22,6 @@ public class Player implements Serializable {
     private int goalX;
     private int goalY;
 
-
     private Player(String playerName, int healthPoints, int avatarId,
                    int playerWidth, int playerHeight) {
         this.playerName = playerName;
@@ -158,5 +157,4 @@ public class Player implements Serializable {
         // theres no collision, so valid move
         return true;
     }
-
 }

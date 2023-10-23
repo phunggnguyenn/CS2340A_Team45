@@ -14,7 +14,7 @@ public class PlayerObserver implements PlayerObserverStrategy {
     }
     @Override
     public boolean playerReachedGoal() {
-        if (player.getX() == player.getGoalX() && player.getY() == player.getGoalY()) {
+        if (player.getX() == player.getGoalX()&& player.getY() == player.getGoalY()) {
             return true;
         }
         return false;

@@ -1,56 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#000000"
-    android:layout_gravity="center">
+    android:layout_gravity="center"
+    android:background="#0B0B0B"
+    android:backgroundTint="#000000"
+    android:orientation="vertical">
+
     <TextView
         android:id="@+id/scoreTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:textColor="#FFFFFF"
         android:elevation="10dp"
+        android:textColor="#FFFFFF"
         android:textSize="18sp" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Congrats! You have successfully completed the game."
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:padding="10dp"
+        android:layout_marginBottom="80dp"
         android:background="#000000"
-        android:textColor="#FFFFFF"
         android:gravity="center"
-        android:layout_marginBottom="80dp">
-    </TextView>
+        android:padding="10dp"
+        android:text="YOU WIN!"
+        android:textColor="#FFFFFF"
+        android:textSize="48sp"
+        android:textStyle="bold"></TextView>
 
     <TextView
         android:id="@+id/textView6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Your score:"
-        android:textSize="20sp"
-        android:padding="10dp"
         android:background="#000000"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="Your score:"
         android:textColor="#FFFFFF"
-        android:gravity="center" />
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/textView7"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text=""
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:padding="10dp"
         android:background="#000000"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text=""
         android:textColor="#FFFFFF"
-        android:gravity="center"/>
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -132,6 +132,7 @@
                     android:padding="8dp"
                     android:text="100"
                     android:textColor="#FFFFFF" />
+
                 <TextView
                     android:id="@+id/dateTime1TextView"
                     android:layout_width="wrap_content"
@@ -139,7 +140,7 @@
                     android:padding="8dp"
                     android:text="10/09/2023 6:27PM"
                     android:textColor="#FFFFFF"
-                    android:textSize="7sp" />
+                    android:textSize="6sp" />
             </TableRow>
 
             <TableRow>
@@ -167,6 +168,7 @@
                     android:padding="8dp"
                     android:text="750"
                     android:textColor="#FFFFFF" />
+
                 <TextView
                     android:id="@+id/dateTime2TextView"
                     android:layout_width="wrap_content"
@@ -174,7 +176,7 @@
                     android:padding="8dp"
                     android:text="10/09/2023 6:00PM"
                     android:textColor="#FFFFFF"
-                    android:textSize="7sp" />
+                    android:textSize="6sp" />
             </TableRow>
 
             <TableRow>
@@ -202,6 +204,7 @@
                     android:padding="8dp"
                     android:text="700"
                     android:textColor="#FFFFFF" />
+
                 <TextView
                     android:id="@+id/dateTime3TextView"
                     android:layout_width="wrap_content"
@@ -209,7 +212,7 @@
                     android:padding="8dp"
                     android:text="10/09/2023 5:35PM"
                     android:textColor="#FFFFFF"
-                    android:textSize="7sp" />
+                    android:textSize="6sp" />
             </TableRow>
 
             <TableRow>
@@ -237,6 +240,7 @@
                     android:padding="8dp"
                     android:text="380"
                     android:textColor="#FFFFFF" />
+
                 <TextView
                     android:id="@+id/dateTime4TextView"
                     android:layout_width="wrap_content"
@@ -244,7 +248,7 @@
                     android:padding="8dp"
                     android:text="10/05/2023 2:16AM"
                     android:textColor="#FFFFFF"
-                    android:textSize="7sp" />
+                    android:textSize="6sp" />
             </TableRow>
 
             <TableRow>
@@ -272,6 +276,7 @@
                     android:padding="8dp"
                     android:text="65"
                     android:textColor="#FFFFFF" />
+
                 <TextView
                     android:id="@+id/dateTime5TextView"
                     android:layout_width="wrap_content"
@@ -279,17 +284,18 @@
                     android:padding="8dp"
                     android:text="10/03/2023 12:40PM"
                     android:textColor="#FFFFFF"
-                    android:textSize="7sp" />
+                    android:textSize="6sp" />
             </TableRow>
 
 
         </TableLayout>
     </LinearLayout>
+
     <Button
         android:id="@+id/restart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
         android:layout_marginLeft="290dp"
-        android:text="Restart"/>
+        android:layout_marginTop="30dp"
+        android:text="Restart" />
 </LinearLayout>
