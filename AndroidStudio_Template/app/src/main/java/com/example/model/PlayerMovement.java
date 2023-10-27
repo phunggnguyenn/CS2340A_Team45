@@ -36,9 +36,16 @@ public class PlayerMovement implements PlayerMovementStrategy {
 
     @Override
     public boolean isValidMove(List<ImageView> blackTilesList, int x, int y, Player player) {
+<<<<<<< HEAD
         int playerRight = x + player.getPlayerWidth();
         int playerBottom = y + player.getPlayerHeight();
         int blackTileWidth = 80;
+=======
+        Log.d("BlackTilesList", "BlackTilesList size: " + blackTilesList.size());
+        int playerRight = x + 60;
+        int playerBottom = y + 60;
+        Rect playerRect = new Rect(x, y, playerRight, playerBottom);
+>>>>>>> main
         for (ImageView blackTile : blackTilesList) {
             int blackTileLeft = blackTile.getLeft();
             int blackTileTop = blackTile.getTop();
@@ -55,18 +62,23 @@ public class PlayerMovement implements PlayerMovementStrategy {
                 blackTileBottom = blackTile.getBottom();
                 Rect blackTileRect = new Rect(blackTileLeft, blackTileTop, blackTileRight, blackTileBottom);
 
+<<<<<<< HEAD
                 if (playerRect.intersect(blackTileRect)) {
                     Log.d("Collision", "Intersection detected at X: " + x + ", Y: " + y);
                     Log.d("Collision", "Player Rect: " + playerRect.toString());
                     Log.d("Collision", "Black Tile Rect: " + blackTileRect.toString());
                     return false;
                 }
+=======
+            if (playerRect.intersect(blackTileRect)) {
+                return false;
+>>>>>>> main
             }
         }
 
         int screenWidth = 11 * (90);
         int screenHeight = 13 * (90);
-        if (x < 0 || y < 0 || playerRight > screenWidth || playerBottom > screenHeight) {
+        if (x < 0 || y < 0 || x > screenWidth || y > screenHeight) {
             return false;
         }
         // There's no collision, so valid move
