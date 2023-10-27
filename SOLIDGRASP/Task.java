@@ -15,6 +15,14 @@ public class Task {
         this.priority = priority;
     }
 
-    // Getters and setters for Task attributes
-    // Other generic task methods
+
+    public void markAsComplete() {
+        this.status = TaskStatus.COMPLETED;
+    }
+
+    public void setPriority(TaskPriority priority) {
+        this.priority = priority;
+    }
+
+
 }
