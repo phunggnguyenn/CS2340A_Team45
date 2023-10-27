@@ -32,6 +32,6 @@ public class Project {
     public void removeTeamMember(TeamMember teamMember) {
         teamMembers.remove(teamMember);
     }
-    
-    // Other project-related methods here
+
+
 }

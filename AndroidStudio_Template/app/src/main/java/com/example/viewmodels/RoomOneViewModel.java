@@ -11,6 +11,8 @@ import android.util.Log;
 import android.widget.ImageView;
 import java.util.List;
 
+
+
 public class RoomOneViewModel {
     private int score;
     private Player player;
@@ -33,7 +35,7 @@ public class RoomOneViewModel {
         }
     }
     // Strategy pattern for handling player input for movement
-    public void handleKeyEvent(int keyCode, List<ImageView> blackTilesList, ImageView avatar) {
+    public boolean handleKeyEvent(int keyCode, List<ImageView> blackTilesList, ImageView avatar) {
         movementStrategy = new PlayerMovement(blackTilesList);
         int oldX = player.getX();
         int oldY = player.getY();
@@ -47,11 +49,13 @@ public class RoomOneViewModel {
             player.setY(newY);
             avatar.setX(newX);
             avatar.setY(newY);
+            return true;
         } else {
             player.setX(oldX);
             player.setY(oldY);
             avatar.setX(oldX);
             avatar.setY(oldY);
+            return false;
         }
     }
     public boolean checkReachedGoal() {

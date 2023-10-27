@@ -17,6 +17,7 @@ import java.util.List;
 import android.view.KeyEvent;
 
 
+
 public class RoomOne extends AppCompatActivity {
     private RoomOneViewModel viewModel;
     // Initial Score and Handler
@@ -82,7 +83,8 @@ public class RoomOne extends AppCompatActivity {
                         || (row == 13 && col != 5)) {
                     tilesImageView.setImageResource(R.drawable.blacktile3);
                     blackTilesList.add(tilesImageView);
-                } else {
+                }
+                else {
                     tilesImageView.setImageResource(R.drawable.red_tile);
                 }
                 tilesImageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -122,9 +124,10 @@ public class RoomOne extends AppCompatActivity {
     }
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        viewModel.handleKeyEvent(keyCode, blackTilesList, avatarImageView);
-        if (viewModel.checkReachedGoal()) {
-            viewModel.moveToNextRoom();
+        if (viewModel.handleKeyEvent(keyCode, blackTilesList, avatarImageView)) {
+            if (viewModel.checkReachedGoal()) {
+                viewModel.moveToNextRoom();
+            }
         }
         return super.onKeyDown(keyCode, event);
     }

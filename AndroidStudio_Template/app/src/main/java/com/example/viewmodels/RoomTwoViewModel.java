@@ -12,6 +12,7 @@ import com.example.model.PlayerMovementStrategy;
 import com.example.views.RoomThree;
 import java.util.List;
 
+
 public class RoomTwoViewModel {
     private int score;
     private Player player;
@@ -34,7 +35,7 @@ public class RoomTwoViewModel {
             score = 0; // Ensure the score doesn't go below 0
         }
     }
-    public void handleKeyEvent(int keyCode, List<ImageView> blackTilesList, ImageView avatar) {
+    public boolean handleKeyEvent(int keyCode, List<ImageView> blackTilesList, ImageView avatar) {
         movementStrategy = new PlayerMovement(blackTilesList);
         int oldX = player.getX();
         int oldY = player.getY();
@@ -48,11 +49,13 @@ public class RoomTwoViewModel {
             player.setY(newY);
             avatar.setX(newX);
             avatar.setY(newY);
+            return true;
         } else {
             player.setX(oldX);
             player.setY(oldY);
             avatar.setX(oldX);
             avatar.setY(oldY);
+            return false;
         }
     }
     public boolean checkReachedGoal() {
