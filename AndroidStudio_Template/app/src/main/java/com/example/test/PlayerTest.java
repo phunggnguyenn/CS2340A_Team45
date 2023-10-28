@@ -62,9 +62,9 @@ public class PlayerTest {
         assertEquals(oldY - 10, player1.getY());
     }
     /**
-    * Member: Mahathi Gumudavelli
-    * This method tests if player moves down appropriate amount.
-    */
+     * Member: Mahathi Gumudavelli
+     * This method tests if player moves down appropriate amount.
+     */
     @Test
     public void testMoveDownMethod() {
         int oldY = player1.getY();

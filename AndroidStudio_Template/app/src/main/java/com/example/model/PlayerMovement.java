@@ -70,21 +70,18 @@ public class PlayerMovement implements PlayerMovementStrategy {
                     return false;
                 }
 =======
-            if (playerRect.intersect(blackTileRect)) {
-                return false;
+                if (playerRect.intersect(blackTileRect)) {
+                    return false;
 >>>>>>> main
+                }
             }
-        }
 
-        int screenWidth = 11 * (90);
-        int screenHeight = 13 * (90);
-        if (x < 0 || y < 0 || x > screenWidth || y > screenHeight) {
-            return false;
+            int screenWidth = 11 * (90);
+            int screenHeight = 13 * (90);
+            if (x < 0 || y < 0 || x > screenWidth || y > screenHeight) {
+                return false;
+            }
+            // There's no collision, so valid move
+            return true;
         }
-        // There's no collision, so valid move
-        return true;
     }
-}
-
-
-
