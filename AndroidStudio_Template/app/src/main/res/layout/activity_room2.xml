@@ -38,6 +38,20 @@
                 android:elevation="10dp"
                 android:focusable="true"
                 android:focusableInTouchMode="true"/>
+            <ImageView
+                android:id="@+id/imageYellowEnemy"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="97dp"
+                android:src="@drawable/yellowenemy"
+                android:elevation="10dp"/>
+            <ImageView
+                android:id="@+id/imageGreenEnemy"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="97dp"
+                android:src="@drawable/greenenemy"
+                android:elevation="10dp"/>
         </RelativeLayout>
     </RelativeLayout>
 </RelativeLayout>
