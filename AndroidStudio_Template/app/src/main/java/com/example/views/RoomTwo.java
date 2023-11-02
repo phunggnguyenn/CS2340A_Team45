@@ -11,11 +11,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.example.demo_2340.R;
-//import com.example.model.BlueGen;
-import com.example.model.Enemies;
+import com.example.model.EnemyFactory;
 import com.example.model.Enemy;
-//import com.example.model.GreenGen;
-//import com.example.model.YellowGen;
 import com.example.viewmodels.RoomTwoViewModel;
 import com.example.model.Player;
 import java.util.ArrayList;
@@ -25,6 +22,7 @@ import java.util.Random;
 public class RoomTwo extends AppCompatActivity {
     private RoomTwoViewModel viewModel;
     private Player player;
+    private EnemyFactory enemyFactory;
     private TextView scoreTextView;
     private Handler handler;
     private ImageView avatarImageView;
@@ -108,22 +106,14 @@ public class RoomTwo extends AppCompatActivity {
         player.setY(playerLayout.topMargin);
         player.setGoalX(85);
         player.setGoalY(5);
-        // Instantiate ImageViews for enemy
-        yellowenemy = (ImageView) findViewById(R.id.imageYellowEnemy);
-        greenenemy = (ImageView) findViewById(R.id.imageGreenEnemy);
-        // Set the X and Y coordinate of enemy
-        yellowenemy.setX(yellowenemy_x);
-        yellowenemy.setY(yellowenemy_y);
-        greenenemy.setX(greenenemy_x);
-        greenenemy.setY(greenenemy_y);
-        /**
-        Enemies yellowGen = new YellowGen();
-        Enemy yellow = yellowGen.generateEnemy();
-        Enemies greenGen = new GreenGen();
-        Enemy green = greenGen.generateEnemy();
-         */
-        // Create method that will keep enemies moving
-        move();
+
+        //enemy instantiationn
+        enemyFactory = new EnemyFactory();
+        Enemy yellowEnemy = enemyFactory.createYellowEnemy(this, yellowenemy_x, yellowenemy_y);
+        Enemy greenEnemy = enemyFactory.createGreenEnemy(this, greenenemy_x, greenenemy_y);
+
+        room2Layout.addView(yellowEnemy.getView());
+        room2Layout.addView(greenEnemy.getView());
         // Start updating the score
         handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -146,32 +136,6 @@ public class RoomTwo extends AppCompatActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
-    // Start enemy movement
-    public void move() {
-        h.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                h.postDelayed(this, 100);
-                // Call function for enemy movement
-                moveEnemy();
-            }
-        }, 1000);
-    }
-    public void moveEnemy() {
-        // green enemy
-        greenenemy_y = greenenemy_y - 10;
-        greenenemy.setX(greenenemy_x);
-        greenenemy.setY(greenenemy_y);
-        if(greenenemy_y == 0) {
-            greenenemy_y = 750;
-        }
-        // yellow enemy
-        yellowenemy_y = yellowenemy_y - 10;
-        yellowenemy.setX(yellowenemy_x);
-        yellowenemy.setY(yellowenemy_y);
-        if(yellowenemy_y == 0) {
-            yellowenemy_y = 750;
-        }
-    }
+
 
 }
