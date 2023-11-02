@@ -10,10 +10,16 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.example.demo_2340.R;
+//import com.example.model.BlueGen;
+import com.example.model.Enemies;
+import com.example.model.Enemy;
+//import com.example.model.GreenGen;
+//import com.example.model.WhiteGen;
 import com.example.viewmodels.RoomThreeViewModel;
 import com.example.model.Player;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class RoomThree extends AppCompatActivity {
     private Player player;
@@ -22,7 +28,10 @@ public class RoomThree extends AppCompatActivity {
     private Handler handler = new Handler();
     private ImageView avatarImageView;
     private List<ImageView> blackTilesList;
-
+    ImageView blueenemy, whiteenemy, greenenemy;
+    int blueenemy_x = 895, whiteenemy_x = 895, greenenemy_x = 895;
+    int blueenemy_y = 65, whiteenemy_y = 145, greenenemy_y = 895;
+    Handler h = new Handler();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,6 +105,27 @@ public class RoomThree extends AppCompatActivity {
         player.setY(playerLayout.topMargin);
         player.setGoalX(895);
         player.setGoalY(5);
+        // Instantiate ImageViews for enemy
+        blueenemy = (ImageView) findViewById(R.id.imageBlueEnemy);
+        whiteenemy = (ImageView) findViewById(R.id.imageWhiteEnemy);
+        greenenemy = (ImageView) findViewById(R.id.imageGreenEnemy);
+        // Set the X and Y coordinate of enemy
+        blueenemy.setX(blueenemy_x);
+        blueenemy.setY(blueenemy_y);
+        whiteenemy.setX(whiteenemy_x);
+        whiteenemy.setY(whiteenemy_y);
+        greenenemy.setX(greenenemy_x);
+        greenenemy.setY(greenenemy_y);
+        // Create method that will keep enemies moving
+        move();
+        /**
+        Enemies whiteGen = new WhiteGen();
+        Enemy white = whiteGen.generateEnemy();
+        Enemies blueGen = new BlueGen();
+        Enemy blue = blueGen.generateEnemy();
+        Enemies greenGen = new GreenGen();
+        Enemy green = greenGen.generateEnemy();
+         */
         // Start updating the score
         handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -114,5 +144,39 @@ public class RoomThree extends AppCompatActivity {
             viewModel.moveToNextRoom();
         }
         return super.onKeyDown(keyCode, event);
+    }
+    // Start enemy movement
+    public void move() {
+        h.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                h.postDelayed(this, 100);
+                // Call function for enemy movement
+                moveEnemy();
+            }
+        }, 1000);
+    }
+    public void moveEnemy() {
+        // white enemy
+        whiteenemy_x = whiteenemy_x - 10;
+        whiteenemy.setX(whiteenemy_x);
+        whiteenemy.setY(whiteenemy_y);
+        if(whiteenemy_x == 0) {
+            whiteenemy_x = 895;
+        }
+        // blue enemy
+        blueenemy_x = blueenemy_x - 10;
+        blueenemy.setX(blueenemy_x);
+        blueenemy.setY(blueenemy_y);
+        if(blueenemy_x == 0) {
+            blueenemy_x = 895;
+        }
+        // green enemy
+        greenenemy_x = greenenemy_x - 10;
+        greenenemy.setX(greenenemy_x);
+        greenenemy.setY(greenenemy_y);
+        if(greenenemy_x == 0) {
+            greenenemy_x = 895;
+        }
     }
 }
