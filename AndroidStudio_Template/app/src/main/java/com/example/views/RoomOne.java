@@ -133,6 +133,9 @@ public class RoomOne extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
+                blueEnemy.move();
+                whiteEnemy.move();
+
                 viewModel.updateScore(-1);
                 scoreTextView.setText("Score: " + viewModel.getScore());
                 handler.postDelayed(this, 1000);

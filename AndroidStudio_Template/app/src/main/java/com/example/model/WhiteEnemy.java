@@ -11,8 +11,8 @@ public class WhiteEnemy extends Enemy {
     private int x;
     private int y;
 
-    public WhiteEnemy(Context context, int x, int y) {
-        super(new ImageView(context));
+    public WhiteEnemy(Context context, int x, int y, EnemyMovementStrategy movementStrategy) {
+        super(new ImageView(context), movementStrategy);
         getView().setImageResource(R.drawable.whiteenemy);
         getView().setX(x);
         getView().setY(y);

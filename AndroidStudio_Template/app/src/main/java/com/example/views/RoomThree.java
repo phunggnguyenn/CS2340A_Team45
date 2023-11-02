@@ -120,6 +120,9 @@ public class RoomThree extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
+                whiteEnemy.move();
+                greenEnemy.move();
+
                 viewModel.updateScore(-1);
                 scoreTextView.setText("Score: " + viewModel.getScore());
                 handler.postDelayed(this, 1000);

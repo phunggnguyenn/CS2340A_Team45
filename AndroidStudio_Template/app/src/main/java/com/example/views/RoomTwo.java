@@ -119,6 +119,9 @@ public class RoomTwo extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
+                yellowEnemy.move();
+                greenEnemy.move();
+
                 viewModel.updateScore(-1);
                 scoreTextView.setText("Score: " + viewModel.getScore());
                 handler.postDelayed(this, 1000);
