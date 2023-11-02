@@ -11,7 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 //import com.example.model.BlueGen;
-import com.example.model.Enemies;
+import com.example.model.EnemyFactory;
 import com.example.model.Enemy;
 import com.example.model.Player;
 import com.example.demo_2340.R;
@@ -29,7 +29,7 @@ public class RoomOne extends AppCompatActivity {
     private RoomOneViewModel viewModel;
     // Initial Score and Handler
     private Player player;
-    private Enemy enemy;
+    private EnemyFactory enemyFactory;
     private TextView scoreTextView;
     private Handler handler;
     private ImageView avatarImageView;
@@ -50,6 +50,7 @@ public class RoomOne extends AppCompatActivity {
         TextView healthPointsTextView = findViewById(R.id.healthPointsTextView);
         playerNameTextView.setText("Player Name: " + player.getPlayerName());
         healthPointsTextView.setText("Health Points: " + player.getHealthPoints());
+
 
         //KEYMOVEMENT
         blackTilesList = new ArrayList<>();
@@ -119,22 +120,14 @@ public class RoomOne extends AppCompatActivity {
         player.setX(playerLayout.leftMargin);
         player.setY(playerLayout.topMargin);
         scoreTextView = findViewById(R.id.scoreTextView);
-        // Instantiate ImageViews for enemy
-        blueenemy = (ImageView) findViewById(R.id.imageBlueEnemy);
-        whiteenemy = (ImageView) findViewById(R.id.imageWhiteEnemy);
-        // Set the X and Y coordinate of enemy
-        blueenemy.setX(blueenemy_x);
-        blueenemy.setY(blueenemy_y);
-        whiteenemy.setX(whiteenemy_x);
-        whiteenemy.setY(whiteenemy_y);
-        // Create method that will keep enemies moving
-        move();
-        /**
-        Enemies whiteGen = new WhiteGen();
-        Enemy white = whiteGen.generateEnemy();
-        Enemies blueGen = new BlueGen();
-        Enemy blue = blueGen.generateEnemy();
-         */
+        //instantiating enemy factory
+        enemyFactory = new EnemyFactory();
+        Enemy blueEnemy = enemyFactory.createBlueEnemy(this, blueenemy_x, blueenemy_y);
+        Enemy whiteEnemy = enemyFactory.createWhiteEnemy(this, whiteenemy_x, whiteenemy_y);
+
+        room1Layout.addView(blueEnemy.getView());
+        room1Layout.addView(whiteEnemy.getView());
+
         // Start updating the score
         handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -158,33 +151,7 @@ public class RoomOne extends AppCompatActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
-    // Start enemy movement
-    public void move() {
-        h.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                h.postDelayed(this, 100);
-                // Call function for enemy movement
-                moveEnemy();
-            }
-        }, 1000);
-    }
-    public void moveEnemy() {
-        // white enemy
-        whiteenemy_x = whiteenemy_x - 10;
-        whiteenemy.setX(whiteenemy_x);
-        whiteenemy.setY(whiteenemy_y);
-        if(whiteenemy_x == 0) {
-            whiteenemy_x = 65;
-        }
-        // blue enemy
-        blueenemy_x = blueenemy_x - 10;
-        blueenemy.setX(blueenemy_x);
-        blueenemy.setY(blueenemy_y);
-        if(blueenemy_x == 0) {
-            blueenemy_x = 715;
-        }
-    }
+
     /**
     public int getbluex() {
         return blueenemy_x;

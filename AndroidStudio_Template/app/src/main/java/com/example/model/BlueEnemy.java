@@ -1,48 +1,30 @@
-/**
+
 package com.example.model;
-
-import android.os.Handler;
+import android.content.Context;
 import android.widget.ImageView;
-
 import com.example.demo_2340.R;
 
-import java.util.Random;
-
 public class BlueEnemy extends Enemy {
-    ImageView blueenemy;
-    int blueenemy_x = 715;
-    int blueenemy_y = 65;
-    Handler h = new Handler();
+    //int blueenemy_x = 715;
+   // int blueenemy_y = 65;
+    private ImageView blueenemy;
+    private int x;
+    private int y;
+
+    public BlueEnemy(Context context, int x, int y) {
+        super(new ImageView(context));
+        getView().setImageResource(R.drawable.blueenemy);
+        getView().setX(x);
+        getView().setY(y);
+    }
 
     @Override
     void generate() {
-        //Instantiate ImageViews for enemy
-        blueenemy = (ImageView) findViewById(R.id.imageBlueEnemy);
-        //Set the X and Y coordinate of enemy
-        blueenemy.setX(blueenemy_x);
-        blueenemy.setY(blueenemy_y);
-        move();
+
     }
-    // Start enemy movement
-    public void move() {
-        h.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                h.postDelayed(this, 100);
-                // Call function for enemy movement
-                movement();
-            }
-        }, 1000);
+    public void move(EnemyMovementStrategy movementStrategy) {
+        movementStrategy.move(this);
     }
-    public void movement() {git
-        blueenemy_x = blueenemy_x - 10;
-        blueenemy.setX(blueenemy_x);
-        blueenemy.setY(blueenemy_y);
-        if(blueenemy_x == 0) {
-            blueenemy_x = 715;
-            Random r = new Random();
-            blueenemy_y = r.nextInt(800);
-        }
-    }
+
 }
-*/
+
