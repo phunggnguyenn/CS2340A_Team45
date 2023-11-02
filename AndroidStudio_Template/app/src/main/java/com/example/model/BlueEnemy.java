@@ -34,7 +34,7 @@ public class BlueEnemy extends Enemy {
             }
         }, 1000);
     }
-    public void movement() {
+    public void movement() {git
         blueenemy_x = blueenemy_x - 10;
         blueenemy.setX(blueenemy_x);
         blueenemy.setY(blueenemy_y);
