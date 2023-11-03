@@ -10,17 +10,12 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.example.demo_2340.R;
-//import com.example.model.BlueGen;
-import com.example.model.Enemies;
 import com.example.model.Enemy;
-//import com.example.model.GreenGen;
-//import com.example.model.WhiteGen;
 import com.example.model.EnemyFactory;
 import com.example.viewmodels.RoomThreeViewModel;
 import com.example.model.Player;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class RoomThree extends AppCompatActivity {
     private Player player;
@@ -30,10 +25,11 @@ public class RoomThree extends AppCompatActivity {
     private ImageView avatarImageView;
     private List<ImageView> blackTilesList;
     private EnemyFactory enemyFactory;
-    ImageView blueenemy, whiteenemy, greenenemy;
-    int whiteenemy_x = 895, greenenemy_x = 895;
-    int  whiteenemy_y = 145, greenenemy_y = 895;
-    Handler h = new Handler();
+    private int whiteenemyX = 895;
+    private int greenenemyX = 895;
+    private int  whiteenemyY = 145;
+    private int greenenemyY = 895;
+    private Handler h = new Handler();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,8 +106,8 @@ public class RoomThree extends AppCompatActivity {
 
         //enemy instantiation
         enemyFactory = new EnemyFactory();
-        Enemy whiteEnemy = enemyFactory.createBlueEnemy(this, whiteenemy_x, whiteenemy_y);
-        Enemy greenEnemy = enemyFactory.createGreenEnemy(this, greenenemy_x, greenenemy_y);
+        Enemy whiteEnemy = enemyFactory.createBlueEnemy(this, whiteenemyX, whiteenemyY);
+        Enemy greenEnemy = enemyFactory.createGreenEnemy(this, greenenemyX, greenenemyY);
 
         room3Layout.addView(whiteEnemy.getView());
         room3Layout.addView(greenEnemy.getView());

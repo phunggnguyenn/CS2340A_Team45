@@ -5,8 +5,6 @@ import android.widget.ImageView;
 import com.example.demo_2340.R;
 
 public class WhiteEnemy extends Enemy {
-    //int blueenemy_x = 715;
-    // int blueenemy_y = 65;
     private ImageView whiteenemy;
     private int x;
     private int y;

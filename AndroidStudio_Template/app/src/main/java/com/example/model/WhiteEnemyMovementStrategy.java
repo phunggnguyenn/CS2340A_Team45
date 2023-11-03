@@ -3,11 +3,11 @@ package com.example.model;
 import android.widget.ImageView;
 
 //Unique movements is ANGLE
-// 1) goes in big circles in an angle
+// 1) goes in big circles in an angle (360)
 // pending:needs to stay within upper screen boundary
 public class WhiteEnemyMovementStrategy implements EnemyMovementStrategy {
-    private static final int RADIUS = 500; // Customize the radius as needed
-    private double angle = 100;
+    private static final int RADIUS = 300; // Customize the radius as needed
+    private double angle = 360;
     private int directionX = 1; // 1 for right, -1 for left
     private int directionY = 1; // 1 for down, -1 for up
 

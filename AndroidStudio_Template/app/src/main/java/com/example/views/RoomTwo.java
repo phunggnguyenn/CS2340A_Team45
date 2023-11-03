@@ -17,7 +17,6 @@ import com.example.viewmodels.RoomTwoViewModel;
 import com.example.model.Player;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class RoomTwo extends AppCompatActivity {
     private RoomTwoViewModel viewModel;
@@ -27,10 +26,11 @@ public class RoomTwo extends AppCompatActivity {
     private Handler handler;
     private ImageView avatarImageView;
     private List<ImageView> blackTilesList;
-    ImageView greenenemy, yellowenemy;
-    int greenenemy_x = 85, yellowenemy_x = 700;
-    int greenenemy_y = 750, yellowenemy_y = 750;
-    Handler h = new Handler();
+    private int greenenemyX = 85;
+    private int yellowenemyX = 700;
+    private int greenenemyY = 750;
+    private int yellowenemyY = 750;
+    private Handler h = new Handler();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,8 +109,8 @@ public class RoomTwo extends AppCompatActivity {
 
         //enemy instantiationn
         enemyFactory = new EnemyFactory();
-        Enemy yellowEnemy = enemyFactory.createYellowEnemy(this, yellowenemy_x, yellowenemy_y);
-        Enemy greenEnemy = enemyFactory.createGreenEnemy(this, greenenemy_x, greenenemy_y);
+        Enemy yellowEnemy = enemyFactory.createYellowEnemy(this, yellowenemyX, yellowenemyY);
+        Enemy greenEnemy = enemyFactory.createGreenEnemy(this, greenenemyX, greenenemyY);
 
         room2Layout.addView(yellowEnemy.getView());
         room2Layout.addView(greenEnemy.getView());
@@ -138,6 +138,23 @@ public class RoomTwo extends AppCompatActivity {
             viewModel.moveToNextRoom();
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    //ACCESSOR METHODS
+    private int getGreenenemyX() {
+        return greenenemyX;
+    }
+    private int getGreenenemyY() {
+        return greenenemyY;
+    }
+    private int getYellowenemyX() {
+        return yellowenemyX;
+    }
+    private int getYellowenemyY() {
+        return yellowenemyY;
+    }
+    private Handler getHandler() {
+        return h;
     }
 
 
