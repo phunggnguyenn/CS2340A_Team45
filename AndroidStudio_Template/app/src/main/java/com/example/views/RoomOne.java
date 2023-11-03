@@ -10,16 +10,14 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-//import com.example.model.BlueGen;
 import com.example.model.EnemyFactory;
 import com.example.model.Enemy;
 import com.example.model.Player;
 import com.example.demo_2340.R;
-//import com.example.model.WhiteGen;
 import com.example.viewmodels.RoomOneViewModel;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
+
 
 import android.view.KeyEvent;
 
@@ -34,10 +32,9 @@ public class RoomOne extends AppCompatActivity {
     private Handler handler;
     private ImageView avatarImageView;
     private List<ImageView> blackTilesList; //contains ref of black tiles aka collisions/walls
-    ImageView blueenemy, whiteenemy;
-    int  whiteenemy_x = 730;
-    int whiteenemy_y = 60;
-    Handler h = new Handler();
+    //ImageView blueenemy, whiteenemy;
+
+    private Handler h = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,7 +120,7 @@ public class RoomOne extends AppCompatActivity {
         //instantiating enemy factory
         enemyFactory = new EnemyFactory();
         Enemy blueEnemy = enemyFactory.createBlueEnemy(this, 715, 65);
-        Enemy whiteEnemy = enemyFactory.createWhiteEnemy(this, whiteenemy_x, whiteenemy_y);
+        Enemy whiteEnemy = enemyFactory.createWhiteEnemy(this, 500, 60);
 
         room1Layout.addView(blueEnemy.getView());
         room1Layout.addView(whiteEnemy.getView());
@@ -153,6 +150,11 @@ public class RoomOne extends AppCompatActivity {
             }
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    //ACCESSOR METHODS
+    private Handler getHandler() {
+        return h;
     }
 
 

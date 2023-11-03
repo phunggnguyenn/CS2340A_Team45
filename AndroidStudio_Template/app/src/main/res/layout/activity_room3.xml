@@ -36,13 +36,7 @@
                 android:elevation="10dp"
                 android:focusable="true"
                 android:focusableInTouchMode="true"/>
-            <ImageView
-                android:id="@+id/imageBlueEnemy"
-                android:layout_width="39dp"
-                android:layout_height="39dp"
-                android:layout_marginTop="97dp"
-                android:src="@drawable/blueenemy"
-                android:elevation="10dp"/>
+
             <ImageView
                 android:id="@+id/imageWhiteEnemy"
                 android:layout_width="33dp"
