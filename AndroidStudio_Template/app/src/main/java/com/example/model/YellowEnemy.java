@@ -11,8 +11,8 @@ public class YellowEnemy extends Enemy {
     private int x;
     private int y;
 
-    public YellowEnemy(Context context, int x, int y) {
-        super(new ImageView(context));
+    public YellowEnemy(Context context, int x, int y, EnemyMovementStrategy movementStrategy) {
+        super(new ImageView(context), movementStrategy);
         getView().setImageResource(R.drawable.yellowenemy);
         getView().setX(x);
         getView().setY(y);
