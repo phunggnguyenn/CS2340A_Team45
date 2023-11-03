@@ -4,7 +4,7 @@ import android.content.Context;
 public class EnemyFactory {
     public Enemy createBlueEnemy(Context context, int x, int y) {
         // Create and return a BlueEnemy
-        EnemyMovementStrategy blueEnemyMovementStrategy = new BlueEnemyMovementStrategy();
+        EnemyMovementStrategy blueEnemyMovementStrategy = new BlueEnemyMovementStrategy(x, y);
         return new BlueEnemy(context, x, y, blueEnemyMovementStrategy);
     }
 
@@ -16,7 +16,7 @@ public class EnemyFactory {
 
     public Enemy createGreenEnemy(Context context, int x, int y) {
         // Create and return a GreenEnemy
-        EnemyMovementStrategy greenEnemyMovementStrategy = new GreenEnemyMovementStrategy();
+        EnemyMovementStrategy greenEnemyMovementStrategy = new GreenEnemyMovementStrategy(x, y);
         return new GreenEnemy(context, x, y, greenEnemyMovementStrategy);
     }
 

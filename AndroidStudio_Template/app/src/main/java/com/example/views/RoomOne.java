@@ -35,8 +35,8 @@ public class RoomOne extends AppCompatActivity {
     private ImageView avatarImageView;
     private List<ImageView> blackTilesList; //contains ref of black tiles aka collisions/walls
     ImageView blueenemy, whiteenemy;
-    int blueenemy_x = 715, whiteenemy_x = 800;
-    int blueenemy_y = 65, whiteenemy_y = 700;
+    int  whiteenemy_x = 730;
+    int whiteenemy_y = 60;
     Handler h = new Handler();
 
     @Override
@@ -122,7 +122,7 @@ public class RoomOne extends AppCompatActivity {
         scoreTextView = findViewById(R.id.scoreTextView);
         //instantiating enemy factory
         enemyFactory = new EnemyFactory();
-        Enemy blueEnemy = enemyFactory.createBlueEnemy(this, blueenemy_x, blueenemy_y);
+        Enemy blueEnemy = enemyFactory.createBlueEnemy(this, 715, 65);
         Enemy whiteEnemy = enemyFactory.createWhiteEnemy(this, whiteenemy_x, whiteenemy_y);
 
         room1Layout.addView(blueEnemy.getView());
@@ -155,18 +155,5 @@ public class RoomOne extends AppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }
 
-    /**
-    public int getbluex() {
-        return blueenemy_x;
-    }
-    public int getbluey() {
-        return blueenemy_y;
-    }
-    public int getwhitex() {
-        return whiteenemy_x;
-    }
-    public int getwhitey() {
-        return whiteenemy_y;
-    }
-     */
+
 }

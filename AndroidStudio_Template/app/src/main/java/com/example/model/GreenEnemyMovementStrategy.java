@@ -1,31 +1,50 @@
 package com.example.model;
+
 import android.widget.ImageView;
-import java.util.Random;
-//PENDING to change - unique movement
-public class GreenEnemyMovementStrategy  implements EnemyMovementStrategy{
-    private static final int MOVEMENT_RANGE_X = 200; // Customize X-axis range
-    private static final int MOVEMENT_RANGE_Y = 200; // Customize Y-axis range
-    private int currentX = 0;
-    private int currentY = 0;
-    private Random random = new Random();
+//Green enemy's unique movement: direction - diagonal down/up (zigzag), speed - 25
+public class GreenEnemyMovementStrategy implements EnemyMovementStrategy {
+    private int currentX;
+    private int currentY;
+    private int directionX = 1; // 1 for right, -1 for left
+    private int directionY = 1; // 1 for down, -1 for up
+    private int speed = 25; // Adjust the speed as needed
+    private int amplitudeX = 50; // Adjust the amplitude of zigzag in the X direction
+    private int amplitudeY = 50; // Adjust the amplitude of zigzag in the Y direction
+
+    public GreenEnemyMovementStrategy(int startX, int startY) {
+        this.currentX = startX;
+        this.currentY = startY;
+    }
 
     @Override
     public void move(Enemy enemy) {
         ImageView view = enemy.getView();
 
-        // Generate random values for X and Y within the specified ranges
-        int newX = currentX + random.nextInt(MOVEMENT_RANGE_X) - MOVEMENT_RANGE_X / 2;
-        int newY = currentY + random.nextInt(MOVEMENT_RANGE_Y) - MOVEMENT_RANGE_Y / 2;
+        // Update the enemy's position based on the current direction
+        currentX += directionX * speed;
+        currentY += directionY * speed;
 
-        // Ensure the enemy stays within the boundaries of the screen
-        // PENDING BOUNDARY CHECK!!!
+        // Calculate the boundaries for enemy movement
+        int screenWidth = 11 * 90; // Adjust as needed
+        int screenHeight = 13 * 90; // Adjust as needed
+
+        int rightBoundary = screenWidth - view.getWidth();
+        int bottomBoundary = screenHeight - view.getHeight();
+
+        // Implement zigzag pattern
+        if (currentX >= rightBoundary || currentX <= 0) {
+            directionX *= -1; // Reverse direction in X-axis
+        }
+        if (currentY >= bottomBoundary || currentY <= 0) {
+            directionY *= -1; // Reverse direction in Y-axis
+        }
+
+        // Apply zigzag pattern by adjusting position
+        currentX = Math.max(0, Math.min(currentX, rightBoundary));
+        currentY = Math.max(0, Math.min(currentY, bottomBoundary));
 
         // Update the enemy's position visually
-        view.setX(newX);
-        view.setY(newY);
-
-        // Update the current position
-        currentX = newX;
-        currentY = newY;
+        view.setX(currentX);
+        view.setY(currentY);
     }
 }
