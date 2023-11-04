@@ -2,27 +2,23 @@ package com.example.model;
 import android.content.Context;
 
 public class EnemyFactory {
-    public Enemy createBlueEnemy(Context context, int x, int y) {
-        // Create and return a BlueEnemy
-        EnemyMovementStrategy blueEnemyMovementStrategy = new BlueEnemyMovementStrategy(x, y);
-        return new BlueEnemy(context, x, y, blueEnemyMovementStrategy);
+    public Enemy createBlueEnemy(Context context) {
+        EnemyMovementStrategy blueEnemyMovementStrategy = new BlueEnemyMovementStrategy();
+        return new BlueEnemy(context, blueEnemyMovementStrategy);
     }
 
-    public Enemy createWhiteEnemy(Context context, int x, int y) {
+    public Enemy createWhiteEnemy(Context context) {
         EnemyMovementStrategy whiteEnemyMovementStrategy = new WhiteEnemyMovementStrategy();
-        // Create and return a WhiteEnemy
-        return new WhiteEnemy(context, x, y, whiteEnemyMovementStrategy);
+        return new WhiteEnemy(context, whiteEnemyMovementStrategy);
     }
 
-    public Enemy createGreenEnemy(Context context, int x, int y) {
-        // Create and return a GreenEnemy
-        EnemyMovementStrategy greenEnemyMovementStrategy = new GreenEnemyMovementStrategy(x, y);
-        return new GreenEnemy(context, x, y, greenEnemyMovementStrategy);
+    public Enemy createGreenEnemy(Context context) {
+        EnemyMovementStrategy greenEnemyMovementStrategy = new GreenEnemyMovementStrategy();
+        return new GreenEnemy(context, greenEnemyMovementStrategy);
     }
 
-    public Enemy createYellowEnemy(Context context, int x, int y) {
-        // Create and return a YellowEnemy
+    public Enemy createYellowEnemy(Context context) {
         EnemyMovementStrategy yellowEnemyMovementStrategy = new YellowEnemyMovementStrategy();
-        return new YellowEnemy(context, x, y, yellowEnemyMovementStrategy);
+        return new YellowEnemy(context, yellowEnemyMovementStrategy);
     }
 }

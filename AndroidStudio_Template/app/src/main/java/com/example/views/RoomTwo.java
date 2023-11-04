@@ -109,8 +109,8 @@ public class RoomTwo extends AppCompatActivity {
 
         //enemy instantiationn
         enemyFactory = new EnemyFactory();
-        Enemy yellowEnemy = enemyFactory.createYellowEnemy(this, yellowenemyX, yellowenemyY);
-        Enemy greenEnemy = enemyFactory.createGreenEnemy(this, greenenemyX, greenenemyY);
+        Enemy yellowEnemy = enemyFactory.createYellowEnemy(this);
+        Enemy greenEnemy = enemyFactory.createGreenEnemy(this);
 
         room2Layout.addView(yellowEnemy.getView());
         room2Layout.addView(greenEnemy.getView());

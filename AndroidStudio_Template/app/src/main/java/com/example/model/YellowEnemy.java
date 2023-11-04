@@ -11,11 +11,10 @@ public class YellowEnemy extends Enemy {
     private int x;
     private int y;
 
-    public YellowEnemy(Context context, int x, int y, EnemyMovementStrategy movementStrategy) {
+    public YellowEnemy(Context context, EnemyMovementStrategy movementStrategy) {
         super(new ImageView(context), movementStrategy);
         getView().setImageResource(R.drawable.yellowenemy);
-        getView().setX(x);
-        getView().setY(y);
+
     }
     @Override
     void generate() {
