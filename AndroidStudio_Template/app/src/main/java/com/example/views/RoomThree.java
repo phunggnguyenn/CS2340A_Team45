@@ -25,8 +25,10 @@ public class RoomThree extends AppCompatActivity {
     private ImageView avatarImageView;
     private List<ImageView> blackTilesList;
     private EnemyFactory enemyFactory;
-
-
+    private int whiteenemyX = 895;
+    private int greenenemyX = 895;
+    private int  whiteenemyY = 145;
+    private int greenenemyY = 895;
     private Handler h = new Handler();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,7 +106,7 @@ public class RoomThree extends AppCompatActivity {
 
         //enemy instantiation
         enemyFactory = new EnemyFactory();
-        Enemy whiteEnemy = enemyFactory.createBlueEnemy(this);
+        Enemy whiteEnemy = enemyFactory.createWhiteEnemy(this);
         Enemy greenEnemy = enemyFactory.createGreenEnemy(this);
 
         room3Layout.addView(whiteEnemy.getView());
