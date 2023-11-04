@@ -21,7 +21,4 @@ public abstract class Enemy extends AppCompatActivity {
     }
 
 
-    void generate(){
-
-    }
 }

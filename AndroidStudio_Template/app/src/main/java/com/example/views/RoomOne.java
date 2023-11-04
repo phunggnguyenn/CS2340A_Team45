@@ -28,12 +28,12 @@ public class RoomOne extends AppCompatActivity {
     // Initial Score and Handler
     private Player player;
     private EnemyFactory enemyFactory;
+    private Enemy blueEnemy;
+    private Enemy whiteEnemy;
     private TextView scoreTextView;
     private Handler handler;
     private ImageView avatarImageView;
     private List<ImageView> blackTilesList; //contains ref of black tiles aka collisions/walls
-    //ImageView blueenemy, whiteenemy;
-
     private Handler h = new Handler();
 
     @Override
@@ -119,8 +119,8 @@ public class RoomOne extends AppCompatActivity {
         scoreTextView = findViewById(R.id.scoreTextView);
         //instantiating enemy factory
         enemyFactory = new EnemyFactory();
-        Enemy blueEnemy = enemyFactory.createBlueEnemy(this);
-        Enemy whiteEnemy = enemyFactory.createWhiteEnemy(this);
+        blueEnemy = enemyFactory.createBlueEnemy(this);
+        whiteEnemy = enemyFactory.createWhiteEnemy(this);
 
         room1Layout.addView(blueEnemy.getView());
         room1Layout.addView(whiteEnemy.getView());
