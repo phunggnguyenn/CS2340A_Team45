@@ -41,8 +41,14 @@ public class RoomOne extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_room1);
         RelativeLayout room1Layout = findViewById(R.id.room1Layout);
+        // Retrieve values from the Intent
         Intent receiverIntent = getIntent();
         player = (Player) receiverIntent.getSerializableExtra("player");
+        viewModel = new RoomOneViewModel(player, this);
+        // Initialize Score Display (update handled in Runnable)
+        scoreTextView = findViewById(R.id.scoreTextView);
+        scoreTextView.setText("Score: " + viewModel.getScore());
+        // Initialize Bottom Display
         TextView playerNameTextView = findViewById(R.id.playerNameTextView);
         TextView healthPointsTextView = findViewById(R.id.healthPointsTextView);
         playerNameTextView.setText("Player Name: " + player.getPlayerName());
@@ -56,8 +62,6 @@ public class RoomOne extends AppCompatActivity {
         //player.addObserver(viewModel);
         player.setGoalX(715);
         player.setGoalY(5);
-
-        viewModel = new RoomOneViewModel(player, this);
 
         // tile dimensions
         int tileWidth = 80;
@@ -116,7 +120,6 @@ public class RoomOne extends AppCompatActivity {
         avatarImageView.setLayoutParams(playerLayout);
         player.setX(playerLayout.leftMargin);
         player.setY(playerLayout.topMargin);
-        scoreTextView = findViewById(R.id.scoreTextView);
         //instantiating enemy factory
         enemyFactory = new EnemyFactory();
         Enemy blueEnemy = enemyFactory.createBlueEnemy(this, 715, 65);

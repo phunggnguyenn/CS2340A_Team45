@@ -34,15 +34,21 @@ public class RoomThree extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_room3);
-
-        Intent receiverIntent = getIntent();
-        int score = receiverIntent.getIntExtra("score", 1000);
-        player = (Player) receiverIntent.getSerializableExtra("player");
-        scoreTextView = findViewById(R.id.scoreTextView);
-        scoreTextView.setText("Score: " + score);
-
         RelativeLayout room3Layout = findViewById(R.id.room3Layout);
-        viewModel = new RoomThreeViewModel(player, score, this);
+        // Retrieve values from the Intent
+        Intent receiverIntent = getIntent();
+        player = (Player) receiverIntent.getSerializableExtra("player");
+        viewModel = new RoomThreeViewModel(player, receiverIntent.getIntExtra("score", 1000), this);
+        // Initialize Score Display (update handled in Runnable)
+        scoreTextView = findViewById(R.id.scoreTextView);
+        scoreTextView.setText("Score: " + viewModel.getScore());
+        // TextViews (display name and HP)
+        TextView playerNameTextView = findViewById(R.id.playerNameTextView);
+        TextView healthPointsTextView = findViewById(R.id.healthPointsTextView);
+        playerNameTextView.setText("Player Name: " + player.getPlayerName());
+        healthPointsTextView.setText("Health Points: " + player.getHealthPoints());
+
+
 
         //KEYMOVEMENT
         blackTilesList = new ArrayList<>();
