@@ -14,6 +14,7 @@ import com.example.model.EnemyFactory;
 import com.example.model.Enemy;
 import com.example.model.Player;
 import com.example.demo_2340.R;
+import com.example.viewmodels.CollisionObserver;
 import com.example.viewmodels.RoomOneViewModel;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +36,7 @@ public class RoomOne extends AppCompatActivity {
     //ImageView blueenemy, whiteenemy;
 
     private Handler h = new Handler();
+    private CollisionObserver collisionObserver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,12 +56,8 @@ public class RoomOne extends AppCompatActivity {
         playerNameTextView.setText("Player Name: " + player.getPlayerName());
         healthPointsTextView.setText("Health Points: " + player.getHealthPoints());
 
-
-        //KEYMOVEMENT
         blackTilesList = new ArrayList<>();
         room1Layout.setFocusableInTouchMode(true);
-        // this line causes error when moving to next room
-        //player.addObserver(viewModel);
 
         // tile dimensions
         int tileWidth = 80;
@@ -126,6 +124,8 @@ public class RoomOne extends AppCompatActivity {
         room1Layout.addView(blueEnemy.getView());
         room1Layout.addView(whiteEnemy.getView());
 
+        collisionObserver = new CollisionObserver(player, blueEnemy, whiteEnemy);
+
         // Start updating the score
         handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -133,6 +133,10 @@ public class RoomOne extends AppCompatActivity {
             public void run() {
                 blueEnemy.move();
                 whiteEnemy.move();
+                if(collisionObserver.enemyCollision()) {
+                    player.setHealthPoints(player.getHealthPoints() - 10);
+                    healthPointsTextView.setText("Health Points: " + player.getHealthPoints());
+                }
 
                 viewModel.updateScore(-1);
                 scoreTextView.setText("Score: " + viewModel.getScore());

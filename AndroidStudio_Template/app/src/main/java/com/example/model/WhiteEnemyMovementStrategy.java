@@ -36,6 +36,10 @@ public class WhiteEnemyMovementStrategy implements EnemyMovementStrategy {
         newX = Math.max(leftBoundary, Math.min(newX, rightBoundary));
         newY = Math.max(topBoundary, Math.min(newY, bottomBoundary));
 
+        // Set the new position
+        enemy.setX(newX);
+        enemy.setY(newY);
+
         // Update the enemy's position visually
         view.setX(newX);
         view.setY(newY);

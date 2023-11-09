@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.example.demo_2340.R;
 import com.example.model.EnemyFactory;
 import com.example.model.Enemy;
+import com.example.viewmodels.CollisionObserver;
 import com.example.viewmodels.RoomTwoViewModel;
 import com.example.model.Player;
 import java.util.ArrayList;
@@ -31,6 +32,7 @@ public class RoomTwo extends AppCompatActivity {
     private int greenenemyY = 750;
     private int yellowenemyY = 750;
     private Handler h = new Handler();
+    private CollisionObserver collisionObserver;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -121,6 +123,8 @@ public class RoomTwo extends AppCompatActivity {
 
         room2Layout.addView(yellowEnemy.getView());
         room2Layout.addView(greenEnemy.getView());
+
+        collisionObserver = new CollisionObserver(player, yellowEnemy, greenEnemy);
         // Start updating the score
         handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -128,6 +132,10 @@ public class RoomTwo extends AppCompatActivity {
             public void run() {
                 yellowEnemy.move();
                 greenEnemy.move();
+                if(collisionObserver.enemyCollision()) {
+                    player.setHealthPoints(player.getHealthPoints() - 10);
+                    healthPointsTextView.setText("Health Points: " + player.getHealthPoints());
+                }
 
                 viewModel.updateScore(-1);
                 scoreTextView.setText("Score: " + viewModel.getScore());

@@ -18,7 +18,8 @@ public class RoomOneViewModel {
     private Player player;
     private PlayerMovementStrategy movementStrategy;
     private Context context;
-    private PlayerObserverStrategy observer;
+    private PlayerObserverStrategy playerObserver;
+
     public RoomOneViewModel(Player player, Context context) {
         this.score = 1000;
         this.player = player;
@@ -61,9 +62,10 @@ public class RoomOneViewModel {
         }
     }
     public boolean checkReachedGoal() {
-        observer = new PlayerObserver(player);
-        return observer.playerReachedGoal();
+        playerObserver = new PlayerObserver(player);
+        return playerObserver.playerReachedGoal();
     }
+
     public void moveToNextRoom() {
         Intent room2Intent = new Intent(context, RoomTwo.class);
         room2Intent.putExtra("player", player);

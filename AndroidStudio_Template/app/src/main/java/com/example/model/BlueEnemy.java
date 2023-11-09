@@ -9,11 +9,9 @@ public class BlueEnemy extends Enemy {
     //int blueenemy_x = 715;
    // int blueenemy_y = 65;
     private ImageView blueenemy;
-    private int x;
-    private int y;
 
     public BlueEnemy(Context context, int x, int y, EnemyMovementStrategy movementStrategy) {
-        super(new ImageView(context), movementStrategy);
+        super(new ImageView(context), movementStrategy, x, y);
         getView().setImageResource(R.drawable.blueenemy);
         getView().setX(x);
         getView().setY(y);
