@@ -12,7 +12,7 @@ public class GreenEnemy extends Enemy {
     private int y;
 
     public GreenEnemy(Context context, int x, int y, EnemyMovementStrategy movementStrategy) {
-        super(new ImageView(context), movementStrategy);
+        super(new ImageView(context), movementStrategy, x, y);
         getView().setImageResource(R.drawable.greenenemy);
         getView().setX(x);
         getView().setY(y);
@@ -25,6 +25,7 @@ public class GreenEnemy extends Enemy {
     public void move(EnemyMovementStrategy movementStrategy) {
         movementStrategy.move(this);
     }
+
 
 }
 

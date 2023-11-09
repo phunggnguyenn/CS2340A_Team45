@@ -4,7 +4,7 @@ import android.widget.ImageView;
 //Unique movements are position/direction and speed.
 // 2) Direction: yellow is going back n forth on top of screen
 // 1) Speed # also varies from other enemies - speed x dir-> 40
-public class YellowEnemyMovementStrategy  implements EnemyMovementStrategy{
+public class YellowEnemyMovementStrategy  implements EnemyMovementStrategy {
     private static final int SPEED_X = 40; // Customize the X-axis speed as needed
     private static final int SPEED_Y = 0; // Keep the Y-axis speed as 0
     private int currentX = 0;
@@ -38,6 +38,9 @@ public class YellowEnemyMovementStrategy  implements EnemyMovementStrategy{
             directionX *= -1; // Reverse X-direction
         }
 
+        // Set the new position
+        enemy.setX(newX);
+        enemy.setY(newY);
         // Update the enemy's position visually
         view.setX(newX);
         view.setY(newY);

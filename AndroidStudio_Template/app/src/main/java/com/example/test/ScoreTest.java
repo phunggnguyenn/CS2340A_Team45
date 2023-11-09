@@ -11,7 +11,7 @@ public class ScoreTest {
     private RoomOneViewModel viewModel;
     @Before
     public void setUp() {
-        player = Player.getInstance("Player", 100, 1, 5, 6);
+        player = Player.getInstance("Player", 100, 1, 5, 6, 1);
         // viewModel = new RoomOneViewModel(player);
     }
 

@@ -22,6 +22,8 @@ public class RoomThreeViewModel {
         this.score = score;
         this.player = player;
         this.context = context;
+        player.setGoalX(895);
+        player.setGoalY(5);
     }
     public int getScore() {
         return score;
