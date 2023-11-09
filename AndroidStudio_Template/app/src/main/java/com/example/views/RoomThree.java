@@ -107,8 +107,7 @@ public class RoomThree extends AppCompatActivity {
         avatarImageView.setLayoutParams(playerLayout);
         player.setX(playerLayout.leftMargin);
         player.setY(playerLayout.topMargin);
-        player.setGoalX(895);
-        player.setGoalY(5);
+
 
         //enemy instantiation
         enemyFactory = new EnemyFactory();

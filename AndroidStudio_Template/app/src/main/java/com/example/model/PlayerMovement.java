@@ -33,8 +33,8 @@ public class PlayerMovement implements PlayerMovementStrategy {
     @Override
     public boolean isValidMove(List<ImageView> blackTilesList, int x, int y, Player player) {
         Log.d("BlackTilesList", "BlackTilesList size: " + blackTilesList.size());
-        int playerRight = x + 60;
-        int playerBottom = y + 60;
+        int playerRight = x + 75;
+        int playerBottom = y + 90;
         Rect playerRect = new Rect(x, y, playerRight, playerBottom);
         for (ImageView blackTile : blackTilesList) {
             int blackTileLeft = blackTile.getLeft();

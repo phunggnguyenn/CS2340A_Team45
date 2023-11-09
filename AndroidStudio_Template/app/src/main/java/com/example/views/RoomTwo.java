@@ -112,8 +112,7 @@ public class RoomTwo extends AppCompatActivity {
         avatarImageView.setLayoutParams(playerLayout);
         player.setX(playerLayout.leftMargin);
         player.setY(playerLayout.topMargin);
-        player.setGoalX(85);
-        player.setGoalY(5);
+
 
         //enemy instantiationn
         enemyFactory = new EnemyFactory();

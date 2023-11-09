@@ -23,6 +23,8 @@ public class RoomOneViewModel {
         this.score = 1000;
         this.player = player;
         this.context = context;
+        player.setGoalX(715);
+        player.setGoalY(5);
     }
     // Score Feature
     public int getScore() {

@@ -60,8 +60,6 @@ public class RoomOne extends AppCompatActivity {
         room1Layout.setFocusableInTouchMode(true);
         // this line causes error when moving to next room
         //player.addObserver(viewModel);
-        player.setGoalX(715);
-        player.setGoalY(5);
 
         // tile dimensions
         int tileWidth = 80;
