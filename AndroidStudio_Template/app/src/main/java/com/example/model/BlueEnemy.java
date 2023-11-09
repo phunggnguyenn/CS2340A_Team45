@@ -7,7 +7,7 @@ import com.example.demo_2340.R;
 
 public class BlueEnemy extends Enemy {
     //int blueenemy_x = 715;
-   // int blueenemy_y = 65;
+    // int blueenemy_y = 65;
     private ImageView blueenemy;
 
     public BlueEnemy(Context context, int x, int y, EnemyMovementStrategy movementStrategy) {

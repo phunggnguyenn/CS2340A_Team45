@@ -14,20 +14,20 @@ public class PlayerMovement implements PlayerMovementStrategy {
     @Override
     public void move(Player player, int keyCode) {
         switch (keyCode) {
-            case KeyEvent.KEYCODE_DPAD_DOWN:
-                player.setY(player.getY() + 10);
-                break;
-            case KeyEvent.KEYCODE_DPAD_UP:
-                player.setY(player.getY() - 10);
-                break;
-            case KeyEvent.KEYCODE_DPAD_LEFT:
-                player.setX(player.getX() - 10);
-                break;
-            case KeyEvent.KEYCODE_DPAD_RIGHT:
-                player.setX(player.getX() + 10);
-                break;
-            default:
-                break;
+        case KeyEvent.KEYCODE_DPAD_DOWN:
+            player.setY(player.getY() + 10);
+            break;
+        case KeyEvent.KEYCODE_DPAD_UP:
+            player.setY(player.getY() - 10);
+            break;
+        case KeyEvent.KEYCODE_DPAD_LEFT:
+            player.setX(player.getX() - 10);
+            break;
+        case KeyEvent.KEYCODE_DPAD_RIGHT:
+            player.setX(player.getX() + 10);
+            break;
+        default:
+            break;
         }
     }
     @Override
@@ -41,7 +41,8 @@ public class PlayerMovement implements PlayerMovementStrategy {
             int blackTileTop = blackTile.getTop();
             int blackTileRight = blackTile.getRight();
             int blackTileBottom = blackTile.getBottom();
-            Rect blackTileRect = new Rect(blackTileLeft, blackTileTop, blackTileRight, blackTileBottom);
+            Rect blackTileRect = new Rect(blackTileLeft, blackTileTop, blackTileRight,
+                    blackTileBottom);
 
             if (playerRect.intersect(blackTileRect)) {
                 return false;

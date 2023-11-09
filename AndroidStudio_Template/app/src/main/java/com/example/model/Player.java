@@ -33,7 +33,8 @@ public class Player implements Serializable {
     public static Player getInstance(String playerName, int healthPoints, int avatarId,
                                      int playerWidth, int playerHeight, double difficulty) {
         if (player == null) {
-            player = new Player(playerName, healthPoints, avatarId, playerWidth, playerHeight, difficulty);
+            player = new Player(playerName, healthPoints, avatarId, playerWidth,
+                    playerHeight, difficulty);
         }
         return player;
     }
@@ -45,7 +46,9 @@ public class Player implements Serializable {
             this.healthPoints = healthPoints;
         }
     }
-    public double getDifficulty() { return difficulty; }
+    public double getDifficulty() {
+        return difficulty;
+    }
     public String getPlayerName() {
         return playerName;
     }

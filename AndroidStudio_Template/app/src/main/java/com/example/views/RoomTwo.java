@@ -132,7 +132,7 @@ public class RoomTwo extends AppCompatActivity {
             public void run() {
                 yellowEnemy.move();
                 greenEnemy.move();
-                if(collisionObserver.enemyCollision()) {
+                if (collisionObserver.enemyCollision()) {
                     if (player.getDifficulty() == 1.00) {
                         player.setHealthPoints(player.getHealthPoints() - 25);
                     } else if (player.getDifficulty() == 0.75) {

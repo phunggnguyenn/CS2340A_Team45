@@ -93,8 +93,7 @@ public class RoomOne extends AppCompatActivity {
                         || (row == 13 && col != 5)) {
                     tilesImageView.setImageResource(R.drawable.blacktile3);
                     blackTilesList.add(tilesImageView);
-                }
-                else {
+                } else {
                     tilesImageView.setImageResource(R.drawable.red_tile);
                 }
                 tilesImageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -133,7 +132,7 @@ public class RoomOne extends AppCompatActivity {
             public void run() {
                 blueEnemy.move();
                 whiteEnemy.move();
-                if(collisionObserver.enemyCollision()) {
+                if (collisionObserver.enemyCollision()) {
                     if (player.getDifficulty() == 1.00) {
                         player.setHealthPoints(player.getHealthPoints() - 25);
                     } else if (player.getDifficulty() == 0.75) {

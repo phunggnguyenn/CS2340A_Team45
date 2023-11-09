@@ -22,9 +22,12 @@ public class CollisionObserver implements CollisionObserverStrategy {
         Log.d("wh co", "wh coordinate y: " + enemy2.getY());
         Log.d("Player co", "player coordinate x: " + player.getX());
         Log.d("Player co", "player coordinate y: " + player.getY());
-        Rect playerRect = new Rect(player.getX(), player.getY(), player.getX() + 75, player.getY() + 90);
-        Rect enemyRect1 = new Rect(enemy1.getX(), enemy1.getY(), enemy1.getX() + 75, enemy1.getY() + 90);
-        Rect enemyRect2 = new Rect(enemy2.getX(), enemy2.getY(), enemy2.getX() + 75, enemy2.getY() + 90);
+        Rect playerRect = new Rect(player.getX(), player.getY(), player.getX() + 75,
+                player.getY() + 90);
+        Rect enemyRect1 = new Rect(enemy1.getX(), enemy1.getY(), enemy1.getX() + 75,
+                enemy1.getY() + 90);
+        Rect enemyRect2 = new Rect(enemy2.getX(), enemy2.getY(), enemy2.getX() + 75,
+                enemy2.getY() + 90);
         if (playerRect.intersect(enemyRect1) || playerRect.intersect(enemyRect2)) {
             return true;
         }
