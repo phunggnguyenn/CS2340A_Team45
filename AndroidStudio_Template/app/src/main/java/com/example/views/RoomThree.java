@@ -127,7 +127,13 @@ public class RoomThree extends AppCompatActivity {
                 whiteEnemy.move();
                 greenEnemy.move();
                 if(collisionObserver.enemyCollision()) {
-                    player.setHealthPoints(player.getHealthPoints() - 10);
+                    if (player.getDifficulty() == 1.00) {
+                        player.setHealthPoints(player.getHealthPoints() - 25);
+                    } else if (player.getDifficulty() == 0.75) {
+                        player.setHealthPoints(player.getHealthPoints() - 15);
+                    } else {
+                        player.setHealthPoints(player.getHealthPoints() - 10);
+                    }
                     healthPointsTextView.setText("Health Points: " + player.getHealthPoints());
                 }
 

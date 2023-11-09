@@ -16,10 +16,11 @@ public class Player implements Serializable {
     private static Player player;
     private int goalX;
     private int goalY;
+    private double difficulty;
 
 
     private Player(String playerName, int healthPoints, int avatarId,
-                   int playerWidth, int playerHeight) {
+                   int playerWidth, int playerHeight, double difficulty) {
         this.playerName = playerName;
         this.healthPoints = healthPoints;
         this.avatarId = avatarId;
@@ -27,11 +28,12 @@ public class Player implements Serializable {
         this.y = 0;
         this.playerHeight = playerHeight;
         this.playerWidth = playerWidth;
+        this.difficulty = difficulty;
     }
     public static Player getInstance(String playerName, int healthPoints, int avatarId,
-                                     int playerWidth, int playerHeight) {
+                                     int playerWidth, int playerHeight, double difficulty) {
         if (player == null) {
-            player = new Player(playerName, healthPoints, avatarId, playerWidth, playerHeight);
+            player = new Player(playerName, healthPoints, avatarId, playerWidth, playerHeight, difficulty);
         }
         return player;
     }
@@ -43,6 +45,7 @@ public class Player implements Serializable {
             this.healthPoints = healthPoints;
         }
     }
+    public double getDifficulty() { return difficulty; }
     public String getPlayerName() {
         return playerName;
     }

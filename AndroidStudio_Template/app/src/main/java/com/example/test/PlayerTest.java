@@ -12,8 +12,8 @@ public class PlayerTest {
     private Player player2;
     @Before
     public void setUp() {
-        player1 = Player.getInstance("Player 1", 100, 1, 5, 6);
-        player2 = Player.getInstance("Player 2", 200, 2, 5, 6);
+        player1 = Player.getInstance("Player 1", 100, 1, 5, 6, 1);
+        player2 = Player.getInstance("Player 2", 200, 2, 5, 6, 1);
     }
     // Member: Jaeung Woo
     // This method tests if Singleton pattern applies properly
