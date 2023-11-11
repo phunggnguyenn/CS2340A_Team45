@@ -117,8 +117,8 @@ public class RoomOne extends AppCompatActivity {
         player.setY(playerLayout.topMargin);
         //instantiating enemy factory
         enemyFactory = new EnemyFactory();
-        blueEnemy = enemyFactory.createBlueEnemy(this);
-        whiteEnemy = enemyFactory.createWhiteEnemy(this);
+        blueEnemy = enemyFactory.createBlueEnemy(this, 715, 65);
+        whiteEnemy = enemyFactory.createWhiteEnemy(this,  500, 60);
 
         room1Layout.addView(blueEnemy.getView());
         room1Layout.addView(whiteEnemy.getView());
