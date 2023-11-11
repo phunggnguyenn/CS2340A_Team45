@@ -1,6 +1,7 @@
 package com.example.test;
 
 import com.example.model.Player;
+import com.example.model.Enemy;
 import org.junit.Test;
 import org.junit.Before;
 import static org.junit.Assert.*;

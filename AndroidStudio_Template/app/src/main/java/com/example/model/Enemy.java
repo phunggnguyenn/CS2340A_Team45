@@ -25,8 +25,6 @@ public abstract class Enemy extends AppCompatActivity {
     }
 
 
-<<<<<<< HEAD
-=======
     void generate() {
 
     }
@@ -42,5 +40,4 @@ public abstract class Enemy extends AppCompatActivity {
     public int getY() {
         return y;
     }
->>>>>>> main
 }
