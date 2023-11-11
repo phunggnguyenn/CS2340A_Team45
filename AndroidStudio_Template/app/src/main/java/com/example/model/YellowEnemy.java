@@ -5,15 +5,20 @@ import android.widget.ImageView;
 import com.example.demo_2340.R;
 
 public class YellowEnemy extends Enemy {
+    //int blueenemy_x = 715;
+    // int blueenemy_y = 65;
+    private ImageView yellowenemy;
+    private int x;
+    private int y;
 
-<<<<<<< HEAD
-    public YellowEnemy(Context context, EnemyMovementStrategy movementStrategy) {
-        super(new ImageView(context), movementStrategy);
-=======
     public YellowEnemy(Context context, int x, int y, EnemyMovementStrategy movementStrategy) {
         super(new ImageView(context), movementStrategy, x, y);
->>>>>>> main
         getView().setImageResource(R.drawable.yellowenemy);
+        getView().setX(x);
+        getView().setY(y);
+    }
+    @Override
+    void generate() {
 
     }
     public void move(EnemyMovementStrategy movementStrategy) {
@@ -21,4 +26,3 @@ public class YellowEnemy extends Enemy {
     }
 
 }
-
