@@ -24,6 +24,10 @@ public class EnemyTest {
         assertEquals(initialX + 5, blueEnemy.getX());
         assertEquals(initialY + 5, blueEnemy.getY());
     }
+    /**
+     * Member: Mahathi Gumudavelli
+     * This method tests if it gets x
+     */
     @Test
     public void testGetX() {
         int initialX = 30;
@@ -33,6 +37,10 @@ public class EnemyTest {
         int x = blueEnemy.getX();
         assertEquals(initialX, x);
     }
+    /**
+     * Member: Mahathi Gumudavelli
+     * This method tests if it gets y
+     */
     @Test
     public void testGetY() {
         int initialX = 60;
