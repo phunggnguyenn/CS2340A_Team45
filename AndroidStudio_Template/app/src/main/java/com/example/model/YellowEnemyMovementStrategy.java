@@ -38,6 +38,9 @@ public class YellowEnemyMovementStrategy  implements EnemyMovementStrategy {
             directionX *= -1; // Reverse X-direction
         }
 
+        // Set the new position
+        enemy.setX(newX);
+        enemy.setY(newY);
         // Update the enemy's position visually
         view.setX(newX);
         view.setY(newY);

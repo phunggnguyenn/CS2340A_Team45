@@ -67,7 +67,7 @@ public class MazeGameActivity extends AppCompatActivity {
         int playerHeight = avatarImage.getHeight();
         RoomOne roomOne = new RoomOne();
         Player player = Player.getInstance(playerName, healthPoints, avatarId,
-                playerWidth, playerHeight);
+                playerWidth, playerHeight, receivedDifficulty);
 
 
         Button room1btn = findViewById(R.id.room1btn);

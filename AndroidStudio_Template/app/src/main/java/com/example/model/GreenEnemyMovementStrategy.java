@@ -50,6 +50,9 @@ public class GreenEnemyMovementStrategy implements EnemyMovementStrategy {
         currentX = Math.max(0, Math.min(currentX, rightBoundary));
         currentY = Math.max(0, Math.min(currentY, bottomBoundary));
 
+        // Set the new position
+        enemy.setX(currentX);
+        enemy.setY(currentY);
         // Update the enemy's position visually
         view.setX(currentX);
         view.setY(currentY);

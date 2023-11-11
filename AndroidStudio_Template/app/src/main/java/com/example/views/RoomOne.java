@@ -14,6 +14,7 @@ import com.example.model.EnemyFactory;
 import com.example.model.Enemy;
 import com.example.model.Player;
 import com.example.demo_2340.R;
+import com.example.viewmodels.CollisionObserver;
 import com.example.viewmodels.RoomOneViewModel;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,29 +36,28 @@ public class RoomOne extends AppCompatActivity {
     private ImageView avatarImageView;
     private List<ImageView> blackTilesList; //contains ref of black tiles aka collisions/walls
     private Handler h = new Handler();
+    private CollisionObserver collisionObserver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_room1);
         RelativeLayout room1Layout = findViewById(R.id.room1Layout);
+        // Retrieve values from the Intent
         Intent receiverIntent = getIntent();
         player = (Player) receiverIntent.getSerializableExtra("player");
+        viewModel = new RoomOneViewModel(player, this);
+        // Initialize Score Display (update handled in Runnable)
+        scoreTextView = findViewById(R.id.scoreTextView);
+        scoreTextView.setText("Score: " + viewModel.getScore());
+        // Initialize Bottom Display
         TextView playerNameTextView = findViewById(R.id.playerNameTextView);
         TextView healthPointsTextView = findViewById(R.id.healthPointsTextView);
         playerNameTextView.setText("Player Name: " + player.getPlayerName());
         healthPointsTextView.setText("Health Points: " + player.getHealthPoints());
 
-
-        //KEYMOVEMENT
         blackTilesList = new ArrayList<>();
         room1Layout.setFocusableInTouchMode(true);
-        // this line causes error when moving to next room
-        //player.addObserver(viewModel);
-        player.setGoalX(715);
-        player.setGoalY(5);
-
-        viewModel = new RoomOneViewModel(player, this);
 
         // tile dimensions
         int tileWidth = 80;
@@ -93,8 +93,7 @@ public class RoomOne extends AppCompatActivity {
                         || (row == 13 && col != 5)) {
                     tilesImageView.setImageResource(R.drawable.blacktile3);
                     blackTilesList.add(tilesImageView);
-                }
-                else {
+                } else {
                     tilesImageView.setImageResource(R.drawable.red_tile);
                 }
                 tilesImageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -116,7 +115,6 @@ public class RoomOne extends AppCompatActivity {
         avatarImageView.setLayoutParams(playerLayout);
         player.setX(playerLayout.leftMargin);
         player.setY(playerLayout.topMargin);
-        scoreTextView = findViewById(R.id.scoreTextView);
         //instantiating enemy factory
         enemyFactory = new EnemyFactory();
         blueEnemy = enemyFactory.createBlueEnemy(this);
@@ -125,6 +123,8 @@ public class RoomOne extends AppCompatActivity {
         room1Layout.addView(blueEnemy.getView());
         room1Layout.addView(whiteEnemy.getView());
 
+        collisionObserver = new CollisionObserver(player, blueEnemy, whiteEnemy);
+
         // Start updating the score
         handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -132,6 +132,16 @@ public class RoomOne extends AppCompatActivity {
             public void run() {
                 blueEnemy.move();
                 whiteEnemy.move();
+                if (collisionObserver.enemyCollision()) {
+                    if (player.getDifficulty() == 1.00) {
+                        player.setHealthPoints(player.getHealthPoints() - 25);
+                    } else if (player.getDifficulty() == 0.75) {
+                        player.setHealthPoints(player.getHealthPoints() - 15);
+                    } else {
+                        player.setHealthPoints(player.getHealthPoints() - 10);
+                    }
+                    healthPointsTextView.setText("Health Points: " + player.getHealthPoints());
+                }
 
                 viewModel.updateScore(-1);
                 scoreTextView.setText("Score: " + viewModel.getScore());

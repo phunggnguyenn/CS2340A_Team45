@@ -39,7 +39,9 @@ public class BlueEnemyMovementStrategy implements EnemyMovementStrategy {
 
         // Apply the straight line pattern by adjusting position
         currentY = Math.max(0, Math.min(newY, bottomBoundary));
-
+        // Set the new position
+        enemy.setX(currentX);
+        enemy.setY(newY);
         // Update the enemy's position visually
         view.setX(currentX);
         view.setY(currentY);
