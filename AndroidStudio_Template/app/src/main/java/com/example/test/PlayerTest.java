@@ -1,21 +1,30 @@
 package com.example.test;
 
+import com.example.model.Leaderboard;
 import com.example.model.Player;
-import com.example.model.Enemy;
 import org.junit.Test;
 import org.junit.Before;
 import static org.junit.Assert.*;
 import java.util.ArrayList;
+import java.util.List;
+
 import android.view.KeyEvent;
 
 public class PlayerTest {
     private Player player1;
     private Player player2;
+    private Leaderboard leaderboard;
+
+
     @Before
     public void setUp() {
         player1 = Player.getInstance("Player 1", 100, 1, 5, 6, 1);
         player2 = Player.getInstance("Player 2", 200, 2, 5, 6, 1);
+
     }
+
+
+
     // Member: Jaeung Woo
     // This method tests if Singleton pattern applies properly
     @Test
@@ -73,6 +82,9 @@ public class PlayerTest {
         player1.moveDown();
         assertEquals(oldY, player1.getY());
     }
+
+
+
     /**
      * Member: Maria Jothish
      * This method tests if player moves left appropriate amount.

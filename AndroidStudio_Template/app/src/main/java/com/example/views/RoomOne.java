@@ -187,6 +187,8 @@ public class RoomOne extends AppCompatActivity {
     private Handler getHandler() {
         return h;
     }
-
+    public Enemy getBlueEnemy() {
+        return blueEnemy;
+    }
 
 }
