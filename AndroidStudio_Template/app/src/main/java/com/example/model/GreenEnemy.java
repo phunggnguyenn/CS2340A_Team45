@@ -28,4 +28,3 @@ public class GreenEnemy extends Enemy {
 
 
 }
-

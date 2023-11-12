@@ -1,23 +1,30 @@
 package com.example.model;
 
 import android.widget.ImageView;
-//Green enemy's unique movement: direction - diagonal down/up (zigzag), speed - 25
+import java.util.Random;
+
+// Green enemy's unique movement: direction - diagonal down/up (zigzag), speed - 25
 public class GreenEnemyMovementStrategy implements EnemyMovementStrategy {
     private int currentX;
     private int currentY;
     private int directionX = 1; // 1 for right, -1 for left
     private int directionY = 1; // 1 for down, -1 for up
-    private int speed = 25; // Adjust the speed as needed
+    private int speed = 50; // Adjust the speed as needed
     private int amplitudeX = 50; // Adjust the amplitude of zigzag in the X direction
     private int amplitudeY = 50; // Adjust the amplitude of zigzag in the Y direction
 
-    public GreenEnemyMovementStrategy(int startX, int startY) {
-        this.currentX = startX;
-        this.currentY = startY;
-    }
-
     @Override
     public void move(Enemy enemy) {
+        if (currentX == 0 && currentY == 0) {
+            // Generate random initial position within the screen boundaries
+            Random random = new Random();
+            int screenWidth = 11 * 90; // Adjust as needed
+            int screenHeight = 13 * 90; // Adjust as needed
+
+            currentX = random.nextInt(screenWidth - enemy.getView().getWidth());
+            currentY = random.nextInt(screenHeight - enemy.getView().getHeight());
+        }
+
         ImageView view = enemy.getView();
 
         // Update the enemy's position based on the current direction

@@ -26,4 +26,3 @@ public class BlueEnemy extends Enemy {
     }
 
 }
-

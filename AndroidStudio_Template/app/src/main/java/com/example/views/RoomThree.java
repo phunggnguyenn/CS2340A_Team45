@@ -119,6 +119,7 @@ public class RoomThree extends AppCompatActivity {
         Enemy whiteEnemy = enemyFactory.createWhiteEnemy(this, whiteenemyX, whiteenemyY);
         Enemy greenEnemy = enemyFactory.createGreenEnemy(this, greenenemyX, greenenemyY);
 
+
         room3Layout.addView(whiteEnemy.getView());
         room3Layout.addView(greenEnemy.getView());
         // Start updating the score
