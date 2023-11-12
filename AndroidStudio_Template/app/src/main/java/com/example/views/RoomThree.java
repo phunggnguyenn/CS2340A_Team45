@@ -10,6 +10,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.example.demo_2340.R;
+import com.example.model.Enemy;
+import com.example.model.EnemyFactory;
+import com.example.viewmodels.CollisionObserver;
 import com.example.viewmodels.RoomThreeViewModel;
 import com.example.model.Player;
 import java.util.ArrayList;
@@ -22,20 +25,32 @@ public class RoomThree extends AppCompatActivity {
     private Handler handler = new Handler();
     private ImageView avatarImageView;
     private List<ImageView> blackTilesList;
-
+    private EnemyFactory enemyFactory;
+    private int whiteenemyX = 895;
+    private int greenenemyX = 895;
+    private int  whiteenemyY = 145;
+    private int greenenemyY = 895;
+    private Handler h = new Handler();
+    private CollisionObserver collisionObserver;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_room3);
-
-        Intent receiverIntent = getIntent();
-        int score = receiverIntent.getIntExtra("score", 1000);
-        player = (Player) receiverIntent.getSerializableExtra("player");
-        scoreTextView = findViewById(R.id.scoreTextView);
-        scoreTextView.setText("Score: " + score);
-
         RelativeLayout room3Layout = findViewById(R.id.room3Layout);
-        viewModel = new RoomThreeViewModel(player, score, this);
+        // Retrieve values from the Intent
+        Intent receiverIntent = getIntent();
+        player = (Player) receiverIntent.getSerializableExtra("player");
+        viewModel = new RoomThreeViewModel(player, receiverIntent.getIntExtra("score", 1000), this);
+        // Initialize Score Display (update handled in Runnable)
+        scoreTextView = findViewById(R.id.scoreTextView);
+        scoreTextView.setText("Score: " + viewModel.getScore());
+        // TextViews (display name and HP)
+        TextView playerNameTextView = findViewById(R.id.playerNameTextView);
+        TextView healthPointsTextView = findViewById(R.id.healthPointsTextView);
+        playerNameTextView.setText("Player Name: " + player.getPlayerName());
+        healthPointsTextView.setText("Health Points: " + player.getHealthPoints());
+
+
 
         //KEYMOVEMENT
         blackTilesList = new ArrayList<>();
@@ -94,13 +109,34 @@ public class RoomThree extends AppCompatActivity {
         avatarImageView.setLayoutParams(playerLayout);
         player.setX(playerLayout.leftMargin);
         player.setY(playerLayout.topMargin);
-        player.setGoalX(895);
-        player.setGoalY(5);
+
+
+        //enemy instantiation
+        enemyFactory = new EnemyFactory();
+        Enemy whiteEnemy = enemyFactory.createWhiteEnemy(this, whiteenemyX, whiteenemyY);
+        Enemy greenEnemy = enemyFactory.createGreenEnemy(this, greenenemyX, greenenemyY);
+
+        room3Layout.addView(whiteEnemy.getView());
+        room3Layout.addView(greenEnemy.getView());
         // Start updating the score
         handler = new Handler();
+        collisionObserver = new CollisionObserver(player, whiteEnemy, greenEnemy);
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
+                whiteEnemy.move();
+                greenEnemy.move();
+                if (collisionObserver.enemyCollision()) {
+                    if (player.getDifficulty() == 1.00) {
+                        player.setHealthPoints(player.getHealthPoints() - 25);
+                    } else if (player.getDifficulty() == 0.75) {
+                        player.setHealthPoints(player.getHealthPoints() - 15);
+                    } else {
+                        player.setHealthPoints(player.getHealthPoints() - 10);
+                    }
+                    healthPointsTextView.setText("Health Points: " + player.getHealthPoints());
+                }
+
                 viewModel.updateScore(-1);
                 scoreTextView.setText("Score: " + viewModel.getScore());
                 handler.postDelayed(this, 1000);
@@ -115,4 +151,5 @@ public class RoomThree extends AppCompatActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
+
 }

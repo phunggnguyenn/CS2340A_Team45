@@ -10,21 +10,21 @@ public class PlayerNameValidityTest {
     @Before
     public void setUp() {
         // Create a Player instance for testing
-        player = Player.getInstance("PlayerName", 100, 1, 5, 6);
+        player = Player.getInstance("PlayerName", 100, 1, 5, 6, 1);
     }
 
     //MEMBER: MAHATHI GUMUDAVELLI
     //THIS METHOD TESTS When playername is empty
     @Test
     public void testPlayerNameIsEmpty() {
-        player = Player.getInstance("PlayerName", 100, 1, 5, 6);
+        player = Player.getInstance("PlayerName", 100, 1, 5, 6, 1);
         assertFalse("Player Name is empty!", player.getPlayerName().isEmpty());
     }
     //MEMBER: MAHATHI GUMUDAVELLI
     //THIS METHOD TESTS When playername is null
     @Test
     public void testPlayerNameIsNull() {
-        player = Player.getInstance("PlayerName", 100, 1, 5, 6);
+        player = Player.getInstance("PlayerName", 100, 1, 5, 6, 1);
         assertFalse("Player Name is Null!", player.getPlayerName() == null);
     }
 }

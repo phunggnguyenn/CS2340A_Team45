@@ -12,8 +12,8 @@ public class PlayerTest {
     private Player player2;
     @Before
     public void setUp() {
-        player1 = Player.getInstance("Player 1", 100, 1, 5, 6);
-        player2 = Player.getInstance("Player 2", 200, 2, 5, 6);
+        player1 = Player.getInstance("Player 1", 100, 1, 5, 6, 1);
+        player2 = Player.getInstance("Player 2", 200, 2, 5, 6, 1);
     }
     // Member: Jaeung Woo
     // This method tests if Singleton pattern applies properly
@@ -98,15 +98,15 @@ public class PlayerTest {
     // This method tests if player moving farther that screen height is a valid move.
     @Test
     public void testIsInvalidMoveOutOfHeight() {
-        assertFalse(player1.isValidMove(new ArrayList<>(), 0 , 1170));
-        assertFalse(player1.isValidMove(new ArrayList<>(), 0 , -1));
+        assertFalse(player1.isValidMove(new ArrayList<>(), 0, 1170));
+        assertFalse(player1.isValidMove(new ArrayList<>(), 0, -1));
     }
     // Member: Phung Nguyen
     // This method tests if player moving wider that screen width is a valid move.
     @Test
     public void testIsInvalidMoveOutOfWidth() {
-        assertFalse(player1.isValidMove(new ArrayList<>(), 990 , 0));
-        assertFalse(player1.isValidMove(new ArrayList<>(), -1 , 0));
+        assertFalse(player1.isValidMove(new ArrayList<>(), 990, 0));
+        assertFalse(player1.isValidMove(new ArrayList<>(), -1, 0));
     }
     // Member: Jaeung Woo
     // This method tests if player moves within screen width and height is a valid move.
