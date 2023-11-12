@@ -1,5 +1,5 @@
 /**
- * @author: Phung Nguyen
+ * @author Phung Nguyen
  * TaskStatus is a class that demonstrates low-coupling.
  */
 public enum TaskStatus {
