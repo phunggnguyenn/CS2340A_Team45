@@ -4,8 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.ViewGroup;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -142,6 +145,24 @@ public class RoomThree extends AppCompatActivity {
                 handler.postDelayed(this, 1000);
             }
         }, 1000);
+        /**
+         * Automatically navigate to the game over screen if
+         * player health (HP) reaches 0 (i.e the player dies)
+         */
+        if (player.getHealthPoints() == 0) {
+            setContentView(R.layout.activity_game_end_lose);
+            Button restart = findViewById(R.id.restart);
+            restart.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    restartActivity();
+                }
+            });
+        }
+    }
+    private void restartActivity() {
+        recreate(); // restart
+        finish();
     }
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
