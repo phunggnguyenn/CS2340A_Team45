@@ -104,7 +104,6 @@ public class PlayerTest {
     }
 
 
-
     /**
      * Member: Maria Jothish
      * This method tests if player moves left appropriate amount.
@@ -181,6 +180,24 @@ public class PlayerTest {
         player1.move(KeyEvent.KEYCODE_DPAD_UP);
         player1.move(KeyEvent.KEYCODE_DPAD_RIGHT);
         assertEquals(oldX + 10, player1.getX());
+    }
+
+    /**
+     * Member: EDMOND LI
+     * Test if player height value is properly stored
+     */
+    @Test
+    public void testHeight() {
+        assertEquals( 6, player1.getPlayerHeight());
+    }
+
+    /**
+     * Member: EDMOND LI
+     * Test if player width value is properly stored
+     */
+    @Test
+    public void testWidth() {
+        assertEquals(5, player1.getPlayerWidth());
     }
 
 }

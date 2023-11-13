@@ -6,9 +6,12 @@ import com.example.model.EnemyMovementStrategy;
 import com.example.model.WhiteEnemyMovementStrategy;
 import com.example.model.YellowEnemyMovementStrategy;
 
+
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
+
+import android.widget.ImageView;
 
 public class EnemyTest {
     /**
