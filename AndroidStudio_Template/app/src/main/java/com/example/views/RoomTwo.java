@@ -144,6 +144,20 @@ public class RoomTwo extends AppCompatActivity {
                         player.setHealthPoints(player.getHealthPoints() - 10);
                     }
                     healthPointsTextView.setText("Health Points: " + player.getHealthPoints());
+                    /**
+                     * Automatically navigate to the game over screen if
+                     * player health (HP) reaches 0 (i.e the player dies)
+                     */
+                    if (player.getHealthPoints() == 0) {
+                        setContentView(R.layout.activity_game_end_lose);
+                        Button restart = findViewById(R.id.restart);
+                        restart.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                restartActivity();
+                            }
+                        });
+                    }
                 }
 
                 viewModel.updateScore(-1);
@@ -151,20 +165,6 @@ public class RoomTwo extends AppCompatActivity {
                 handler.postDelayed(this, 1000);
             }
         }, 1000);
-        /**
-         * Automatically navigate to the game over screen if
-         * player health (HP) reaches 0 (i.e the player dies)
-         */
-        if (player.getHealthPoints() == 0) {
-            setContentView(R.layout.activity_game_end_lose);
-            Button restart = findViewById(R.id.restart);
-            restart.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    restartActivity();
-                }
-            });
-        }
     }
     private void restartActivity() {
         recreate(); // restart
