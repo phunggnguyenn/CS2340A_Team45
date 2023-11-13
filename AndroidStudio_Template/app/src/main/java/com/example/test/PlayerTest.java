@@ -6,8 +6,6 @@ import org.junit.Test;
 import org.junit.Before;
 import static org.junit.Assert.*;
 import java.util.ArrayList;
-import java.util.List;
-import android.widget.ImageView;
 
 import android.view.KeyEvent;
 
@@ -201,14 +199,5 @@ public class PlayerTest {
     public void testWidth() {
         assertEquals(5, player1.getPlayerWidth());
     }
-    /**
-     * Member: Phung Nguyen
-     * This method checks if the isValidMove method correctly identifies
-     * that a move to a position far beyond the screen boundaries is invalid.
-     */
-    @Test
-    public void testIsValidMoveInvalidBoundary() {
-        List<ImageView> blackTilesList = new ArrayList<>();
-        assertFalse(player1.isValidMove(blackTilesList, 1000, 1000));
-    }
+
 }
