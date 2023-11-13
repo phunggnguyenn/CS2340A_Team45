@@ -183,13 +183,13 @@ public class RoomTwo extends AppCompatActivity {
     }
 
     //ACCESSOR METHODS
-    private int getGreenenemyX() {
+    public int getGreenenemyX() {
         return greenenemyX;
     }
     private int getGreenenemyY() {
         return greenenemyY;
     }
-    private int getYellowenemyX() {
+    public int getYellowenemyX() {
         return yellowenemyX;
     }
     private int getYellowenemyY() {

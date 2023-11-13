@@ -11,7 +11,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
 
-import android.widget.ImageView;
 
 public class EnemyTest {
     /**
@@ -50,5 +49,4 @@ public class EnemyTest {
         EnemyMovementStrategy whiteEnemyMovementStrategy = new WhiteEnemyMovementStrategy();
         assertTrue(whiteEnemyMovementStrategy instanceof EnemyMovementStrategy);
     }
-
 }
