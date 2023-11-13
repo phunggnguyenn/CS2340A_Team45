@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.view.KeyEvent;
+import android.widget.ImageView;
 
 public class PlayerTest {
     private Player player1;
@@ -22,7 +23,6 @@ public class PlayerTest {
         player2 = Player.getInstance("Player 2", 200, 2, 5, 6, 1);
 
     }
-
 
 
     // Member: Jaeung Woo
@@ -162,5 +162,14 @@ public class PlayerTest {
         player1.move(KeyEvent.KEYCODE_DPAD_RIGHT);
         assertEquals(oldX + 10, player1.getX());
     }
-
+    /**
+     * Member: Phung Nguyen
+     * This method checks if the isValidMove method correctly identifies
+     * that a move to a position far beyond the screen boundaries is invalid.
+     */
+    @Test
+    public void testIsValidMoveInvalidBoundary() {
+        List<ImageView> blackTilesList = new ArrayList<>();
+        assertFalse(player1.isValidMove(blackTilesList, 1000, 1000));
+    }
 }

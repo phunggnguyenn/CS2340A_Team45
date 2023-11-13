@@ -184,11 +184,17 @@ public class RoomOne extends AppCompatActivity {
     }
 
     //ACCESSOR METHODS
-    private Handler getHandler() {
+    public Handler getHandler() {
         return h;
     }
     public Enemy getBlueEnemy() {
         return blueEnemy;
     }
 
+    public Player getPlayer() {
+        return player;
+    }
+    public CollisionObserver getCollisionObserver() {
+        return collisionObserver;
+    }
 }

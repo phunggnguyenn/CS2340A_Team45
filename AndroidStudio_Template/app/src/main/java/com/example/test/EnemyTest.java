@@ -47,5 +47,4 @@ public class EnemyTest {
         EnemyMovementStrategy whiteEnemyMovementStrategy = new WhiteEnemyMovementStrategy();
         assertTrue(whiteEnemyMovementStrategy instanceof EnemyMovementStrategy);
     }
-
 }
