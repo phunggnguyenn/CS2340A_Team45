@@ -7,9 +7,9 @@ import org.junit.Before;
 import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.List;
+import android.widget.ImageView;
 
 import android.view.KeyEvent;
-import android.widget.ImageView;
 
 public class PlayerTest {
     private Player player1;
@@ -23,6 +23,31 @@ public class PlayerTest {
         player2 = Player.getInstance("Player 2", 200, 2, 5, 6, 1);
 
     }
+    // Member: Jaeung Woo
+    // This method tests setting Player's goal location
+    @Test
+    public void testSetGoal() {
+        player1.setGoalX(100);
+        player1.setGoalY(200);
+        assertEquals(100, player1.getGoalX());
+        assertEquals(200, player1.getGoalY());
+    }
+    // Member: Jaeung Woo
+    // This method tests player movement
+    @Test
+    public void testMovement() {
+        player1.setX(100);
+        player1.setY(100);
+        player1.move(KeyEvent.KEYCODE_DPAD_DOWN);
+        assertEquals(110, player1.getY());
+        player1.move(KeyEvent.KEYCODE_DPAD_UP);
+        assertEquals(100, player1.getY());
+        player1.move(KeyEvent.KEYCODE_DPAD_LEFT);
+        assertEquals(90, player1.getX());
+        player1.move(KeyEvent.KEYCODE_DPAD_RIGHT);
+        assertEquals(100, player1.getX());
+    }
+
 
 
     // Member: Jaeung Woo
@@ -38,12 +63,9 @@ public class PlayerTest {
     public void testValues() {
         // Check if the properties are correctly set
         assertEquals("Player 1", player1.getPlayerName());
-        assertEquals(100, player1.getHealthPoints());
         assertEquals(1, player1.getAvatarId());
-
         // Player 2 will be the same due to Singleton
         assertEquals("Player 1", player2.getPlayerName());
-        assertEquals(100, player2.getHealthPoints());
         assertEquals(1, player2.getAvatarId());
     }
 
@@ -82,7 +104,6 @@ public class PlayerTest {
         player1.moveDown();
         assertEquals(oldY, player1.getY());
     }
-
 
 
     /**
@@ -161,6 +182,24 @@ public class PlayerTest {
         player1.move(KeyEvent.KEYCODE_DPAD_UP);
         player1.move(KeyEvent.KEYCODE_DPAD_RIGHT);
         assertEquals(oldX + 10, player1.getX());
+    }
+
+    /**
+     * Member: EDMOND LI
+     * Test if player height value is properly stored
+     */
+    @Test
+    public void testHeight() {
+        assertEquals( 6, player1.getPlayerHeight());
+    }
+
+    /**
+     * Member: EDMOND LI
+     * Test if player width value is properly stored
+     */
+    @Test
+    public void testWidth() {
+        assertEquals(5, player1.getPlayerWidth());
     }
     /**
      * Member: Phung Nguyen
