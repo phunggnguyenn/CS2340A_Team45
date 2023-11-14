@@ -49,7 +49,9 @@ public class Order {
             message += item.getName() + " - " + item.getPrice() + "\n";
         }
         message += "Total: " + calculateTotalPrice();
-        EmailSender.sendEmail(customerEmail, "Order Confirmation", message);
+        System.out.println("Email to: " + customerEmail);
+        System.out.println("Subject: Order Confirmation");
+        System.out.println("Body: " + message);
     }
 
 
