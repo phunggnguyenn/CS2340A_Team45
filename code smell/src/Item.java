@@ -1,9 +1,9 @@
 class Item {
-    private String name;
-    private double price;
-    private int quantity;
-    private DiscountType discountType;
-    private double discountAmount;
+    private final String name;
+    private final double price;
+    private final int quantity;
+    private final DiscountType discountType;
+    private final double discountAmount;
 
     public Item(String name, double price, int quantity, DiscountType discountType, double discountAmount) {
         this.name = name;
