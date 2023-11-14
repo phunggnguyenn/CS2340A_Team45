@@ -26,5 +26,4 @@ public class GreenEnemy extends Enemy {
         movementStrategy.move(this);
     }
 
-
 }

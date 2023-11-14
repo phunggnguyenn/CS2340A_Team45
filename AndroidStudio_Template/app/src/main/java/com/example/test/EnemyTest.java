@@ -6,9 +6,11 @@ import com.example.model.EnemyMovementStrategy;
 import com.example.model.WhiteEnemyMovementStrategy;
 import com.example.model.YellowEnemyMovementStrategy;
 
+
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
+
 
 public class EnemyTest {
     /**
@@ -47,5 +49,4 @@ public class EnemyTest {
         EnemyMovementStrategy whiteEnemyMovementStrategy = new WhiteEnemyMovementStrategy();
         assertTrue(whiteEnemyMovementStrategy instanceof EnemyMovementStrategy);
     }
-
 }

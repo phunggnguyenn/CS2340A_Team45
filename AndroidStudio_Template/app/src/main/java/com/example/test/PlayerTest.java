@@ -6,8 +6,10 @@ import org.junit.Test;
 import org.junit.Before;
 import static org.junit.Assert.*;
 import java.util.ArrayList;
+import java.util.List;
 
 import android.view.KeyEvent;
+import android.widget.ImageView;
 
 public class PlayerTest {
     private Player player1;
@@ -104,7 +106,6 @@ public class PlayerTest {
     }
 
 
-
     /**
      * Member: Maria Jothish
      * This method tests if player moves left appropriate amount.
@@ -183,4 +184,33 @@ public class PlayerTest {
         assertEquals(oldX + 10, player1.getX());
     }
 
+    /**
+     * Member: EDMOND LI
+     * Test if player height value is properly stored
+     */
+    @Test
+    public void testHeight() {
+        assertEquals(6, player1.getPlayerHeight());
+    }
+
+    /**
+     * Member: EDMOND LI
+     * Test if player width value is properly stored
+     */
+    @Test
+    public void testWidth() {
+        assertEquals(5, player1.getPlayerWidth());
+    }
+
+    /**
+     * Member: Phung Nguyen
+     * This method is checking whether the isValidMove method correctly returns
+     * false when the player1's new position exceeds the screen boundaries.
+     */
+    @Test
+    public void testIsValidMoveInvalidBoundary() {
+        List<ImageView> blackTilesList = new ArrayList<>();
+        // Assuming player is initially at (0, 0) and playerWidth = 50, playerHeight = 50
+        assertFalse(player1.isValidMove(blackTilesList, 1000, 1000));
+    }
 }

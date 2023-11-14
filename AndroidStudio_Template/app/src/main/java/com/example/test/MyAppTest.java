@@ -1,6 +1,3 @@
-/**
- * Sprint 2 Junit Test for Leaderboard. Disregard for Sprint 3.
- */
 package com.example.test;
 
 import static org.junit.Assert.assertEquals;
@@ -22,6 +19,7 @@ public class MyAppTest {
      * Member: PHUNG NGUYEN
      * Test checking that Leaderboard updates the descending order of scores
      * when a new score is added.
+     * Sprint 2 Junit Test for Leaderboard. Disregard for Sprint 3 & 4.
      */
     public void testAddScores() {
         leaderboard.addScores(300);
