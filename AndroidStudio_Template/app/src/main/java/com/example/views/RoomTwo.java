@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.example.demo_2340.R;
 import com.example.model.EnemyFactory;
 import com.example.model.Enemy;
+import com.example.model.PlayerMovement;
 import com.example.viewmodels.CollisionObserver;
 import com.example.viewmodels.RoomTwoViewModel;
 import com.example.model.Player;
@@ -39,6 +40,7 @@ public class RoomTwo extends AppCompatActivity {
     private Handler h = new Handler();
     private CollisionObserver collisionObserver;
     private RelativeLayout room2Layout;
+    private PlayerMovement playerMovement;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,6 +113,15 @@ public class RoomTwo extends AppCompatActivity {
                 room2Layout.addView(tilesImageView, redTilesParams);
             }
         }
+
+        //enemy instantiationn
+        enemyFactory = new EnemyFactory();
+        Enemy yellowEnemy = enemyFactory.createYellowEnemy(this, yellowenemyX, yellowenemyY);
+        Enemy greenEnemy = enemyFactory.createGreenEnemy(this, greenenemyX, greenenemyY);
+
+        room2Layout.addView(yellowEnemy.getView());
+        room2Layout.addView(greenEnemy.getView());
+
         avatarImageView = findViewById(R.id.imageAvatar);
         avatarImageView.setImageResource(player.getAvatarId());
         ViewGroup.MarginLayoutParams playerLayout = (ViewGroup.MarginLayoutParams)
@@ -122,15 +133,15 @@ public class RoomTwo extends AppCompatActivity {
         player.setY(playerLayout.topMargin);
 
 
-        //enemy instantiationn
-        enemyFactory = new EnemyFactory();
-        Enemy yellowEnemy = enemyFactory.createYellowEnemy(this, yellowenemyX, yellowenemyY);
-        Enemy greenEnemy = enemyFactory.createGreenEnemy(this, greenenemyX, greenenemyY);
 
-        room2Layout.addView(yellowEnemy.getView());
-        room2Layout.addView(greenEnemy.getView());
+        weaponImageView = findViewById(R.id.weaponImageView);
+        weaponImageView.setImageResource(player.getWeaponResourceId());
+
 
         collisionObserver = new CollisionObserver(player, yellowEnemy, greenEnemy);
+        playerMovement = new PlayerMovement(blackTilesList, collisionObserver);
+        playerMovement.setImageViews(avatarImageView, weaponImageView);
+
         // Start updating the score
         handler = new Handler();
         handler.postDelayed(new Runnable() {

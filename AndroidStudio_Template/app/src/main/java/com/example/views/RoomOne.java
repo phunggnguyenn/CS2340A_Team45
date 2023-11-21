@@ -200,7 +200,7 @@ public class RoomOne extends AppCompatActivity {
         if (avatarImageView != null && weaponImageView != null && room1Layout != null) {
             Log.d("RoomOne", "Updating weapon position");
 
-            int weaponSpeed = 15; // Adjust this value as needed
+            int weaponSpeed = 8; // Adjust this value as needed
             int weaponWidth = weaponImageView.getWidth();
             int weaponHeight = weaponImageView.getHeight();
 
