@@ -21,6 +21,7 @@ import com.example.viewmodels.RoomTwoViewModel;
 import com.example.model.Player;
 import java.util.ArrayList;
 import java.util.List;
+import com.example.model.Weapon;
 
 public class RoomTwo extends AppCompatActivity {
     private RoomTwoViewModel viewModel;
@@ -34,6 +35,10 @@ public class RoomTwo extends AppCompatActivity {
     private int yellowenemyX = 700;
     private int greenenemyY = 750;
     private int yellowenemyY = 750;
+    private Enemy greenEnemy;
+    private Enemy yellowEnemy;
+    private Weapon weapon;
+    private ImageView weaponImageView;
     private Handler h = new Handler();
     private CollisionObserver collisionObserver;
     @Override
@@ -44,7 +49,7 @@ public class RoomTwo extends AppCompatActivity {
         // Retrieve values from the Intent
         Intent receiverIntent = getIntent();
         player = (Player) receiverIntent.getSerializableExtra("player");
-        viewModel = new RoomTwoViewModel(player, receiverIntent.getIntExtra("score", 1000), this);
+
         // Initialize Score Display (update handled in Runnable)
         scoreTextView = findViewById(R.id.scoreTextView);
         scoreTextView.setText("Score: " + viewModel.getScore());
@@ -53,8 +58,6 @@ public class RoomTwo extends AppCompatActivity {
         TextView healthPointsTextView = findViewById(R.id.healthPointsTextView);
         playerNameTextView.setText("Player Name: " + player.getPlayerName());
         healthPointsTextView.setText("Health Points: " + player.getHealthPoints());
-
-
 
 
         //KEYMOVEMENT
@@ -108,6 +111,16 @@ public class RoomTwo extends AppCompatActivity {
                 room2Layout.addView(tilesImageView, redTilesParams);
             }
         }
+        // Inside the onCreate method after initializing blackTilesList
+        weaponImageView = findViewById(R.id.weaponImageView);
+        weaponImageView.setImageResource(player.getWeaponResourceId());
+        ViewGroup.MarginLayoutParams weaponLayout = (ViewGroup.MarginLayoutParams)
+                weaponImageView.getLayoutParams();
+        weaponLayout.topMargin = 1165; // Adjust the margin as needed
+        weaponLayout.leftMargin = 715; // Adjust the margin as needed
+        weaponImageView.setLayoutParams(weaponLayout);
+        weaponImageView.setVisibility(View.INVISIBLE);
+
         avatarImageView = findViewById(R.id.imageAvatar);
         avatarImageView.setImageResource(player.getAvatarId());
         ViewGroup.MarginLayoutParams playerLayout = (ViewGroup.MarginLayoutParams)
@@ -121,20 +134,23 @@ public class RoomTwo extends AppCompatActivity {
 
         //enemy instantiationn
         enemyFactory = new EnemyFactory();
-        Enemy yellowEnemy = enemyFactory.createYellowEnemy(this, yellowenemyX, yellowenemyY);
-        Enemy greenEnemy = enemyFactory.createGreenEnemy(this, greenenemyX, greenenemyY);
+        yellowEnemy = enemyFactory.createYellowEnemy(this, yellowenemyX, yellowenemyY);
+        greenEnemy = enemyFactory.createGreenEnemy(this, greenenemyX, greenenemyY);
 
         room2Layout.addView(yellowEnemy.getView());
         room2Layout.addView(greenEnemy.getView());
 
         collisionObserver = new CollisionObserver(player, yellowEnemy, greenEnemy);
+        viewModel = new RoomTwoViewModel(player, receiverIntent.getIntExtra("score", 1000), this);
         // Start updating the score
         handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 yellowEnemy.move();
+
                 greenEnemy.move();
+
                 if (collisionObserver.enemyCollision()) {
                     if (player.getDifficulty() == 1.00) {
                         player.setHealthPoints(player.getHealthPoints() - 25);
@@ -158,6 +174,7 @@ public class RoomTwo extends AppCompatActivity {
                             }
                         });
                     }
+
                 }
 
                 viewModel.updateScore(-1);
@@ -166,6 +183,7 @@ public class RoomTwo extends AppCompatActivity {
             }
         }, 1000);
     }
+
     private void restartActivity() {
         recreate(); // restart
         finish();

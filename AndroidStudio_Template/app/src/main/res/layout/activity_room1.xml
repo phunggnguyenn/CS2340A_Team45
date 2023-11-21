@@ -29,7 +29,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
-            android:layout_marginTop="130dp"
             android:background="#000000"
             android:focusable="true"
             android:focusableInTouchMode="true">
@@ -42,6 +41,15 @@
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:src="@drawable/avatar3" />
+            <ImageView
+                android:id="@+id/weaponImageView"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_toEndOf="@id/imageAvatar"
+                android:layout_below="@id/imageAvatar"
+                android:layout_marginStart="2dp"
+                android:src="@drawable/weapon_sword_emerald"
+                android:visibility="visible" />
         </RelativeLayout>
     </RelativeLayout>
     <LinearLayout
