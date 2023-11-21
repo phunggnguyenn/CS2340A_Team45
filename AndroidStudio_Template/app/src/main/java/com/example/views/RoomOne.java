@@ -123,6 +123,9 @@ public class RoomOne extends AppCompatActivity {
         blueEnemy = enemyFactory.createBlueEnemy(this, 715, 65);
         whiteEnemy = enemyFactory.createWhiteEnemy(this,  500, 60);
 
+        room1Layout.addView(blueEnemy.getView());
+        room1Layout.addView(whiteEnemy.getView());
+
 
         avatarImageView = findViewById(R.id.imageAvatar);
         avatarImageView.setImageResource(player.getAvatarId());
@@ -137,16 +140,14 @@ public class RoomOne extends AppCompatActivity {
         player.setX(playerLayout.leftMargin);
         player.setY(playerLayout.topMargin);
 
+
         weaponImageView = findViewById(R.id.weaponImageView);
         weaponImageView.setImageResource(player.getWeaponResourceId());
+
 
         collisionObserver = new CollisionObserver(player, blueEnemy, whiteEnemy);
         playerMovement = new PlayerMovement(blackTilesList, collisionObserver);
         playerMovement.setImageViews(avatarImageView, weaponImageView);
-
-
-        room1Layout.addView(blueEnemy.getView());
-        room1Layout.addView(whiteEnemy.getView());
 
 
 
@@ -201,7 +202,7 @@ public class RoomOne extends AppCompatActivity {
         if (avatarImageView != null && weaponImageView != null && room1Layout != null) {
             Log.d("RoomOne", "Updating weapon position");
 
-            int weaponSpeed = 20; // Adjust this value as needed
+            int weaponSpeed = 15; // Adjust this value as needed
             int weaponWidth = weaponImageView.getWidth();
             int weaponHeight = weaponImageView.getHeight();
 
