@@ -38,13 +38,14 @@
                 android:focusableInTouchMode="true"/>
             <ImageView
                 android:id="@+id/weaponImageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:src="@drawable/weapon_sword_emerald"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_toEndOf="@id/imageAvatar"
+                android:layout_below="@id/imageAvatar"
+                android:layout_marginStart="2dp"
                 android:elevation="10dp"
-                android:visibility="invisible" />
+                android:src="@drawable/weapon_sword_emerald"
+                android:visibility="visible" />
         </RelativeLayout>
     </RelativeLayout>
     <LinearLayout

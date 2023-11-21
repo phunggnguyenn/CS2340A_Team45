@@ -150,8 +150,6 @@ public class RoomOne extends AppCompatActivity {
         playerMovement.setImageViews(avatarImageView, weaponImageView);
 
 
-
-
         // Start updating the score
         handler = new Handler();
         handler.postDelayed(new Runnable() {
