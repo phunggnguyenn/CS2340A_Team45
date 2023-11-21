@@ -52,7 +52,7 @@ public class RoomOne extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_room1);
         Log.d(TAG, "onCreate");
-       room1Layout = findViewById(R.id.room1Layout);
+        room1Layout = findViewById(R.id.room1Layout);
         // Retrieve values from the Intent
         Intent receiverIntent = getIntent();
         player = (Player) receiverIntent.getSerializableExtra("player");
@@ -116,6 +116,7 @@ public class RoomOne extends AppCompatActivity {
             }
 
         }
+
         //INSTANTIATION
         //instantiating enemy factory
         enemyFactory = new EnemyFactory();
@@ -138,10 +139,10 @@ public class RoomOne extends AppCompatActivity {
 
         weaponImageView = findViewById(R.id.weaponImageView);
         weaponImageView.setImageResource(player.getWeaponResourceId());
+
         collisionObserver = new CollisionObserver(player, blueEnemy, whiteEnemy);
         playerMovement = new PlayerMovement(blackTilesList, collisionObserver);
         playerMovement.setImageViews(avatarImageView, weaponImageView);
-
 
 
         room1Layout.addView(blueEnemy.getView());
@@ -200,36 +201,39 @@ public class RoomOne extends AppCompatActivity {
         if (avatarImageView != null && weaponImageView != null && room1Layout != null) {
             Log.d("RoomOne", "Updating weapon position");
 
-            ViewGroup.MarginLayoutParams playerLayout = (ViewGroup.MarginLayoutParams) avatarImageView.getLayoutParams();
-            ViewGroup.MarginLayoutParams weaponLayout = (ViewGroup.MarginLayoutParams) weaponImageView.getLayoutParams();
-            int weaponSpeed = 5; // Adjust this value as needed
+            int weaponSpeed = 20; // Adjust this value as needed
             int weaponWidth = weaponImageView.getWidth();
             int weaponHeight = weaponImageView.getHeight();
-            //neither case is moving the weapon next to the avatar is is on the bottom
+
+            int[] playerLocation = new int[2];
+            avatarImageView.getLocationOnScreen(playerLocation);
+
             switch (keyCode) {
                 case KeyEvent.KEYCODE_DPAD_UP:
-                    weaponLayout.topMargin = Math.max(playerLayout.topMargin - weaponSpeed, 0);
-                    break; //this is not working
+                    weaponImageView.offsetTopAndBottom(-weaponSpeed);
+                    break;
                 case KeyEvent.KEYCODE_DPAD_DOWN:
-                    weaponLayout.topMargin = Math.min(playerLayout.topMargin + weaponSpeed, room1Layout.getHeight() - weaponHeight);
-                    break;  //this is not working
+                    weaponImageView.offsetTopAndBottom(weaponSpeed);
+                    break;
                 case KeyEvent.KEYCODE_DPAD_LEFT:
-                    weaponLayout.leftMargin = Math.max(playerLayout.leftMargin - weaponSpeed, 0);
-                    break; //this is moving the weapon to the left but only after u move to the right once
+                    weaponImageView.offsetLeftAndRight(-weaponSpeed);
+                    break;
                 case KeyEvent.KEYCODE_DPAD_RIGHT:
-                    weaponLayout.leftMargin = Math.min(playerLayout.leftMargin + weaponSpeed, room1Layout.getWidth() - weaponWidth);
-                    break; //this is moving the weapon to the right
+                    weaponImageView.offsetLeftAndRight(weaponSpeed);
+                    break;
                 default:
                     break;
             }
 
-            weaponImageView.setLayoutParams(weaponLayout);
+            int[] weaponLocation = new int[2];
+            weaponImageView.getLocationOnScreen(weaponLocation);
 
-            Log.d("RoomOne", "Weapon X: " + weaponLayout.leftMargin);
-            Log.d("RoomOne", "Weapon Y: " + weaponLayout.topMargin);
+            Log.d("RoomOne", "Player X: " + playerLocation[0]);
+            Log.d("RoomOne", "Player Y: " + playerLocation[1]);
+            Log.d("RoomOne", "Weapon X: " + weaponLocation[0]);
+            Log.d("RoomOne", "Weapon Y: " + weaponLocation[1]);
         }
     }
-
 
     private void restartActivity() {
         recreate(); // restart
@@ -242,6 +246,7 @@ public class RoomOne extends AppCompatActivity {
     }
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
+        Log.d(TAG, "onKeyDown called. KeyCode: " + keyCode);
         if (viewModel.handleKeyEvent(keyCode, blackTilesList, avatarImageView)) {
             updateWeaponPosition(keyCode);
             if (viewModel.checkReachedGoal()) {
@@ -249,7 +254,6 @@ public class RoomOne extends AppCompatActivity {
                 viewModel.moveToNextRoom();
             }
         }
-        Log.d(TAG, "onKeyDown called. KeyCode: " + keyCode);
         return super.onKeyDown(keyCode, event);
     }
 
@@ -268,3 +272,4 @@ public class RoomOne extends AppCompatActivity {
         return collisionObserver;
     }
 }
+
