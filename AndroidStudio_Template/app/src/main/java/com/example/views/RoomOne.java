@@ -46,7 +46,7 @@ public class RoomOne extends AppCompatActivity {
     private CollisionObserver collisionObserver;
     private PlayerMovement playerMovement;
     private  RelativeLayout room1Layout;
-    private static final String TAG = "RoomOne"; // Add this line for a TAG
+    private static final String TAG = "RoomOne";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -150,11 +150,6 @@ public class RoomOne extends AppCompatActivity {
 
 
 
-
-
-
-
-
         // Start updating the score
         handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -200,39 +195,42 @@ public class RoomOne extends AppCompatActivity {
             }
         }, 1000);
     }
-    private void updateWeaponPosition(Player player, int keyCode) {
+
+    private void updateWeaponPosition(int keyCode) {
         if (avatarImageView != null && weaponImageView != null && room1Layout != null) {
-            Log.d("PlayerMovement", "Updating weapon position");
+            Log.d("RoomOne", "Updating weapon position");
 
             ViewGroup.MarginLayoutParams playerLayout = (ViewGroup.MarginLayoutParams) avatarImageView.getLayoutParams();
             ViewGroup.MarginLayoutParams weaponLayout = (ViewGroup.MarginLayoutParams) weaponImageView.getLayoutParams();
-            int weaponSpeed = 10; // Adjust this value as needed
+            int weaponSpeed = 5; // Adjust this value as needed
             int weaponWidth = weaponImageView.getWidth();
             int weaponHeight = weaponImageView.getHeight();
-
+            //neither case is moving the weapon next to the avatar is is on the bottom
             switch (keyCode) {
                 case KeyEvent.KEYCODE_DPAD_UP:
                     weaponLayout.topMargin = Math.max(playerLayout.topMargin - weaponSpeed, 0);
-                    break;
+                    break; //this is not working
                 case KeyEvent.KEYCODE_DPAD_DOWN:
                     weaponLayout.topMargin = Math.min(playerLayout.topMargin + weaponSpeed, room1Layout.getHeight() - weaponHeight);
-                    break;
+                    break;  //this is not working
                 case KeyEvent.KEYCODE_DPAD_LEFT:
                     weaponLayout.leftMargin = Math.max(playerLayout.leftMargin - weaponSpeed, 0);
-                    break;
+                    break; //this is moving the weapon to the left but only after u move to the right once
                 case KeyEvent.KEYCODE_DPAD_RIGHT:
                     weaponLayout.leftMargin = Math.min(playerLayout.leftMargin + weaponSpeed, room1Layout.getWidth() - weaponWidth);
-                    break;
+                    break; //this is moving the weapon to the right
                 default:
                     break;
             }
 
             weaponImageView.setLayoutParams(weaponLayout);
 
-            Log.d("PlayerMovement", "Weapon X: " + weaponLayout.leftMargin);
-            Log.d("PlayerMovement", "Weapon Y: " + weaponLayout.topMargin);
+            Log.d("RoomOne", "Weapon X: " + weaponLayout.leftMargin);
+            Log.d("RoomOne", "Weapon Y: " + weaponLayout.topMargin);
         }
     }
+
+
     private void restartActivity() {
         recreate(); // restart
         finish();
@@ -245,7 +243,7 @@ public class RoomOne extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (viewModel.handleKeyEvent(keyCode, blackTilesList, avatarImageView)) {
-            updateWeaponPosition(player, keyCode);
+            updateWeaponPosition(keyCode);
             if (viewModel.checkReachedGoal()) {
                 Log.d(TAG, "Player reached goal, moving to the next room");
                 viewModel.moveToNextRoom();
