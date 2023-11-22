@@ -156,6 +156,7 @@ public class RoomThree extends AppCompatActivity {
                         player.setHealthPoints(player.getHealthPoints() - 10);
                     }
                     healthPointsTextView.setText("Health Points: " + player.getHealthPoints());
+                    collisionObserver.enemyAttacked();
                     /**
                      * Automatically navigate to the game over screen if
                      * player health (HP) reaches 0 (i.e the player dies)
@@ -183,9 +184,11 @@ public class RoomThree extends AppCompatActivity {
         if (avatarImageView != null && weaponImageView != null && room3Layout != null) {
             Log.d("RoomOne", "Updating weapon position");
 
-            int weaponSpeed = 15; // Adjust this value as needed
+            int weaponSpeed = 11; // Adjust this value as needed
             int weaponWidth = weaponImageView.getWidth();
             int weaponHeight = weaponImageView.getHeight();
+
+            weaponImageView.clearAnimation();
 
             int[] playerLocation = new int[2];
             avatarImageView.getLocationOnScreen(playerLocation);

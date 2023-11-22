@@ -44,7 +44,7 @@
                 android:layout_height="25dp"
                 android:layout_toEndOf="@id/imageAvatar"
                 android:layout_below="@id/imageAvatar"
-                android:layout_marginStart="2dp"
+                android:layout_marginStart="1dp"
                 android:elevation="10dp"
                 android:src="@drawable/weapon_sword_emerald"
                 android:visibility="visible" />
