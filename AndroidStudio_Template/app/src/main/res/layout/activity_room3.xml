@@ -46,6 +46,8 @@
                 android:elevation="10dp"
                 android:src="@drawable/weapon_sword_emerald"
                 android:visibility="visible" />
+
+
         </RelativeLayout>
     </RelativeLayout>
     <LinearLayout

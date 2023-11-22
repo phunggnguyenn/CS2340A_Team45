@@ -185,8 +185,6 @@ public class RoomThree extends AppCompatActivity {
             Log.d("RoomOne", "Updating weapon position");
 
             int weaponSpeed = 11; // Adjust this value as needed
-            int weaponWidth = weaponImageView.getWidth();
-            int weaponHeight = weaponImageView.getHeight();
 
             weaponImageView.clearAnimation();
 
@@ -194,20 +192,20 @@ public class RoomThree extends AppCompatActivity {
             avatarImageView.getLocationOnScreen(playerLocation);
 
             switch (keyCode) {
-                case KeyEvent.KEYCODE_DPAD_UP:
-                    weaponImageView.offsetTopAndBottom(-weaponSpeed);
-                    break;
-                case KeyEvent.KEYCODE_DPAD_DOWN:
-                    weaponImageView.offsetTopAndBottom(weaponSpeed);
-                    break;
-                case KeyEvent.KEYCODE_DPAD_LEFT:
-                    weaponImageView.offsetLeftAndRight(-weaponSpeed);
-                    break;
-                case KeyEvent.KEYCODE_DPAD_RIGHT:
-                    weaponImageView.offsetLeftAndRight(weaponSpeed);
-                    break;
-                default:
-                    break;
+            case KeyEvent.KEYCODE_DPAD_UP:
+                weaponImageView.setY(weaponImageView.getY() - weaponSpeed);
+                break;
+            case KeyEvent.KEYCODE_DPAD_DOWN:
+                weaponImageView.setY(weaponImageView.getY() + weaponSpeed);
+                break;
+            case KeyEvent.KEYCODE_DPAD_LEFT:
+                weaponImageView.setX(weaponImageView.getX() - weaponSpeed);
+                break;
+            case KeyEvent.KEYCODE_DPAD_RIGHT:
+                weaponImageView.setX(weaponImageView.getX() + weaponSpeed);
+                break;
+            default:
+                break;
             }
 
             int[] weaponLocation = new int[2];

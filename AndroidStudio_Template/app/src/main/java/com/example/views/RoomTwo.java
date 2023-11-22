@@ -2,6 +2,7 @@ package com.example.views;
 
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -41,6 +42,7 @@ public class RoomTwo extends AppCompatActivity {
     private CollisionObserver collisionObserver;
     private RelativeLayout room2Layout;
     private PlayerMovement playerMovement;
+    private ImageView skullImageView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -183,32 +185,29 @@ public class RoomTwo extends AppCompatActivity {
     }
     private void updateWeaponPosition(int keyCode) {
         if (avatarImageView != null && weaponImageView != null && room2Layout != null) {
-            Log.d("RoomOne", "Updating weapon position");
+            Log.d("RoomTwo", "Updating weapon position");
 
             int weaponSpeed = 10; // Adjust this value as needed
-            int weaponWidth = weaponImageView.getWidth();
-            int weaponHeight = weaponImageView.getHeight();
+
             weaponImageView.clearAnimation();
             int[] playerLocation = new int[2];
             avatarImageView.getLocationOnScreen(playerLocation);
-
             switch (keyCode) {
-                case KeyEvent.KEYCODE_DPAD_UP:
-                    weaponImageView.offsetTopAndBottom(-weaponSpeed);
-                    break;
-                case KeyEvent.KEYCODE_DPAD_DOWN:
-                    weaponImageView.offsetTopAndBottom(weaponSpeed);
-                    break;
-                case KeyEvent.KEYCODE_DPAD_LEFT:
-                    weaponImageView.offsetLeftAndRight(-weaponSpeed);
-                    break;
-                case KeyEvent.KEYCODE_DPAD_RIGHT:
-                    weaponImageView.offsetLeftAndRight(weaponSpeed);
-                    break;
-                default:
-                    break;
+            case KeyEvent.KEYCODE_DPAD_UP:
+                weaponImageView.setY(weaponImageView.getY() - weaponSpeed);
+                break;
+            case KeyEvent.KEYCODE_DPAD_DOWN:
+                weaponImageView.setY(weaponImageView.getY() + weaponSpeed);
+                break;
+            case KeyEvent.KEYCODE_DPAD_LEFT:
+                weaponImageView.setX(weaponImageView.getX() - weaponSpeed);
+                break;
+            case KeyEvent.KEYCODE_DPAD_RIGHT:
+                weaponImageView.setX(weaponImageView.getX() + weaponSpeed);
+                break;
+            default:
+                break;
             }
-
             int[] weaponLocation = new int[2];
             weaponImageView.getLocationOnScreen(weaponLocation);
 

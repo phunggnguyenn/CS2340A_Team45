@@ -15,6 +15,7 @@ public class PlayerMovement implements PlayerMovementStrategy {
     private CollisionObserver collisionObserver;
     private ImageView avatarImageView;
     private ImageView weaponImageView;
+    private boolean isSpaceBarClicked = false;
 
     public PlayerMovement(List<ImageView> blackTilesList, CollisionObserver collisionObserver) {
         this.blackTilesList = blackTilesList;
@@ -24,30 +25,35 @@ public class PlayerMovement implements PlayerMovementStrategy {
     @Override
     public void move(Player player, int keyCode) {
         switch (keyCode) {
-            case KeyEvent.KEYCODE_DPAD_DOWN:
-                player.setY(player.getY() + 10);
-                break;
-            case KeyEvent.KEYCODE_DPAD_UP:
-                player.setY(player.getY() - 10);
-                break;
-            case KeyEvent.KEYCODE_DPAD_LEFT:
-                player.setX(player.getX() - 10);
-                break;
-            case KeyEvent.KEYCODE_DPAD_RIGHT:
-                player.setX(player.getX() + 10);
-                break;
-            case KeyEvent.KEYCODE_SPACE:
-                // Handle attack when the space key is pressed
-                if (collisionObserver != null && collisionObserver.enemyCollision()) {
-                    initiateAttack();
-                }
-                break;
-            default:
-                break;
+        case KeyEvent.KEYCODE_DPAD_DOWN:
+            player.setY(player.getY() + 10);
+            break;
+        case KeyEvent.KEYCODE_DPAD_UP:
+            player.setY(player.getY() - 10);
+            break;
+        case KeyEvent.KEYCODE_DPAD_LEFT:
+            player.setX(player.getX() - 10);
+            break;
+        case KeyEvent.KEYCODE_DPAD_RIGHT:
+            player.setX(player.getX() + 10);
+            break;
+        case KeyEvent.KEYCODE_SPACE:
+            // Handle attack when the space key is pressed
+            isSpaceBarClicked = true;
+            Log.d("PlayerMovement", "Space bar clicked: " + isSpaceBarClicked);
+            if (isSpaceBarClicked && collisionObserver != null && collisionObserver.enemyCollision()) {
+                initiateAttack();
+                isSpaceBarClicked = false;
+            }
+            break;
+        default:
+            break;
         }
+
     }
 
     private void initiateAttack() {
+        Log.d("PlayerMovement", "Initiating attack");
         // Call the handleAttack method in CollisionObserver to perform the attack logic
         collisionObserver.enemyAttacked();
     }

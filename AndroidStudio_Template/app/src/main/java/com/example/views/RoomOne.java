@@ -202,8 +202,6 @@ public class RoomOne extends AppCompatActivity {
             Log.d("RoomOne", "Updating weapon position");
 
             int weaponSpeed = 11; // Adjust this value as needed
-            int weaponWidth = weaponImageView.getWidth();
-            int weaponHeight = weaponImageView.getHeight();
 
             weaponImageView.clearAnimation();
 
@@ -212,16 +210,16 @@ public class RoomOne extends AppCompatActivity {
 
             switch (keyCode) {
             case KeyEvent.KEYCODE_DPAD_UP:
-                weaponImageView.offsetTopAndBottom(-weaponSpeed);
+                weaponImageView.setY(weaponImageView.getY() - weaponSpeed);
                 break;
             case KeyEvent.KEYCODE_DPAD_DOWN:
-                weaponImageView.offsetTopAndBottom(weaponSpeed);
+                weaponImageView.setY(weaponImageView.getY() + weaponSpeed);
                 break;
             case KeyEvent.KEYCODE_DPAD_LEFT:
-                weaponImageView.offsetLeftAndRight(-weaponSpeed);
+                weaponImageView.setX(weaponImageView.getX() - weaponSpeed);
                 break;
             case KeyEvent.KEYCODE_DPAD_RIGHT:
-                weaponImageView.offsetLeftAndRight(weaponSpeed);
+                weaponImageView.setX(weaponImageView.getX() + weaponSpeed);
                 break;
             default:
                 break;
@@ -236,7 +234,6 @@ public class RoomOne extends AppCompatActivity {
             Log.d("RoomOne", "Weapon Y: " + weaponLocation[1]);
         }
     }
-
     private void restartActivity() {
         recreate(); // restart
         finish();
@@ -274,4 +271,3 @@ public class RoomOne extends AppCompatActivity {
         return collisionObserver;
     }
 }
-
