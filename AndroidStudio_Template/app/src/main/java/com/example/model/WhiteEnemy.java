@@ -15,6 +15,7 @@ public class WhiteEnemy extends Enemy {
         getView().setX(x);
         getView().setY(y);
     }
+
     @Override
     void generate() {
 

@@ -2,8 +2,10 @@ package com.example.views;
 
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +18,7 @@ import android.widget.TextView;
 import com.example.demo_2340.R;
 import com.example.model.EnemyFactory;
 import com.example.model.Enemy;
+import com.example.model.PlayerMovement;
 import com.example.viewmodels.CollisionObserver;
 import com.example.viewmodels.RoomTwoViewModel;
 import com.example.model.Player;
@@ -29,6 +32,7 @@ public class RoomTwo extends AppCompatActivity {
     private TextView scoreTextView;
     private Handler handler;
     private ImageView avatarImageView;
+    private ImageView weaponImageView;
     private List<ImageView> blackTilesList;
     private int greenenemyX = 85;
     private int yellowenemyX = 700;
@@ -36,11 +40,14 @@ public class RoomTwo extends AppCompatActivity {
     private int yellowenemyY = 750;
     private Handler h = new Handler();
     private CollisionObserver collisionObserver;
+    private RelativeLayout room2Layout;
+    private PlayerMovement playerMovement;
+    private ImageView skullImageView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_room2);
-        RelativeLayout room2Layout = findViewById(R.id.room2Layout);
+        room2Layout = findViewById(R.id.room2Layout);
         // Retrieve values from the Intent
         Intent receiverIntent = getIntent();
         player = (Player) receiverIntent.getSerializableExtra("player");
@@ -108,6 +115,15 @@ public class RoomTwo extends AppCompatActivity {
                 room2Layout.addView(tilesImageView, redTilesParams);
             }
         }
+
+        //enemy instantiationn
+        enemyFactory = new EnemyFactory();
+        Enemy yellowEnemy = enemyFactory.createYellowEnemy(this, yellowenemyX, yellowenemyY);
+        Enemy greenEnemy = enemyFactory.createGreenEnemy(this, greenenemyX, greenenemyY);
+
+        room2Layout.addView(yellowEnemy.getView());
+        room2Layout.addView(greenEnemy.getView());
+
         avatarImageView = findViewById(R.id.imageAvatar);
         avatarImageView.setImageResource(player.getAvatarId());
         ViewGroup.MarginLayoutParams playerLayout = (ViewGroup.MarginLayoutParams)
@@ -119,15 +135,15 @@ public class RoomTwo extends AppCompatActivity {
         player.setY(playerLayout.topMargin);
 
 
-        //enemy instantiationn
-        enemyFactory = new EnemyFactory();
-        Enemy yellowEnemy = enemyFactory.createYellowEnemy(this, yellowenemyX, yellowenemyY);
-        Enemy greenEnemy = enemyFactory.createGreenEnemy(this, greenenemyX, greenenemyY);
 
-        room2Layout.addView(yellowEnemy.getView());
-        room2Layout.addView(greenEnemy.getView());
+        weaponImageView = findViewById(R.id.weaponImageView);
+        weaponImageView.setImageResource(player.getWeaponResourceId());
+
 
         collisionObserver = new CollisionObserver(player, yellowEnemy, greenEnemy);
+        playerMovement = new PlayerMovement(blackTilesList, collisionObserver);
+        playerMovement.setImageViews(avatarImageView, weaponImageView);
+
         // Start updating the score
         handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -144,6 +160,7 @@ public class RoomTwo extends AppCompatActivity {
                         player.setHealthPoints(player.getHealthPoints() - 10);
                     }
                     healthPointsTextView.setText("Health Points: " + player.getHealthPoints());
+                    collisionObserver.enemyAttacked();
                     /**
                      * Automatically navigate to the game over screen if
                      * player health (HP) reaches 0 (i.e the player dies)
@@ -166,6 +183,40 @@ public class RoomTwo extends AppCompatActivity {
             }
         }, 1000);
     }
+    private void updateWeaponPosition(int keyCode) {
+        if (avatarImageView != null && weaponImageView != null && room2Layout != null) {
+            Log.d("RoomTwo", "Updating weapon position");
+
+            int weaponSpeed = 10; // Adjust this value as needed
+
+            weaponImageView.clearAnimation();
+            int[] playerLocation = new int[2];
+            avatarImageView.getLocationOnScreen(playerLocation);
+            switch (keyCode) {
+            case KeyEvent.KEYCODE_DPAD_UP:
+                weaponImageView.setY(weaponImageView.getY() - weaponSpeed);
+                break;
+            case KeyEvent.KEYCODE_DPAD_DOWN:
+                weaponImageView.setY(weaponImageView.getY() + weaponSpeed);
+                break;
+            case KeyEvent.KEYCODE_DPAD_LEFT:
+                weaponImageView.setX(weaponImageView.getX() - weaponSpeed);
+                break;
+            case KeyEvent.KEYCODE_DPAD_RIGHT:
+                weaponImageView.setX(weaponImageView.getX() + weaponSpeed);
+                break;
+            default:
+                break;
+            }
+            int[] weaponLocation = new int[2];
+            weaponImageView.getLocationOnScreen(weaponLocation);
+
+            Log.d("RoomTwo", "Player X: " + playerLocation[0]);
+            Log.d("RoomTwo", "Player Y: " + playerLocation[1]);
+            Log.d("RoomTwo", "Weapon X: " + weaponLocation[0]);
+            Log.d("RoomTwo", "Weapon Y: " + weaponLocation[1]);
+        }
+    }
     private void restartActivity() {
         recreate(); // restart
         finish();
@@ -176,6 +227,7 @@ public class RoomTwo extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         viewModel.handleKeyEvent(keyCode, blackTilesList, avatarImageView);
+        updateWeaponPosition(keyCode);
         if (viewModel.checkReachedGoal()) {
             viewModel.moveToNextRoom();
         }

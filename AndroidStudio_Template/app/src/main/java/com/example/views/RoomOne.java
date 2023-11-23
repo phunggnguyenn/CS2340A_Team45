@@ -17,11 +17,14 @@ import com.example.model.EnemyFactory;
 import com.example.model.Enemy;
 import com.example.model.Player;
 import com.example.demo_2340.R;
+import com.example.model.PlayerMovement;
 import com.example.viewmodels.CollisionObserver;
 import com.example.viewmodels.RoomOneViewModel;
+
+import java.security.Key;
 import java.util.ArrayList;
 import java.util.List;
-
+import android.util.Log;
 
 import android.view.KeyEvent;
 
@@ -37,15 +40,19 @@ public class RoomOne extends AppCompatActivity {
     private TextView scoreTextView;
     private Handler handler;
     private ImageView avatarImageView;
+    private ImageView weaponImageView;
     private List<ImageView> blackTilesList; //contains ref of black tiles aka collisions/walls
     private Handler h = new Handler();
     private CollisionObserver collisionObserver;
-
+    private PlayerMovement playerMovement;
+    private  RelativeLayout room1Layout;
+    private static final String TAG = "RoomOne";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_room1);
-        RelativeLayout room1Layout = findViewById(R.id.room1Layout);
+        Log.d(TAG, "onCreate");
+        room1Layout = findViewById(R.id.room1Layout);
         // Retrieve values from the Intent
         Intent receiverIntent = getIntent();
         player = (Player) receiverIntent.getSerializableExtra("player");
@@ -109,15 +116,8 @@ public class RoomOne extends AppCompatActivity {
             }
 
         }
-        avatarImageView = findViewById(R.id.imageAvatar);
-        avatarImageView.setImageResource(player.getAvatarId());
-        ViewGroup.MarginLayoutParams playerLayout = (ViewGroup.MarginLayoutParams)
-                avatarImageView.getLayoutParams();
-        playerLayout.topMargin = 1165;
-        playerLayout.leftMargin = 445;
-        avatarImageView.setLayoutParams(playerLayout);
-        player.setX(playerLayout.leftMargin);
-        player.setY(playerLayout.topMargin);
+
+        //INSTANTIATION
         //instantiating enemy factory
         enemyFactory = new EnemyFactory();
         blueEnemy = enemyFactory.createBlueEnemy(this, 715, 65);
@@ -126,57 +126,130 @@ public class RoomOne extends AppCompatActivity {
         room1Layout.addView(blueEnemy.getView());
         room1Layout.addView(whiteEnemy.getView());
 
+
+        avatarImageView = findViewById(R.id.imageAvatar);
+        avatarImageView.setImageResource(player.getAvatarId());
+
+        ViewGroup.MarginLayoutParams playerLayout = (ViewGroup.MarginLayoutParams)
+                avatarImageView.getLayoutParams();
+        playerLayout.topMargin = 1165;
+        playerLayout.leftMargin = 445;
+
+        avatarImageView.setLayoutParams(playerLayout);
+
+        player.setX(playerLayout.leftMargin);
+        player.setY(playerLayout.topMargin);
+
+
+        weaponImageView = findViewById(R.id.weaponImageView);
+        weaponImageView.setImageResource(player.getWeaponResourceId());
+
+
         collisionObserver = new CollisionObserver(player, blueEnemy, whiteEnemy);
+        playerMovement = new PlayerMovement(blackTilesList, collisionObserver);
+        playerMovement.setImageViews(avatarImageView, weaponImageView);
+
 
         // Start updating the score
         handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                blueEnemy.move();
-                whiteEnemy.move();
-                if (collisionObserver.enemyCollision()) {
-                    if (player.getDifficulty() == 1.00) {
-                        player.setHealthPoints(player.getHealthPoints() - 25);
-                    } else if (player.getDifficulty() == 0.75) {
-                        player.setHealthPoints(player.getHealthPoints() - 15);
-                    } else {
-                        player.setHealthPoints(player.getHealthPoints() - 10);
-                    }
-                    healthPointsTextView.setText("Health Points: " + player.getHealthPoints());
-                    /**
-                     * Automatically navigate to the game over screen if
-                     * player health (HP) reaches 0 (i.e the player dies)
-                     */
-                    if (player.getHealthPoints() == 0) {
-                        setContentView(R.layout.activity_game_end_lose);
-                        Button restart = findViewById(R.id.restart);
-                        restart.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                restartActivity();
-                            }
-                        });
-                    }
-                }
+                Log.d(TAG, "Score update loop");
+                if (blueEnemy != null && whiteEnemy != null) {
+                    blueEnemy.move();
+                    whiteEnemy.move();
 
-                viewModel.updateScore(-1);
-                scoreTextView.setText("Score: " + viewModel.getScore());
+                    if (collisionObserver.enemyCollision()) {
+                        Log.d(TAG, "Enemy collision detected");
+                        if (player.getDifficulty() == 1.00) {
+                            player.setHealthPoints(player.getHealthPoints() - 25);
+                        } else if (player.getDifficulty() == 0.75) {
+                            player.setHealthPoints(player.getHealthPoints() - 15);
+                        } else {
+                            player.setHealthPoints(player.getHealthPoints() - 10);
+                        }
+                        healthPointsTextView.setText("Health Points: " + player.getHealthPoints());
+                        collisionObserver.enemyAttacked();
+                        /**
+                         * Automatically navigate to the game over screen if
+                         * player health (HP) reaches 0 (i.e the player dies)
+                         */
+                        if (player.getHealthPoints() == 0) {
+                            Log.d(TAG, "Player health reached 0");
+                            setContentView(R.layout.activity_game_end_lose);
+                            Button restart = findViewById(R.id.restart);
+                            restart.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    restartActivity();
+                                }
+                            });
+                        }
+
+                    }
+
+                    viewModel.updateScore(-1);
+                    scoreTextView.setText("Score: " + viewModel.getScore());
+                }
                 handler.postDelayed(this, 1000);
             }
         }, 1000);
+    }
+
+    private void updateWeaponPosition(int keyCode) {
+        if (avatarImageView != null && weaponImageView != null && room1Layout != null) {
+            Log.d("RoomOne", "Updating weapon position");
+
+            int weaponSpeed = 11; // Adjust this value as needed
+
+            weaponImageView.clearAnimation();
+
+            int[] playerLocation = new int[2];
+            avatarImageView.getLocationOnScreen(playerLocation);
+
+            switch (keyCode) {
+            case KeyEvent.KEYCODE_DPAD_UP:
+                weaponImageView.setY(weaponImageView.getY() - weaponSpeed);
+                break;
+            case KeyEvent.KEYCODE_DPAD_DOWN:
+                weaponImageView.setY(weaponImageView.getY() + weaponSpeed);
+                break;
+            case KeyEvent.KEYCODE_DPAD_LEFT:
+                weaponImageView.setX(weaponImageView.getX() - weaponSpeed);
+                break;
+            case KeyEvent.KEYCODE_DPAD_RIGHT:
+                weaponImageView.setX(weaponImageView.getX() + weaponSpeed);
+                break;
+            default:
+                break;
+            }
+
+            int[] weaponLocation = new int[2];
+            weaponImageView.getLocationOnScreen(weaponLocation);
+
+            Log.d("RoomOne", "Player X: " + playerLocation[0]);
+            Log.d("RoomOne", "Player Y: " + playerLocation[1]);
+            Log.d("RoomOne", "Weapon X: " + weaponLocation[0]);
+            Log.d("RoomOne", "Weapon Y: " + weaponLocation[1]);
+        }
     }
     private void restartActivity() {
         recreate(); // restart
         finish();
     }
+
+
     public int getScore() {
         return viewModel.getScore();
     }
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
+        Log.d(TAG, "onKeyDown called. KeyCode: " + keyCode);
         if (viewModel.handleKeyEvent(keyCode, blackTilesList, avatarImageView)) {
+            updateWeaponPosition(keyCode);
             if (viewModel.checkReachedGoal()) {
+                Log.d(TAG, "Player reached goal, moving to the next room");
                 viewModel.moveToNextRoom();
             }
         }
