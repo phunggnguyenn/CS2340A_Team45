@@ -6,16 +6,19 @@ import android.util.Log;
 import com.example.demo_2340.R;
 import com.example.model.Enemy;
 import com.example.model.Player;
+import com.example.model.PowerUp;
 
 public class CollisionObserver implements CollisionObserverStrategy {
     private Player player;
     private Enemy enemy1;
     private Enemy enemy2;
     private Enemy collidedEnemy;
-    public CollisionObserver(Player player, Enemy enemy1, Enemy enemy2) {
+    private PowerUp powerUp;
+    public CollisionObserver(Player player, Enemy enemy1, Enemy enemy2, PowerUp powerUp) {
         this.player = player;
         this.enemy1 = enemy1;
         this.enemy2 = enemy2;
+        this.powerUp = powerUp;
     }
     @Override
     public boolean enemyCollision() {
@@ -39,6 +42,21 @@ public class CollisionObserver implements CollisionObserverStrategy {
         }
         if (playerRect.intersect(enemyRect2)) {
             collidedEnemy = enemy2;
+            return true;
+        }
+        return false;
+    }
+    @Override
+    public boolean powerUpCollision() {
+        if (powerUp == null || powerUp.isCollected()) {
+            return false;
+        }
+        Rect playerRect = new Rect(player.getX(), player.getY(), player.getX() + 75,
+                player.getY() + 90);
+        Rect powerUpRect = new Rect(powerUp.getX(), powerUp.getY(), powerUp.getX() + 75,
+                powerUp.getY() + 90);
+        if (playerRect.intersect(powerUpRect)) {
+            powerUp.setCollected(true);
             return true;
         }
         return false;

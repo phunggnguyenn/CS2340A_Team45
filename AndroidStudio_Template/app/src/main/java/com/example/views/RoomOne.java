@@ -15,9 +15,11 @@ import android.widget.TextView;
 
 import com.example.model.EnemyFactory;
 import com.example.model.Enemy;
+import com.example.model.HealthPowerUp;
 import com.example.model.Player;
 import com.example.demo_2340.R;
 import com.example.model.PlayerMovement;
+import com.example.model.PowerUp;
 import com.example.viewmodels.CollisionObserver;
 import com.example.viewmodels.RoomOneViewModel;
 
@@ -37,6 +39,7 @@ public class RoomOne extends AppCompatActivity {
     private EnemyFactory enemyFactory;
     private Enemy blueEnemy;
     private Enemy whiteEnemy;
+    private PowerUp healthPowerUp;
     private TextView scoreTextView;
     private Handler handler;
     private ImageView avatarImageView;
@@ -126,6 +129,9 @@ public class RoomOne extends AppCompatActivity {
         room1Layout.addView(blueEnemy.getView());
         room1Layout.addView(whiteEnemy.getView());
 
+        //Instantiate health power up
+        healthPowerUp = new HealthPowerUp(this, 110, 100);
+        room1Layout.addView(healthPowerUp.getView());
 
         avatarImageView = findViewById(R.id.imageAvatar);
         avatarImageView.setImageResource(player.getAvatarId());
@@ -145,7 +151,7 @@ public class RoomOne extends AppCompatActivity {
         weaponImageView.setImageResource(player.getWeaponResourceId());
 
 
-        collisionObserver = new CollisionObserver(player, blueEnemy, whiteEnemy);
+        collisionObserver = new CollisionObserver(player, blueEnemy, whiteEnemy, healthPowerUp);
         playerMovement = new PlayerMovement(blackTilesList, collisionObserver);
         playerMovement.setImageViews(avatarImageView, weaponImageView);
 
@@ -188,7 +194,11 @@ public class RoomOne extends AppCompatActivity {
                         }
 
                     }
-
+                    if (collisionObserver.powerUpCollision()) {
+                            player.setHealthPoints(player.getHealthPoints() + 20);
+                            healthPowerUp.getView().setVisibility(View.INVISIBLE);
+                            healthPointsTextView.setText("Health Points: " + player.getHealthPoints());
+                    }
                     viewModel.updateScore(-1);
                     scoreTextView.setText("Score: " + viewModel.getScore());
                 }
