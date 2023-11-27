@@ -2,6 +2,7 @@ package com.example.views;
 
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -22,6 +23,7 @@ import com.example.model.PlayerMovement;
 import com.example.model.PowerUp;
 import com.example.model.ScorePowerUp;
 import com.example.model.SkipRoomPowerUp;
+import com.example.model.Weapon;
 import com.example.viewmodels.CollisionObserver;
 import com.example.viewmodels.RoomOneViewModel;
 
@@ -153,7 +155,6 @@ public class RoomOne extends AppCompatActivity {
 
         player.setX(playerLayout.leftMargin);
         player.setY(playerLayout.topMargin);
-
 
         weaponImageView = findViewById(R.id.weaponImageView);
         weaponImageView.setImageResource(player.getWeaponResourceId());
@@ -302,5 +303,8 @@ public class RoomOne extends AppCompatActivity {
     }
     public CollisionObserver getCollisionObserver() {
         return collisionObserver;
+    }
+    public ImageView getWeaponImageView() {
+            return weaponImageView;
     }
 }

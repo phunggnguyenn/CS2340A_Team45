@@ -282,6 +282,9 @@ public class RoomTwo extends AppCompatActivity {
     private Handler getHandler() {
         return h;
     }
+    public ImageView getWeaponImageView() {
+        return weaponImageView;
+    }
 
 
 }
