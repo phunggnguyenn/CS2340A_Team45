@@ -115,20 +115,15 @@ public class RoomThree extends AppCompatActivity {
                 room3Layout.addView(tilesImageView, redTilesParams);
             }
         }
-
-        //enemy instantiation
-        enemyFactory = new EnemyFactory();
+        enemyFactory = new EnemyFactory();       //enemy instantiation
         Enemy whiteEnemy = enemyFactory.createWhiteEnemy(this, whiteenemyX, whiteenemyY);
         Enemy greenEnemy = enemyFactory.createGreenEnemy(this, greenenemyX, greenenemyY);
-
         room3Layout.addView(whiteEnemy.getView());
         room3Layout.addView(greenEnemy.getView());
-
         //Instantiate power ups
         healthPowerUp = new HealthPowerUp(this, 920, 1000);
         scorePowerUp = new ScorePowerUp(this, 920, 360);
         skipRoomPowerUp = new SkipRoomPowerUp(this, 110, 100);
-
         room3Layout.addView(healthPowerUp.getView());
         room3Layout.addView(scorePowerUp.getView());
         room3Layout.addView(skipRoomPowerUp.getView());
@@ -142,21 +137,16 @@ public class RoomThree extends AppCompatActivity {
         avatarImageView.setLayoutParams(playerLayout);
         player.setX(playerLayout.leftMargin);
         player.setY(playerLayout.topMargin);
-
-
-
         weaponImageView = findViewById(R.id.weaponImageView);
         weaponImageView.setImageResource(player.getWeaponResourceId());
-
-
-        collisionObserver = new CollisionObserver(player, whiteEnemy, greenEnemy, healthPowerUp, scorePowerUp, skipRoomPowerUp);
+        collisionObserver = new CollisionObserver(player, whiteEnemy, greenEnemy,
+                healthPowerUp, scorePowerUp, skipRoomPowerUp);
         playerMovement = new PlayerMovement(blackTilesList, collisionObserver);
         playerMovement.setImageViews(avatarImageView, weaponImageView);
-
-
         // Start updating the score
         handler = new Handler();
-        collisionObserver = new CollisionObserver(player, whiteEnemy, greenEnemy, healthPowerUp, scorePowerUp, skipRoomPowerUp);
+        collisionObserver = new CollisionObserver(player, whiteEnemy, greenEnemy,
+                healthPowerUp, scorePowerUp, skipRoomPowerUp);
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -219,22 +209,21 @@ public class RoomThree extends AppCompatActivity {
 
             int[] playerLocation = new int[2];
             avatarImageView.getLocationOnScreen(playerLocation);
-
             switch (keyCode) {
-                case KeyEvent.KEYCODE_DPAD_UP:
-                    weaponImageView.setY(weaponImageView.getY() - weaponSpeed);
-                    break;
-                case KeyEvent.KEYCODE_DPAD_DOWN:
-                    weaponImageView.setY(weaponImageView.getY() + weaponSpeed);
-                    break;
-                case KeyEvent.KEYCODE_DPAD_LEFT:
-                    weaponImageView.setX(weaponImageView.getX() - weaponSpeed);
-                    break;
-                case KeyEvent.KEYCODE_DPAD_RIGHT:
-                    weaponImageView.setX(weaponImageView.getX() + weaponSpeed);
-                    break;
-                default:
-                    break;
+            case KeyEvent.KEYCODE_DPAD_UP:
+                weaponImageView.setY(weaponImageView.getY() - weaponSpeed);
+                break;
+            case KeyEvent.KEYCODE_DPAD_DOWN:
+                weaponImageView.setY(weaponImageView.getY() + weaponSpeed);
+                break;
+            case KeyEvent.KEYCODE_DPAD_LEFT:
+                weaponImageView.setX(weaponImageView.getX() - weaponSpeed);
+                break;
+            case KeyEvent.KEYCODE_DPAD_RIGHT:
+                weaponImageView.setX(weaponImageView.getX() + weaponSpeed);
+                break;
+            default:
+                break;
             }
 
             int[] weaponLocation = new int[2];

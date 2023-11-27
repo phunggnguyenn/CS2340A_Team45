@@ -1,9 +1,5 @@
 package com.example.model;
 
-import android.widget.ImageView;
-
-import com.example.viewmodels.CollisionObserver;
-
 import java.io.Serializable;
 
 public class Weapon  implements Serializable {

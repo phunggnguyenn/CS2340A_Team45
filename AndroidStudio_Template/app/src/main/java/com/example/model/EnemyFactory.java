@@ -1,7 +1,6 @@
 package com.example.model;
 import android.content.Context;
-import android.widget.ImageView;
-import com.example.demo_2340.R;
+
 public class EnemyFactory {
     public Enemy createBlueEnemy(Context context, int x, int y) {
         // Create and return a BlueEnemy

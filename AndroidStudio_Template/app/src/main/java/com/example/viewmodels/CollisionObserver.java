@@ -6,7 +6,6 @@ import android.util.Log;
 import com.example.demo_2340.R;
 import com.example.model.Enemy;
 import com.example.model.Player;
-import com.example.model.PlayerMovement;
 import com.example.model.PowerUp;
 
 public class CollisionObserver implements CollisionObserverStrategy {
@@ -17,7 +16,8 @@ public class CollisionObserver implements CollisionObserverStrategy {
     private PowerUp powerUp1;
     private PowerUp powerUp2;
     private PowerUp powerUp3;
-    public CollisionObserver(Player player, Enemy enemy1, Enemy enemy2, PowerUp powerUp1, PowerUp powerUp2, PowerUp powerUp3) {
+    public CollisionObserver(Player player, Enemy enemy1, Enemy enemy2,
+                             PowerUp powerUp1, PowerUp powerUp2, PowerUp powerUp3) {
         this.player = player;
         this.enemy1 = enemy1;
         this.enemy2 = enemy2;
