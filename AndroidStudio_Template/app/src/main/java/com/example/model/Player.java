@@ -70,7 +70,6 @@ public class Player implements Serializable {
             this.healthPoints = 0;
         } else {
             this.healthPoints = healthPoints;
-            notifyHealthPointChange(); // Notify listeners when health points change.
         }
     }
     public Weapon getWeapon() {

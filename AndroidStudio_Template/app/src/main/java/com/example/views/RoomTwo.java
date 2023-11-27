@@ -222,20 +222,20 @@ public class RoomTwo extends AppCompatActivity {
             int[] playerLocation = new int[2];
             avatarImageView.getLocationOnScreen(playerLocation);
             switch (keyCode) {
-            case KeyEvent.KEYCODE_DPAD_UP:
-                weaponImageView.setY(weaponImageView.getY() - weaponSpeed);
-                break;
-            case KeyEvent.KEYCODE_DPAD_DOWN:
-                weaponImageView.setY(weaponImageView.getY() + weaponSpeed);
-                break;
-            case KeyEvent.KEYCODE_DPAD_LEFT:
-                weaponImageView.setX(weaponImageView.getX() - weaponSpeed);
-                break;
-            case KeyEvent.KEYCODE_DPAD_RIGHT:
-                weaponImageView.setX(weaponImageView.getX() + weaponSpeed);
-                break;
-            default:
-                break;
+                case KeyEvent.KEYCODE_DPAD_UP:
+                    weaponImageView.setY(weaponImageView.getY() - weaponSpeed);
+                    break;
+                case KeyEvent.KEYCODE_DPAD_DOWN:
+                    weaponImageView.setY(weaponImageView.getY() + weaponSpeed);
+                    break;
+                case KeyEvent.KEYCODE_DPAD_LEFT:
+                    weaponImageView.setX(weaponImageView.getX() - weaponSpeed);
+                    break;
+                case KeyEvent.KEYCODE_DPAD_RIGHT:
+                    weaponImageView.setX(weaponImageView.getX() + weaponSpeed);
+                    break;
+                default:
+                    break;
             }
             int[] weaponLocation = new int[2];
             weaponImageView.getLocationOnScreen(weaponLocation);
