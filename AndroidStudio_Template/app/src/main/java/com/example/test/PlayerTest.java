@@ -2,6 +2,9 @@ package com.example.test;
 
 import com.example.model.Leaderboard;
 import com.example.model.Player;
+import com.example.model.PlayerMovement;
+import com.example.viewmodels.CollisionObserver;
+
 import org.junit.Test;
 import org.junit.Before;
 import static org.junit.Assert.*;
@@ -11,18 +14,66 @@ import java.util.List;
 import android.view.KeyEvent;
 import android.widget.ImageView;
 
+import com.example.views.RoomOne;
+import com.example.model.Weapon;
+import com.example.views.RoomThree;
+import com.example.views.RoomTwo;
+
 public class PlayerTest {
     private Player player1;
     private Player player2;
     private Leaderboard leaderboard;
 
-
     @Before
     public void setUp() {
         player1 = Player.getInstance("Player 1", 100, 1, 5, 6, 1);
         player2 = Player.getInstance("Player 2", 200, 2, 5, 6, 1);
-
     }
+    //Member: Mahathi Gumudavelli
+    //Testing weapon position  - sprint 5
+    @Test
+    public void testWeaponCoordinateSetting() {
+        // Given
+        Weapon weapon = new Weapon(123, 50);
+
+        // When
+        int newX = 10;
+        int newY = 20;
+        weapon.setX(newX);
+        weapon.setY(newY);
+
+        // Then
+        assertEquals("X-coordinate should be updated", newX, weapon.getX());
+        assertEquals("Y-coordinate should be updated", newY, weapon.getY());
+    }
+    //Member: Mahathi Gumudavelli
+    //Testing weapon position - sprint 5
+    @Test
+    public void testMultipleCoordinateUpdates() {
+        // Given
+        Weapon weapon = new Weapon(456, 30);
+
+        // When
+        int initialX = weapon.getX();
+        int initialY = weapon.getY();
+
+        int newX1 = 5;
+        int newY1 = 15;
+        weapon.setX(newX1);
+        weapon.setY(newY1);
+        // Then
+        assertEquals("Initial X-coordinate should be 0", 0, initialX);
+        assertEquals("Initial Y-coordinate should be 0", 0, initialY);
+        assertEquals("X-coordinate should be updated to newX1", newX1, weapon.getX());
+        assertEquals("Y-coordinate should be updated to newY1", newY1, weapon.getY());
+        int newX2 = 12;
+        int newY2 = 8;
+        weapon.setX(newX2);
+        weapon.setY(newY2);
+        assertEquals("X-coordinate should be updated to newX2", newX2, weapon.getX());
+        assertEquals("Y-coordinate should be updated to newY2", newY2, weapon.getY());
+    }
+
     // Member: Jaeung Woo
     // This method tests setting Player's goal location
     @Test

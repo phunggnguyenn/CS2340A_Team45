@@ -6,6 +6,7 @@ import android.util.Log;
 import com.example.demo_2340.R;
 import com.example.model.Enemy;
 import com.example.model.Player;
+import com.example.model.PlayerMovement;
 import com.example.model.PowerUp;
 
 public class CollisionObserver implements CollisionObserverStrategy {
@@ -40,6 +41,7 @@ public class CollisionObserver implements CollisionObserverStrategy {
                 enemy1.getY() + 90);
         Rect enemyRect2 = new Rect(enemy2.getX(), enemy2.getY(), enemy2.getX() + 75,
                 enemy2.getY() + 90);
+
         if (playerRect.intersect(enemyRect1)) {
             collidedEnemy = enemy1;
             return true;
@@ -78,8 +80,9 @@ public class CollisionObserver implements CollisionObserverStrategy {
         return -1;
     }
     public void enemyAttacked() {
-        if (collidedEnemy != null) {
-            // Handle enemy destruction when attacked
+        // Handle enemy destruction when attacked
+        if (enemyCollision()) {
+            Log.d("CollisionObserver", "Enemy attacked");
             collidedEnemy.getView().setImageResource(R.drawable.skull);
         }
     }
