@@ -4,6 +4,8 @@ import java.io.Serializable;
 import android.view.KeyEvent;
 import android.widget.ImageView;
 import java.util.List;
+import com.example.demo_2340.R;
+import android.util.Log;
 
 public class Player implements Serializable {
     private int x; //for movement
@@ -17,6 +19,7 @@ public class Player implements Serializable {
     private int goalX;
     private int goalY;
     private double difficulty;
+    private Weapon weapon;
 
 
     private Player(String playerName, int healthPoints, int avatarId,
@@ -29,6 +32,7 @@ public class Player implements Serializable {
         this.playerHeight = playerHeight;
         this.playerWidth = playerWidth;
         this.difficulty = difficulty;
+        this.weapon = new Weapon(R.drawable.weapon_sword_emerald, 20);
     }
     public static Player getInstance(String playerName, int healthPoints, int avatarId,
                                      int playerWidth, int playerHeight, double difficulty) {
@@ -46,6 +50,13 @@ public class Player implements Serializable {
             this.healthPoints = healthPoints;
         }
     }
+    public Weapon getWeapon() {
+        return weapon;
+    }
+    public int getWeaponResourceId() {
+        return weapon.getWeaponResourceId();
+    }
+
     public double getDifficulty() {
         return difficulty;
     }
@@ -122,7 +133,9 @@ public class Player implements Serializable {
         default:
             break;
         }
+        Log.d("PlayerPosition", "Player X: " + getX() + ", Y: " + getY());
     }
+
 
     // Used for testing purpose
     public boolean isValidMove(List<ImageView> blackTilesList, int x, int y) {

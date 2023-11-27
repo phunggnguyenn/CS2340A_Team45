@@ -19,6 +19,7 @@ public class RoomTwoViewModel {
     private PlayerMovementStrategy movementStrategy;
     private Context context;
     private PlayerObserverStrategy observer;
+    private CollisionObserver collisionObserver;
 
     public RoomTwoViewModel(Player player, int score, Context context) {
         this.score = score;
@@ -38,7 +39,7 @@ public class RoomTwoViewModel {
         }
     }
     public boolean handleKeyEvent(int keyCode, List<ImageView> blackTilesList, ImageView avatar) {
-        movementStrategy = new PlayerMovement(blackTilesList);
+        movementStrategy = new PlayerMovement(blackTilesList, collisionObserver);
         int oldX = player.getX();
         int oldY = player.getY();
         movementStrategy.move(player, keyCode);

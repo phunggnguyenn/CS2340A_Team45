@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.util.Log;
 import android.widget.ImageView;
 import java.util.List;
+import com.example.viewmodels.CollisionObserver;
 
 
 
@@ -19,6 +20,7 @@ public class RoomOneViewModel {
     private PlayerMovementStrategy movementStrategy;
     private Context context;
     private PlayerObserverStrategy playerObserver;
+    private CollisionObserver collisionObserver;
 
     public RoomOneViewModel(Player player, Context context) {
         this.score = 1000;
@@ -26,6 +28,7 @@ public class RoomOneViewModel {
         this.context = context;
         player.setGoalX(715);
         player.setGoalY(5);
+
     }
     // Score Feature
     public int getScore() {
@@ -39,10 +42,11 @@ public class RoomOneViewModel {
     }
     // Strategy pattern for handling player input for movement
     public boolean handleKeyEvent(int keyCode, List<ImageView> blackTilesList, ImageView avatar) {
-        movementStrategy = new PlayerMovement(blackTilesList);
+        movementStrategy = new PlayerMovement(blackTilesList, collisionObserver);
         int oldX = player.getX();
         int oldY = player.getY();
         movementStrategy.move(player, keyCode);
+
         int newX = player.getX();
         int newY = player.getY();
         Log.d("RoomOne", "Player position: x=" + newX + ", y=" + newY);
