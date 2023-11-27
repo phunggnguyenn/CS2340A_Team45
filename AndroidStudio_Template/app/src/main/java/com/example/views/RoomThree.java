@@ -16,7 +16,11 @@ import android.widget.TextView;
 import com.example.demo_2340.R;
 import com.example.model.Enemy;
 import com.example.model.EnemyFactory;
+import com.example.model.HealthPowerUp;
 import com.example.model.PlayerMovement;
+import com.example.model.PowerUp;
+import com.example.model.ScorePowerUp;
+import com.example.model.SkipRoomPowerUp;
 import com.example.viewmodels.CollisionObserver;
 import com.example.viewmodels.RoomThreeViewModel;
 import com.example.model.Player;
@@ -37,6 +41,9 @@ public class RoomThree extends AppCompatActivity {
     private int greenenemyX = 895;
     private int  whiteenemyY = 145;
     private int greenenemyY = 895;
+    private PowerUp healthPowerUp;
+    private PowerUp scorePowerUp;
+    private PowerUp skipRoomPowerUp;
     private Handler h = new Handler();
     private CollisionObserver collisionObserver;
     private RelativeLayout room3Layout;
@@ -114,9 +121,17 @@ public class RoomThree extends AppCompatActivity {
         Enemy whiteEnemy = enemyFactory.createWhiteEnemy(this, whiteenemyX, whiteenemyY);
         Enemy greenEnemy = enemyFactory.createGreenEnemy(this, greenenemyX, greenenemyY);
 
-
         room3Layout.addView(whiteEnemy.getView());
         room3Layout.addView(greenEnemy.getView());
+
+        //Instantiate power ups
+        healthPowerUp = new HealthPowerUp(this, 920, 1000);
+        scorePowerUp = new ScorePowerUp(this, 920, 360);
+        skipRoomPowerUp = new SkipRoomPowerUp(this, 110, 100);
+
+        room3Layout.addView(healthPowerUp.getView());
+        room3Layout.addView(scorePowerUp.getView());
+        room3Layout.addView(skipRoomPowerUp.getView());
 
         avatarImageView = findViewById(R.id.imageAvatar);
         avatarImageView.setImageResource(player.getAvatarId());
@@ -134,14 +149,14 @@ public class RoomThree extends AppCompatActivity {
         weaponImageView.setImageResource(player.getWeaponResourceId());
 
 
-        collisionObserver = new CollisionObserver(player, whiteEnemy, greenEnemy);
+        collisionObserver = new CollisionObserver(player, whiteEnemy, greenEnemy, healthPowerUp, scorePowerUp, skipRoomPowerUp);
         playerMovement = new PlayerMovement(blackTilesList, collisionObserver);
         playerMovement.setImageViews(avatarImageView, weaponImageView);
 
 
         // Start updating the score
         handler = new Handler();
-        collisionObserver = new CollisionObserver(player, whiteEnemy, greenEnemy);
+        collisionObserver = new CollisionObserver(player, whiteEnemy, greenEnemy, healthPowerUp, scorePowerUp, skipRoomPowerUp);
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -172,7 +187,21 @@ public class RoomThree extends AppCompatActivity {
                         });
                     }
                 }
-
+                int collision = collisionObserver.powerUpCollision();
+                if (collision != -1) {
+                    if (collision == 1) {
+                        player.setHealthPoints(player.getHealthPoints() + 20);
+                        healthPowerUp.getView().setVisibility(View.INVISIBLE);
+                        healthPointsTextView.setText("Health Points: " + player.getHealthPoints());
+                    } else if (collision == 2) {
+                        viewModel.updateScore(10);
+                        scorePowerUp.getView().setVisibility(View.INVISIBLE);
+                        scoreTextView.setText("Score: " + viewModel.getScore());
+                    } else if (collision == 3) {
+                        skipRoomPowerUp.getView().setVisibility(View.INVISIBLE);
+                        viewModel.moveToNextRoom();
+                    }
+                }
                 viewModel.updateScore(-1);
                 scoreTextView.setText("Score: " + viewModel.getScore());
                 handler.postDelayed(this, 1000);

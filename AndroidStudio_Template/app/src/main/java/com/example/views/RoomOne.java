@@ -15,13 +15,16 @@ import android.widget.TextView;
 
 import com.example.model.EnemyFactory;
 import com.example.model.Enemy;
+import com.example.model.HealthPowerUp;
 import com.example.model.Player;
 import com.example.demo_2340.R;
 import com.example.model.PlayerMovement;
+import com.example.model.PowerUp;
+import com.example.model.ScorePowerUp;
+import com.example.model.SkipRoomPowerUp;
 import com.example.viewmodels.CollisionObserver;
 import com.example.viewmodels.RoomOneViewModel;
 
-import java.security.Key;
 import java.util.ArrayList;
 import java.util.List;
 import android.util.Log;
@@ -37,6 +40,9 @@ public class RoomOne extends AppCompatActivity {
     private EnemyFactory enemyFactory;
     private Enemy blueEnemy;
     private Enemy whiteEnemy;
+    private PowerUp healthPowerUp;
+    private PowerUp scorePowerUp;
+    private PowerUp skipRoomPowerUp;
     private TextView scoreTextView;
     private Handler handler;
     private ImageView avatarImageView;
@@ -126,6 +132,14 @@ public class RoomOne extends AppCompatActivity {
         room1Layout.addView(blueEnemy.getView());
         room1Layout.addView(whiteEnemy.getView());
 
+        //Instantiate power ups
+        healthPowerUp = new HealthPowerUp(this, 20, 460);
+        scorePowerUp = new ScorePowerUp(this, 1010, 725);
+        skipRoomPowerUp = new SkipRoomPowerUp(this, 110, 100);
+
+        room1Layout.addView(healthPowerUp.getView());
+        room1Layout.addView(scorePowerUp.getView());
+        room1Layout.addView(skipRoomPowerUp.getView());
 
         avatarImageView = findViewById(R.id.imageAvatar);
         avatarImageView.setImageResource(player.getAvatarId());
@@ -145,7 +159,7 @@ public class RoomOne extends AppCompatActivity {
         weaponImageView.setImageResource(player.getWeaponResourceId());
 
 
-        collisionObserver = new CollisionObserver(player, blueEnemy, whiteEnemy);
+        collisionObserver = new CollisionObserver(player, blueEnemy, whiteEnemy, healthPowerUp, scorePowerUp, skipRoomPowerUp);
         playerMovement = new PlayerMovement(blackTilesList, collisionObserver);
         playerMovement.setImageViews(avatarImageView, weaponImageView);
 
@@ -186,13 +200,26 @@ public class RoomOne extends AppCompatActivity {
                                 }
                             });
                         }
-
                     }
-
+                    int collision = collisionObserver.powerUpCollision();
+                    if (collision != -1) {
+                            if (collision == 1) {
+                                player.setHealthPoints(player.getHealthPoints() + 20);
+                                healthPowerUp.getView().setVisibility(View.INVISIBLE);
+                                healthPointsTextView.setText("Health Points: " + player.getHealthPoints());
+                            } else if (collision == 2) {
+                                viewModel.updateScore(10);
+                                scorePowerUp.getView().setVisibility(View.INVISIBLE);
+                                scoreTextView.setText("Score: " + viewModel.getScore());
+                            } else if (collision == 3) {
+                                skipRoomPowerUp.getView().setVisibility(View.INVISIBLE);
+                                viewModel.moveToNextRoom();
+                            }
+                    }
                     viewModel.updateScore(-1);
                     scoreTextView.setText("Score: " + viewModel.getScore());
+                    handler.postDelayed(this, 1000);
                 }
-                handler.postDelayed(this, 1000);
             }
         }, 1000);
     }
