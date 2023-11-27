@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.view.ViewGroup;
 import android.graphics.Rect;
 
+import com.example.demo_2340.R;
 import com.example.viewmodels.CollisionObserver;
 
 import java.util.List;
@@ -15,11 +16,11 @@ public class PlayerMovement implements PlayerMovementStrategy {
     private CollisionObserver collisionObserver;
     private ImageView avatarImageView;
     private ImageView weaponImageView;
-    private boolean isSpaceBarClicked = false;
+
 
     public PlayerMovement(List<ImageView> blackTilesList, CollisionObserver collisionObserver) {
         this.blackTilesList = blackTilesList;
-        this.collisionObserver = collisionObserver;
+        setCollisionObserver(collisionObserver);
     }
 
     @Override
@@ -38,24 +39,21 @@ public class PlayerMovement implements PlayerMovementStrategy {
             player.setX(player.getX() + 10);
             break;
         case KeyEvent.KEYCODE_SPACE:
-            // Handle attack when the space key is pressed
-            isSpaceBarClicked = true;
-            Log.d("PlayerMovement", "Space bar clicked: " + isSpaceBarClicked);
-            if (isSpaceBarClicked && collisionObserver != null && collisionObserver.enemyCollision()) {
+            Log.d("PlayerMovement", "space bar detected");
+            if (collisionObserver != null && collisionObserver.enemyCollision()) {
                 initiateAttack();
-                isSpaceBarClicked = false;
             }
-            break;
         default:
             break;
         }
 
     }
 
-    private void initiateAttack() {
-        Log.d("PlayerMovement", "Initiating attack");
+    public void initiateAttack() {
+        Log.d("PlayerMovement", "CALLED initiate attack");
         // Call the handleAttack method in CollisionObserver to perform the attack logic
-        collisionObserver.enemyAttacked();
+            collisionObserver.enemyAttacked();
+
     }
 
     @Override
@@ -88,5 +86,9 @@ public class PlayerMovement implements PlayerMovementStrategy {
     public void setImageViews(ImageView avatarImageView, ImageView weaponImageView) {
         this.avatarImageView = avatarImageView;
         this.weaponImageView = weaponImageView;
+    }
+
+    public void setCollisionObserver(CollisionObserver collisionObserver) {
+        this.collisionObserver = collisionObserver;
     }
 }

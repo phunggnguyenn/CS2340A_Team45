@@ -161,7 +161,9 @@ public class RoomOne extends AppCompatActivity {
 
         collisionObserver = new CollisionObserver(player, blueEnemy, whiteEnemy, healthPowerUp, scorePowerUp, skipRoomPowerUp);
         playerMovement = new PlayerMovement(blackTilesList, collisionObserver);
+        playerMovement.setCollisionObserver(collisionObserver);
         playerMovement.setImageViews(avatarImageView, weaponImageView);
+
 
 
         // Start updating the score
@@ -184,7 +186,7 @@ public class RoomOne extends AppCompatActivity {
                             player.setHealthPoints(player.getHealthPoints() - 10);
                         }
                         healthPointsTextView.setText("Health Points: " + player.getHealthPoints());
-                        collisionObserver.enemyAttacked();
+                        //collisionObserver.enemyAttacked();
                         /**
                          * Automatically navigate to the game over screen if
                          * player health (HP) reaches 0 (i.e the player dies)
@@ -273,7 +275,11 @@ public class RoomOne extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         Log.d(TAG, "onKeyDown called. KeyCode: " + keyCode);
+
         if (viewModel.handleKeyEvent(keyCode, blackTilesList, avatarImageView)) {
+            if (keyCode == KeyEvent.KEYCODE_SPACE) {
+                playerMovement.initiateAttack();
+            }
             updateWeaponPosition(keyCode);
             if (viewModel.checkReachedGoal()) {
                 Log.d(TAG, "Player reached goal, moving to the next room");

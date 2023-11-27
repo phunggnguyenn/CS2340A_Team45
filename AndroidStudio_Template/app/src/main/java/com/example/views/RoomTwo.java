@@ -175,7 +175,7 @@ public class RoomTwo extends AppCompatActivity {
                         player.setHealthPoints(player.getHealthPoints() - 10);
                     }
                     healthPointsTextView.setText("Health Points: " + player.getHealthPoints());
-                    collisionObserver.enemyAttacked();
+                    //collisionObserver.enemyAttacked();
                     /**
                      * Automatically navigate to the game over screen if
                      * player health (HP) reaches 0 (i.e the player dies)
@@ -256,6 +256,9 @@ public class RoomTwo extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         viewModel.handleKeyEvent(keyCode, blackTilesList, avatarImageView);
+        if (keyCode == KeyEvent.KEYCODE_SPACE) {
+            playerMovement.initiateAttack();
+        }
         updateWeaponPosition(keyCode);
         if (viewModel.checkReachedGoal()) {
             viewModel.moveToNextRoom();
