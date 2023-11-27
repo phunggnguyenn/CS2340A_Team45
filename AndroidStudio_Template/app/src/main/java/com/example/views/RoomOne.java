@@ -203,20 +203,20 @@ public class RoomOne extends AppCompatActivity {
                     }
                     int collision = collisionObserver.powerUpCollision();
                     if (collision != -1) {
-                            if (collision == 1) {
-                                player.setHealthPoints(player.getHealthPoints() + 20);
-                                healthPowerUp.getView().setVisibility(View.INVISIBLE);
-                                healthPointsTextView.setText("Health Points: " + player.getHealthPoints());
-                            } else if (collision == 2) {
-                                viewModel.updateScore(10);
-                                scorePowerUp.getView().setVisibility(View.INVISIBLE);
-                                scoreTextView.setText("Score: " + viewModel.getScore());
-                            } else if (collision == 3) {
-                                skipRoomPowerUp.getView().setVisibility(View.INVISIBLE);
-                                viewModel.moveToNextRoom();
-                            }
+                        if (collision == 1) {
+                            player.setHealthPoints(player.getHealthPoints() + 20);
+                            healthPowerUp.getView().setVisibility(View.INVISIBLE);
+                            healthPointsTextView.setText("Health Points: " + player.getHealthPoints());
+                        } else if (collision == 2) {
+                            viewModel.updateScore(10);
+                            scorePowerUp.getView().setVisibility(View.INVISIBLE);
+                            scoreTextView.setText("Score: " + viewModel.getScore());
+                        } else if (collision == 3) {
+                            skipRoomPowerUp.getView().setVisibility(View.INVISIBLE);
+                            viewModel.moveToNextRoom();
+                        }
                     }
-                    viewModel.updateScore(-1);
+                    viewModel.updateScore(0);
                     scoreTextView.setText("Score: " + viewModel.getScore());
                     handler.postDelayed(this, 1000);
                 }
@@ -236,20 +236,20 @@ public class RoomOne extends AppCompatActivity {
             avatarImageView.getLocationOnScreen(playerLocation);
 
             switch (keyCode) {
-            case KeyEvent.KEYCODE_DPAD_UP:
-                weaponImageView.setY(weaponImageView.getY() - weaponSpeed);
-                break;
-            case KeyEvent.KEYCODE_DPAD_DOWN:
-                weaponImageView.setY(weaponImageView.getY() + weaponSpeed);
-                break;
-            case KeyEvent.KEYCODE_DPAD_LEFT:
-                weaponImageView.setX(weaponImageView.getX() - weaponSpeed);
-                break;
-            case KeyEvent.KEYCODE_DPAD_RIGHT:
-                weaponImageView.setX(weaponImageView.getX() + weaponSpeed);
-                break;
-            default:
-                break;
+                case KeyEvent.KEYCODE_DPAD_UP:
+                    weaponImageView.setY(weaponImageView.getY() - weaponSpeed);
+                    break;
+                case KeyEvent.KEYCODE_DPAD_DOWN:
+                    weaponImageView.setY(weaponImageView.getY() + weaponSpeed);
+                    break;
+                case KeyEvent.KEYCODE_DPAD_LEFT:
+                    weaponImageView.setX(weaponImageView.getX() - weaponSpeed);
+                    break;
+                case KeyEvent.KEYCODE_DPAD_RIGHT:
+                    weaponImageView.setX(weaponImageView.getX() + weaponSpeed);
+                    break;
+                default:
+                    break;
             }
 
             int[] weaponLocation = new int[2];
