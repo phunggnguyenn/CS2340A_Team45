@@ -30,7 +30,7 @@ public class PlayerTest {
         player2 = Player.getInstance("Player 2", 200, 2, 5, 6, 1);
     }
     //Member: Mahathi Gumudavelli
-    //Testing weapon position  - sprint 5
+    //Testing weapon position  -> sprint 5
     @Test
     public void testWeaponCoordinateSetting() {
         // Given
@@ -47,7 +47,7 @@ public class PlayerTest {
         assertEquals("Y-coordinate should be updated", newY, weapon.getY());
     }
     //Member: Mahathi Gumudavelli
-    //Testing weapon position - sprint 5
+    //Testing weapon position -> sprint 5
     @Test
     public void testMultipleCoordinateUpdates() {
         // Given
