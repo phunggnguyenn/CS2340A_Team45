@@ -3,6 +3,8 @@ package com.example.model;
 import java.io.Serializable;
 import android.view.KeyEvent;
 import android.widget.ImageView;
+
+import java.util.ArrayList;
 import java.util.List;
 import com.example.demo_2340.R;
 import android.util.Log;
@@ -20,7 +22,27 @@ public class Player implements Serializable {
     private int goalY;
     private double difficulty;
     private Weapon weapon;
+    private List<HealthPointChangeListener> healthPointChangeListeners = new ArrayList<>();
 
+    public interface HealthPointChangeListener {
+        void onHealthPointsChange(int newHealthPoints);
+
+        int calculateScore(int healthPoints);
+    }
+
+    public void registerHealthPointChangeListener(HealthPointChangeListener listener) {
+        healthPointChangeListeners.add(listener);
+    }
+
+    public void unregisterHealthPointChangeListener(HealthPointChangeListener listener) {
+        healthPointChangeListeners.remove(listener);
+    }
+
+    private void notifyHealthPointChange() {
+        for (HealthPointChangeListener listener : healthPointChangeListeners) {
+            listener.onHealthPointsChange(healthPoints);
+        }
+    }
 
     private Player(String playerName, int healthPoints, int avatarId,
                    int playerWidth, int playerHeight, double difficulty) {
@@ -48,6 +70,7 @@ public class Player implements Serializable {
             this.healthPoints = 0;
         } else {
             this.healthPoints = healthPoints;
+            notifyHealthPointChange(); // Notify listeners when health points change.
         }
     }
     public Weapon getWeapon() {
