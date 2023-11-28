@@ -3,6 +3,7 @@ package com.example.views;
 
 import android.content.Intent;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -145,6 +146,8 @@ public class RoomOne extends AppCompatActivity {
         playerMovement.setImageViews(avatarImageView, weaponImageView);
         // Start updating the score
         handler = new Handler();
+        MediaPlayer collisionSound = MediaPlayer.create(this, R.raw.collision);
+        MediaPlayer powerupSound = MediaPlayer.create(this, R.raw.powerup);
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -156,14 +159,18 @@ public class RoomOne extends AppCompatActivity {
                         Log.d(TAG, "Enemy collision detected");
                         if (player.getDifficulty() == 1.00) {
                             player.setHealthPoints(player.getHealthPoints() - 25);
+                            collisionSound.start();
                         } else if (player.getDifficulty() == 0.75) {
                             player.setHealthPoints(player.getHealthPoints() - 15);
+                            collisionSound.start();
                         } else {
                             player.setHealthPoints(player.getHealthPoints() - 10);
+                            collisionSound.start();
                         }
                         healthPointsTextView.setText("Health Points: " + player.getHealthPoints());
                         //collisionObserver.enemyAttacked();
-                        viewModel.updateScore(-10); //decrement score by 10 each time HP is decremented
+                        //decrement score by 10 each time HP is decremented
+                        viewModel.updateScore(-10);
                         /**
                          * Automatically navigate to the game over screen if
                          * player health (HP) reaches 0 (i.e the player dies)
@@ -187,13 +194,16 @@ public class RoomOne extends AppCompatActivity {
                             healthPowerUp.getView().setVisibility(View.INVISIBLE);
                             healthPointsTextView.setText("Health Points: "
                                     + player.getHealthPoints());
+                            powerupSound.start();
                         } else if (collision == 2) {
                             viewModel.updateScore(10);
                             scorePowerUp.getView().setVisibility(View.INVISIBLE);
                             scoreTextView.setText("Score: " + viewModel.getScore());
+                            powerupSound.start();
                         } else if (collision == 3) {
                             skipRoomPowerUp.getView().setVisibility(View.INVISIBLE);
                             viewModel.moveToNextRoom();
+                            powerupSound.start();
                         }
                     }
                     viewModel.updateScore(0);

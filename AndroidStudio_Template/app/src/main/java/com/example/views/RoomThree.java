@@ -1,6 +1,7 @@
 package com.example.views;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -64,8 +65,6 @@ public class RoomThree extends AppCompatActivity {
         TextView healthPointsTextView = findViewById(R.id.healthPointsTextView);
         playerNameTextView.setText("Player Name: " + player.getPlayerName());
         healthPointsTextView.setText("Health Points: " + player.getHealthPoints());
-
-
 
         //KEYMOVEMENT
         blackTilesList = new ArrayList<>();
@@ -145,6 +144,8 @@ public class RoomThree extends AppCompatActivity {
         playerMovement.setImageViews(avatarImageView, weaponImageView);
         // Start updating the score
         handler = new Handler();
+        MediaPlayer collisionSound = MediaPlayer.create(this, R.raw.collision);
+        MediaPlayer powerupSound = MediaPlayer.create(this, R.raw.powerup);
         collisionObserver = new CollisionObserver(player, whiteEnemy, greenEnemy,
                 healthPowerUp, scorePowerUp, skipRoomPowerUp);
         handler.postDelayed(new Runnable() {
@@ -155,10 +156,13 @@ public class RoomThree extends AppCompatActivity {
                 if (collisionObserver.enemyCollision()) {
                     if (player.getDifficulty() == 1.00) {
                         player.setHealthPoints(player.getHealthPoints() - 25);
+                        collisionSound.start();
                     } else if (player.getDifficulty() == 0.75) {
                         player.setHealthPoints(player.getHealthPoints() - 15);
+                        collisionSound.start();
                     } else {
                         player.setHealthPoints(player.getHealthPoints() - 10);
+                        collisionSound.start();
                     }
                     healthPointsTextView.setText("Health Points: " + player.getHealthPoints());
                     //collisionObserver.enemyAttacked();
@@ -184,13 +188,16 @@ public class RoomThree extends AppCompatActivity {
                         player.setHealthPoints(player.getHealthPoints() + 20);
                         healthPowerUp.getView().setVisibility(View.INVISIBLE);
                         healthPointsTextView.setText("Health Points: " + player.getHealthPoints());
+                        powerupSound.start();
                     } else if (collision == 2) {
                         viewModel.updateScore(10);
                         scorePowerUp.getView().setVisibility(View.INVISIBLE);
                         scoreTextView.setText("Score: " + viewModel.getScore());
+                        powerupSound.start();
                     } else if (collision == 3) {
                         skipRoomPowerUp.getView().setVisibility(View.INVISIBLE);
                         viewModel.moveToNextRoom();
+                        powerupSound.start();
                     }
                 }
                 viewModel.updateScore(0);
