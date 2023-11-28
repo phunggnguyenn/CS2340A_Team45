@@ -44,5 +44,22 @@ public class ScoreTest {
         viewModel.updateScore(-1500);
         assertEquals(0, viewModel.getScore());
     }
+    @Test
+    // Member: Jaeung Woo
+    // Test right at the edge of valid input values.
+    public void testScoreBoundaryCondition() {
+        viewModel.updateScore(Integer.MAX_VALUE - 1000);
+        assertEquals(Integer.MAX_VALUE, viewModel.getScore());
+
+        viewModel.updateScore(Integer.MIN_VALUE);
+        assertEquals(0, viewModel.getScore());
+    }
+    @Test
+    // Member: Jaeung Woo
+    // Test that updating the score by zero leaves it unchanged.
+    public void testScoreUpdateZero() {
+        viewModel.updateScore(0);
+        assertEquals(1000, viewModel.getScore());
+    }
 }
 
