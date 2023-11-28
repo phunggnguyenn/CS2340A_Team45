@@ -160,6 +160,7 @@ public class RoomTwo extends AppCompatActivity {
                     }
                     healthPointsTextView.setText("Health Points: " + player.getHealthPoints());
                     //collisionObserver.enemyAttacked();
+                    viewModel.updateScore(-10); //decrement score by 10 each time HP is decremented
                     /**
                      * Automatically navigate to the game over screen if
                      * player health (HP) reaches 0 (i.e the player dies)
@@ -190,7 +191,7 @@ public class RoomTwo extends AppCompatActivity {
                         viewModel.moveToNextRoom();
                     }
                 }
-                viewModel.updateScore(-1);
+                viewModel.updateScore(0);
                 scoreTextView.setText("Score: " + viewModel.getScore());
                 handler.postDelayed(this, 1000);
             }
