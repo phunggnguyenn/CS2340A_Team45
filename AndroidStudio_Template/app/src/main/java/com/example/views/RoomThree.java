@@ -22,6 +22,7 @@ import com.example.model.PlayerMovement;
 import com.example.model.PowerUp;
 import com.example.model.ScorePowerUp;
 import com.example.model.SkipRoomPowerUp;
+import com.example.model.KeyPowerUp;
 import com.example.viewmodels.CollisionObserver;
 import com.example.viewmodels.RoomThreeViewModel;
 import com.example.model.Player;
@@ -45,15 +46,16 @@ public class RoomThree extends AppCompatActivity {
     private PowerUp healthPowerUp;
     private PowerUp scorePowerUp;
     private PowerUp skipRoomPowerUp;
+    private PowerUp keyPowerUp;
     private Handler h = new Handler();
     private CollisionObserver collisionObserver;
     private RelativeLayout room3Layout;
+    private boolean hasKey = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_room3);
         room3Layout = findViewById(R.id.room3Layout);
-        // Retrieve values from the Intent
         Intent receiverIntent = getIntent();
         player = (Player) receiverIntent.getSerializableExtra("player");
         viewModel = new RoomThreeViewModel(player, receiverIntent.getIntExtra("score", 1000), this);
@@ -65,12 +67,8 @@ public class RoomThree extends AppCompatActivity {
         TextView healthPointsTextView = findViewById(R.id.healthPointsTextView);
         playerNameTextView.setText("Player Name: " + player.getPlayerName());
         healthPointsTextView.setText("Health Points: " + player.getHealthPoints());
-
-        //KEYMOVEMENT
         blackTilesList = new ArrayList<>();
         room3Layout.setFocusableInTouchMode(true);
-
-        // tile dimensions
         int tileWidth = 80;
         int tileHeight = 80;
 
@@ -123,10 +121,11 @@ public class RoomThree extends AppCompatActivity {
         healthPowerUp = new HealthPowerUp(this, 920, 1000);
         scorePowerUp = new ScorePowerUp(this, 920, 360);
         skipRoomPowerUp = new SkipRoomPowerUp(this, 110, 100);
+        keyPowerUp = new KeyPowerUp(this, 300, 300);
         room3Layout.addView(healthPowerUp.getView());
         room3Layout.addView(scorePowerUp.getView());
         room3Layout.addView(skipRoomPowerUp.getView());
-
+        room3Layout.addView(keyPowerUp.getView());
         avatarImageView = findViewById(R.id.imageAvatar);
         avatarImageView.setImageResource(player.getAvatarId());
         ViewGroup.MarginLayoutParams playerLayout = (ViewGroup.MarginLayoutParams)
@@ -139,15 +138,12 @@ public class RoomThree extends AppCompatActivity {
         weaponImageView = findViewById(R.id.weaponImageView);
         weaponImageView.setImageResource(player.getWeaponResourceId());
         collisionObserver = new CollisionObserver(player, whiteEnemy, greenEnemy,
-                healthPowerUp, scorePowerUp, skipRoomPowerUp);
+                healthPowerUp, scorePowerUp, skipRoomPowerUp, keyPowerUp);
         playerMovement = new PlayerMovement(blackTilesList, collisionObserver);
         playerMovement.setImageViews(avatarImageView, weaponImageView);
-        // Start updating the score
         handler = new Handler();
         MediaPlayer collisionSound = MediaPlayer.create(this, R.raw.collision);
         MediaPlayer powerupSound = MediaPlayer.create(this, R.raw.powerup);
-        collisionObserver = new CollisionObserver(player, whiteEnemy, greenEnemy,
-                healthPowerUp, scorePowerUp, skipRoomPowerUp);
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -165,12 +161,7 @@ public class RoomThree extends AppCompatActivity {
                         collisionSound.start();
                     }
                     healthPointsTextView.setText("Health Points: " + player.getHealthPoints());
-                    //collisionObserver.enemyAttacked();
                     viewModel.updateScore(-10); //decrement score by 10 each time HP is decremented
-                    /**
-                     * Automatically navigate to the game over screen if
-                     * player health (HP) reaches 0 (i.e the player dies)
-                     */
                     if (player.getHealthPoints() == 0) {
                         setContentView(R.layout.activity_game_end_lose);
                         Button restart = findViewById(R.id.restart);
@@ -198,6 +189,11 @@ public class RoomThree extends AppCompatActivity {
                         skipRoomPowerUp.getView().setVisibility(View.INVISIBLE);
                         viewModel.moveToNextRoom();
                         powerupSound.start();
+                    } else if (collision == 4) {
+                        keyPowerUp.getView().setVisibility(View.INVISIBLE);
+                        playerNameTextView.setText("Player Name: " + player.getPlayerName()
+                                + " Has Key!!");
+                        hasKey = true;
                     }
                 }
                 viewModel.updateScore(0);
@@ -255,7 +251,7 @@ public class RoomThree extends AppCompatActivity {
             playerMovement.initiateAttack();
         }
         updateWeaponPosition(keyCode);
-        if (viewModel.checkReachedGoal()) {
+        if (viewModel.checkReachedGoal() && hasKey) {
             viewModel.moveToNextRoom();
         }
         return super.onKeyDown(keyCode, event);
