@@ -2,8 +2,7 @@ package com.example.test;
 
 import com.example.model.Leaderboard;
 import com.example.model.Player;
-import com.example.model.PlayerMovement;
-import com.example.viewmodels.CollisionObserver;
+
 
 import org.junit.Test;
 import org.junit.Before;
@@ -14,10 +13,9 @@ import java.util.List;
 import android.view.KeyEvent;
 import android.widget.ImageView;
 
-import com.example.views.RoomOne;
+
 import com.example.model.Weapon;
-import com.example.views.RoomThree;
-import com.example.views.RoomTwo;
+
 
 public class PlayerTest {
     private Player player1;
@@ -30,7 +28,7 @@ public class PlayerTest {
         player2 = Player.getInstance("Player 2", 200, 2, 5, 6, 1);
     }
     //Member: Mahathi Gumudavelli
-    //Testing weapon position  - sprint 5
+    //Testing weapon position  -> sprint 5
     @Test
     public void testWeaponCoordinateSetting() {
         // Given
@@ -47,7 +45,7 @@ public class PlayerTest {
         assertEquals("Y-coordinate should be updated", newY, weapon.getY());
     }
     //Member: Mahathi Gumudavelli
-    //Testing weapon position - sprint 5
+    //Testing weapon position -> sprint 5
     @Test
     public void testMultipleCoordinateUpdates() {
         // Given

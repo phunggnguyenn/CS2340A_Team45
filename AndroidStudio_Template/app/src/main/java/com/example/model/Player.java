@@ -24,11 +24,19 @@ public class Player implements Serializable {
     private Weapon weapon;
     private List<HealthPointChangeListener> healthPointChangeListeners = new ArrayList<>();
 
-    public interface HealthPointChangeListener {
-        void onHealthPointsChange(int newHealthPoints);
-
-        int calculateScore(int healthPoints);
+    private Player(String playerName, int healthPoints, int avatarId,
+                   int playerWidth, int playerHeight, double difficulty) {
+        this.playerName = playerName;
+        this.healthPoints = healthPoints;
+        this.avatarId = avatarId;
+        this.x = 0;
+        this.y = 0;
+        this.playerHeight = playerHeight;
+        this.playerWidth = playerWidth;
+        this.difficulty = difficulty;
+        this.weapon = new Weapon(R.drawable.weapon_sword_emerald, 20);
     }
+
 
     public void registerHealthPointChangeListener(HealthPointChangeListener listener) {
         healthPointChangeListeners.add(listener);
@@ -44,18 +52,7 @@ public class Player implements Serializable {
         }
     }
 
-    private Player(String playerName, int healthPoints, int avatarId,
-                   int playerWidth, int playerHeight, double difficulty) {
-        this.playerName = playerName;
-        this.healthPoints = healthPoints;
-        this.avatarId = avatarId;
-        this.x = 0;
-        this.y = 0;
-        this.playerHeight = playerHeight;
-        this.playerWidth = playerWidth;
-        this.difficulty = difficulty;
-        this.weapon = new Weapon(R.drawable.weapon_sword_emerald, 20);
-    }
+
     public static Player getInstance(String playerName, int healthPoints, int avatarId,
                                      int playerWidth, int playerHeight, double difficulty) {
         if (player == null) {
@@ -72,6 +69,7 @@ public class Player implements Serializable {
             this.healthPoints = healthPoints;
         }
     }
+
     public Weapon getWeapon() {
         return weapon;
     }
@@ -158,7 +156,6 @@ public class Player implements Serializable {
         Log.d("PlayerPosition", "Player X: " + getX() + ", Y: " + getY());
     }
 
-
     // Used for testing purpose
     public boolean isValidMove(List<ImageView> blackTilesList, int x, int y) {
         int playerRight = x + playerWidth;
@@ -194,5 +191,9 @@ public class Player implements Serializable {
         // theres no collision, so valid move
         return true;
     }
+    public interface HealthPointChangeListener {
+        void onHealthPointsChange(int newHealthPoints);
 
+        int calculateScore(int healthPoints);
+    }
 }

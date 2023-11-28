@@ -2,7 +2,7 @@ package com.example.views;
 
 
 import android.content.Intent;
-import android.media.Image;
+
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -23,7 +23,7 @@ import com.example.model.PlayerMovement;
 import com.example.model.PowerUp;
 import com.example.model.ScorePowerUp;
 import com.example.model.SkipRoomPowerUp;
-import com.example.model.Weapon;
+
 import com.example.viewmodels.CollisionObserver;
 import com.example.viewmodels.RoomOneViewModel;
 
@@ -73,26 +73,19 @@ public class RoomOne extends AppCompatActivity {
         TextView healthPointsTextView = findViewById(R.id.healthPointsTextView);
         playerNameTextView.setText("Player Name: " + player.getPlayerName());
         healthPointsTextView.setText("Health Points: " + player.getHealthPoints());
-
         blackTilesList = new ArrayList<>();
         room1Layout.setFocusableInTouchMode(true);
-
         // tile dimensions
         int tileWidth = 80;
         int tileHeight = 80;
-
         // # rows and cols in room3 grid
         int numRows = 14;
         int numColumns = 12;
-
         int margin = 10;
-
         for (int row = 0; row < numRows; row++) {
             for (int col = 0; col < numColumns; col++) {
-
                 int left = col * (tileWidth + margin);
                 int top = row * (tileHeight + margin);
-
                 ImageView tilesImageView = new ImageView(this);
                 if ((row == 0 && ((col < 8) || (col > 8)))
                         || (row == 1 && col < 1)
@@ -119,54 +112,37 @@ public class RoomOne extends AppCompatActivity {
                         new RelativeLayout.LayoutParams(tileWidth, tileHeight);
                 redTilesParams.leftMargin = left;
                 redTilesParams.topMargin = top;
-
                 room1Layout.addView(tilesImageView, redTilesParams);
             }
 
         }
-
-        //INSTANTIATION
-        //instantiating enemy factory
-        enemyFactory = new EnemyFactory();
+        enemyFactory = new EnemyFactory();         //instantiating enemy factory
         blueEnemy = enemyFactory.createBlueEnemy(this, 715, 65);
         whiteEnemy = enemyFactory.createWhiteEnemy(this,  500, 60);
-
         room1Layout.addView(blueEnemy.getView());
         room1Layout.addView(whiteEnemy.getView());
-
-        //Instantiate power ups
-        healthPowerUp = new HealthPowerUp(this, 20, 460);
+        healthPowerUp = new HealthPowerUp(this, 20, 460);      //Instantiate power ups
         scorePowerUp = new ScorePowerUp(this, 1010, 725);
         skipRoomPowerUp = new SkipRoomPowerUp(this, 110, 100);
-
         room1Layout.addView(healthPowerUp.getView());
         room1Layout.addView(scorePowerUp.getView());
         room1Layout.addView(skipRoomPowerUp.getView());
-
         avatarImageView = findViewById(R.id.imageAvatar);
         avatarImageView.setImageResource(player.getAvatarId());
-
         ViewGroup.MarginLayoutParams playerLayout = (ViewGroup.MarginLayoutParams)
                 avatarImageView.getLayoutParams();
         playerLayout.topMargin = 1165;
         playerLayout.leftMargin = 445;
-
         avatarImageView.setLayoutParams(playerLayout);
-
         player.setX(playerLayout.leftMargin);
         player.setY(playerLayout.topMargin);
-
         weaponImageView = findViewById(R.id.weaponImageView);
         weaponImageView.setImageResource(player.getWeaponResourceId());
-
-
-        collisionObserver = new CollisionObserver(player, blueEnemy, whiteEnemy, healthPowerUp, scorePowerUp, skipRoomPowerUp);
+        collisionObserver = new CollisionObserver(player, blueEnemy, whiteEnemy, healthPowerUp,
+                scorePowerUp, skipRoomPowerUp);
         playerMovement = new PlayerMovement(blackTilesList, collisionObserver);
         playerMovement.setCollisionObserver(collisionObserver);
         playerMovement.setImageViews(avatarImageView, weaponImageView);
-
-
-
         // Start updating the score
         handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -176,7 +152,6 @@ public class RoomOne extends AppCompatActivity {
                 if (blueEnemy != null && whiteEnemy != null) {
                     blueEnemy.move();
                     whiteEnemy.move();
-
                     if (collisionObserver.enemyCollision()) {
                         Log.d(TAG, "Enemy collision detected");
                         if (player.getDifficulty() == 1.00) {
@@ -209,7 +184,8 @@ public class RoomOne extends AppCompatActivity {
                         if (collision == 1) {
                             player.setHealthPoints(player.getHealthPoints() + 20);
                             healthPowerUp.getView().setVisibility(View.INVISIBLE);
-                            healthPointsTextView.setText("Health Points: " + player.getHealthPoints());
+                            healthPointsTextView.setText("Health Points: "
+                                    + player.getHealthPoints());
                         } else if (collision == 2) {
                             viewModel.updateScore(10);
                             scorePowerUp.getView().setVisibility(View.INVISIBLE);
@@ -239,20 +215,20 @@ public class RoomOne extends AppCompatActivity {
             avatarImageView.getLocationOnScreen(playerLocation);
 
             switch (keyCode) {
-                case KeyEvent.KEYCODE_DPAD_UP:
-                    weaponImageView.setY(weaponImageView.getY() - weaponSpeed);
-                    break;
-                case KeyEvent.KEYCODE_DPAD_DOWN:
-                    weaponImageView.setY(weaponImageView.getY() + weaponSpeed);
-                    break;
-                case KeyEvent.KEYCODE_DPAD_LEFT:
-                    weaponImageView.setX(weaponImageView.getX() - weaponSpeed);
-                    break;
-                case KeyEvent.KEYCODE_DPAD_RIGHT:
-                    weaponImageView.setX(weaponImageView.getX() + weaponSpeed);
-                    break;
-                default:
-                    break;
+            case KeyEvent.KEYCODE_DPAD_UP:
+                weaponImageView.setY(weaponImageView.getY() - weaponSpeed);
+                break;
+            case KeyEvent.KEYCODE_DPAD_DOWN:
+                weaponImageView.setY(weaponImageView.getY() + weaponSpeed);
+                break;
+            case KeyEvent.KEYCODE_DPAD_LEFT:
+                weaponImageView.setX(weaponImageView.getX() - weaponSpeed);
+                break;
+            case KeyEvent.KEYCODE_DPAD_RIGHT:
+                weaponImageView.setX(weaponImageView.getX() + weaponSpeed);
+                break;
+            default:
+                break;
             }
 
             int[] weaponLocation = new int[2];
@@ -305,6 +281,6 @@ public class RoomOne extends AppCompatActivity {
         return collisionObserver;
     }
     public ImageView getWeaponImageView() {
-            return weaponImageView;
+        return weaponImageView;
     }
 }

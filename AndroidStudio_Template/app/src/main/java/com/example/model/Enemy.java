@@ -2,7 +2,7 @@ package com.example.model;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.widget.ImageView;
-import com.example.demo_2340.R;
+
 
 public abstract class Enemy extends AppCompatActivity {
     private ImageView imageView;

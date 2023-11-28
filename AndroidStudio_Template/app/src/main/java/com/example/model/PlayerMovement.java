@@ -3,20 +3,14 @@ package com.example.model;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.ImageView;
-import android.view.ViewGroup;
 import android.graphics.Rect;
-
-import com.example.demo_2340.R;
 import com.example.viewmodels.CollisionObserver;
-
 import java.util.List;
-
 public class PlayerMovement implements PlayerMovementStrategy {
     private List<ImageView> blackTilesList;
     private CollisionObserver collisionObserver;
     private ImageView avatarImageView;
     private ImageView weaponImageView;
-
 
     public PlayerMovement(List<ImageView> blackTilesList, CollisionObserver collisionObserver) {
         this.blackTilesList = blackTilesList;
@@ -43,6 +37,7 @@ public class PlayerMovement implements PlayerMovementStrategy {
             if (collisionObserver != null && collisionObserver.enemyCollision()) {
                 initiateAttack();
             }
+            break;
         default:
             break;
         }
@@ -52,7 +47,7 @@ public class PlayerMovement implements PlayerMovementStrategy {
     public void initiateAttack() {
         Log.d("PlayerMovement", "CALLED initiate attack");
         // Call the handleAttack method in CollisionObserver to perform the attack logic
-            collisionObserver.enemyAttacked();
+        collisionObserver.enemyAttacked();
 
     }
 

@@ -67,9 +67,6 @@ public class RoomTwo extends AppCompatActivity {
         playerNameTextView.setText("Player Name: " + player.getPlayerName());
         healthPointsTextView.setText("Health Points: " + player.getHealthPoints());
 
-
-
-
         //KEYMOVEMENT
         blackTilesList = new ArrayList<>();
         room2Layout.setFocusableInTouchMode(true);
@@ -81,9 +78,7 @@ public class RoomTwo extends AppCompatActivity {
         // # rows and cols in room3 grid
         int numRows = 14;
         int numColumns = 12;
-
         int margin = 10;
-
         for (int row = 0; row < numRows; row++) {
             for (int col = 0; col < numColumns; col++) {
 
@@ -121,24 +116,18 @@ public class RoomTwo extends AppCompatActivity {
                 room2Layout.addView(tilesImageView, redTilesParams);
             }
         }
-
-        //enemy instantiationn
-        enemyFactory = new EnemyFactory();
+        enemyFactory = new EnemyFactory();     //enemy instantiation
         Enemy yellowEnemy = enemyFactory.createYellowEnemy(this, yellowenemyX, yellowenemyY);
         Enemy greenEnemy = enemyFactory.createGreenEnemy(this, greenenemyX, greenenemyY);
-
         room2Layout.addView(yellowEnemy.getView());
         room2Layout.addView(greenEnemy.getView());
-
         //Instantiate power ups
         healthPowerUp = new HealthPowerUp(this, 110, 100);
         scorePowerUp = new ScorePowerUp(this, 380, 650); // 1000, 725
         skipRoomPowerUp = new SkipRoomPowerUp(this, 1010, 100); //500, 900
-
         room2Layout.addView(healthPowerUp.getView());
         room2Layout.addView(scorePowerUp.getView());
         room2Layout.addView(skipRoomPowerUp.getView());
-
         avatarImageView = findViewById(R.id.imageAvatar);
         avatarImageView.setImageResource(player.getAvatarId());
         ViewGroup.MarginLayoutParams playerLayout = (ViewGroup.MarginLayoutParams)
@@ -148,17 +137,12 @@ public class RoomTwo extends AppCompatActivity {
         avatarImageView.setLayoutParams(playerLayout);
         player.setX(playerLayout.leftMargin);
         player.setY(playerLayout.topMargin);
-
-
-
         weaponImageView = findViewById(R.id.weaponImageView);
         weaponImageView.setImageResource(player.getWeaponResourceId());
-
-
-        collisionObserver = new CollisionObserver(player, yellowEnemy, greenEnemy, healthPowerUp, scorePowerUp, skipRoomPowerUp);
+        collisionObserver = new CollisionObserver(player, yellowEnemy, greenEnemy,
+                healthPowerUp, scorePowerUp, skipRoomPowerUp);
         playerMovement = new PlayerMovement(blackTilesList, collisionObserver);
         playerMovement.setImageViews(avatarImageView, weaponImageView);
-
         // Start updating the score
         handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -222,20 +206,20 @@ public class RoomTwo extends AppCompatActivity {
             int[] playerLocation = new int[2];
             avatarImageView.getLocationOnScreen(playerLocation);
             switch (keyCode) {
-                case KeyEvent.KEYCODE_DPAD_UP:
-                    weaponImageView.setY(weaponImageView.getY() - weaponSpeed);
-                    break;
-                case KeyEvent.KEYCODE_DPAD_DOWN:
-                    weaponImageView.setY(weaponImageView.getY() + weaponSpeed);
-                    break;
-                case KeyEvent.KEYCODE_DPAD_LEFT:
-                    weaponImageView.setX(weaponImageView.getX() - weaponSpeed);
-                    break;
-                case KeyEvent.KEYCODE_DPAD_RIGHT:
-                    weaponImageView.setX(weaponImageView.getX() + weaponSpeed);
-                    break;
-                default:
-                    break;
+            case KeyEvent.KEYCODE_DPAD_UP:
+                weaponImageView.setY(weaponImageView.getY() - weaponSpeed);
+                break;
+            case KeyEvent.KEYCODE_DPAD_DOWN:
+                weaponImageView.setY(weaponImageView.getY() + weaponSpeed);
+                break;
+            case KeyEvent.KEYCODE_DPAD_LEFT:
+                weaponImageView.setX(weaponImageView.getX() - weaponSpeed);
+                break;
+            case KeyEvent.KEYCODE_DPAD_RIGHT:
+                weaponImageView.setX(weaponImageView.getX() + weaponSpeed);
+                break;
+            default:
+                break;
             }
             int[] weaponLocation = new int[2];
             weaponImageView.getLocationOnScreen(weaponLocation);

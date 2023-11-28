@@ -10,7 +10,7 @@ import android.content.Intent;
 import android.util.Log;
 import android.widget.ImageView;
 import java.util.List;
-import com.example.viewmodels.CollisionObserver;
+
 
 
 
