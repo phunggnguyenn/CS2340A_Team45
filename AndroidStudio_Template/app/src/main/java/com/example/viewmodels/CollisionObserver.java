@@ -16,14 +16,17 @@ public class CollisionObserver implements CollisionObserverStrategy {
     private PowerUp powerUp1;
     private PowerUp powerUp2;
     private PowerUp powerUp3;
+    private PowerUp powerUp4;
     public CollisionObserver(Player player, Enemy enemy1, Enemy enemy2,
-                             PowerUp powerUp1, PowerUp powerUp2, PowerUp powerUp3) {
+                             PowerUp powerUp1, PowerUp powerUp2, PowerUp powerUp3,
+                             PowerUp powerUp4) {
         this.player = player;
         this.enemy1 = enemy1;
         this.enemy2 = enemy2;
         this.powerUp1 = powerUp1;
         this.powerUp2 = powerUp2;
         this.powerUp3 = powerUp3;
+        this.powerUp4 = powerUp4;
     }
     @Override
     public boolean enemyCollision() {
@@ -76,6 +79,12 @@ public class CollisionObserver implements CollisionObserverStrategy {
         if (playerRect.intersect(powerUp3Rect) && !powerUp3.isCollected()) {
             powerUp3.setCollected(true);
             return 3;
+        }
+        Rect powerUp4Rect = new Rect(powerUp4.getX(), powerUp4.getY(), powerUp4.getX() + 75,
+                powerUp4.getY() + 90);
+        if (playerRect.intersect(powerUp4Rect) && !powerUp4.isCollected()) {
+            powerUp4.setCollected(true);
+            return 4;
         }
         return -1;
     }
