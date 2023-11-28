@@ -1,5 +1,4 @@
 package com.example.test;
-import com.example.model.HealthPowerUp;
 import com.example.model.Player;
 import com.example.viewmodels.CollisionObserver;
 
