@@ -34,8 +34,8 @@ public class RoomOneViewModel {
     public int getScore() {
         return score;
     }
-    public void updateScore(int change) {
-        score += change;
+    public void updateScore(int points) {
+        score += points;
         if (score < 0) {
             score = 0; // Ensure the score doesn't go below 0
         }
