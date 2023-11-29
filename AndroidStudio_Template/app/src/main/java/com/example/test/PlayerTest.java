@@ -270,4 +270,13 @@ public class PlayerTest {
     public void testDifficulty() {
         assertEquals(1.0, player1.getDifficulty(), 0);
     }
+
+    /**
+     * Member: EDMOND LI
+     * Test if avatarID is properly stored
+     */
+    @Test
+    public void avatarID() {
+        assertEquals(1, player1.getAvatarId());
+    }
 }
