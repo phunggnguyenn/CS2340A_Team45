@@ -222,8 +222,10 @@ public class PlayerTest {
         player1.move(KeyEvent.KEYCODE_DPAD_LEFT);
         assertEquals(oldX - 10, player1.getX());
     }
-    // Member: Edmond Li
-    // This method tests what happens when KeyEventRight occurs.
+    /**
+     * Member: EDMOND LI
+     * Test if KeyRightEvent occurs
+     */
     @Test
     public void testKeyCodeRight() {
         int oldX = player1.getX();
