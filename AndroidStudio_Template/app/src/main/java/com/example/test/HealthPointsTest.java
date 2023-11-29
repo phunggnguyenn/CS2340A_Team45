@@ -23,8 +23,10 @@ public class HealthPointsTest {
     private Enemy enemy1;
     private Enemy enemy2;
 
-
-
+    /**
+     * Member: Phung Nguyen
+     * This method tests if the game over screen is triggered when HP is 0.
+     */
     @Test
     public void testGameOverScreenOnZeroHealth() {
         Player player = Player.getInstance("TestPlayer", 0, 1, 50, 50, 1.0);

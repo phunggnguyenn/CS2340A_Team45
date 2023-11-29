@@ -164,12 +164,9 @@ public class RoomOne extends AppCompatActivity {
                             collisionSound.start();
                         }
                         healthPointsTextView.setText("Health Points: " + player.getHealthPoints());
-                        //collisionObserver.enemyAttacked();
-                        viewModel.updateScore(-10); //decrement score by 10 each time HP is decremented.
-                        /**
-                         * Automatically navigate to the game over screen if
-                         * player health (HP) reaches 0 (i.e the player dies)
-                         */
+                        viewModel.updateScore(-10); //decrement score by same amount of HP affected.
+                        // Automatically navigate to the game over screen if
+                        // player health (HP) reaches 0 (i.e the player dies)
                         if (player.getHealthPoints() == 0) {
                             Log.d(TAG, "Player health reached 0");
                             setContentView(R.layout.activity_game_end_lose);
@@ -267,6 +264,7 @@ public class RoomOne extends AppCompatActivity {
         if (viewModel.handleKeyEvent(keyCode, blackTilesList, avatarImageView)) {
             if (keyCode == KeyEvent.KEYCODE_SPACE) {
                 playerMovement.initiateAttack();
+                viewModel.enemyDestroyed(); // add 50 to score when the player destroys enemies.
             }
             updateWeaponPosition(keyCode);
             if (viewModel.checkReachedGoal() && hasKey) {

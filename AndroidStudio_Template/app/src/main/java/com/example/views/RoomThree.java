@@ -161,7 +161,7 @@ public class RoomThree extends AppCompatActivity {
                         collisionSound.start();
                     }
                     healthPointsTextView.setText("Health Points: " + player.getHealthPoints());
-                    viewModel.updateScore(-10); //decrement score by 10 each time HP is decremented
+                    viewModel.updateScore(-10); //decrement score by same amount of HP affected.
                     if (player.getHealthPoints() == 0) {
                         setContentView(R.layout.activity_game_end_lose);
                         Button restart = findViewById(R.id.restart);
@@ -249,6 +249,7 @@ public class RoomThree extends AppCompatActivity {
         viewModel.handleKeyEvent(keyCode, blackTilesList, avatarImageView);
         if (keyCode == KeyEvent.KEYCODE_SPACE) {
             playerMovement.initiateAttack();
+            viewModel.enemyDestroyed(); // increase score by 50 when the player destroys enemies.
         }
         updateWeaponPosition(keyCode);
         if (viewModel.checkReachedGoal() && hasKey) {
