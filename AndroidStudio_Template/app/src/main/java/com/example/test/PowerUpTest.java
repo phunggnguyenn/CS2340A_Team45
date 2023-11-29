@@ -15,7 +15,8 @@ public class PowerUpTest {
     // Member: MARIA JOTHISH
     // Test that checks if powerUpCollision returns -1 when all power ups are null.
     public void testNullPowerUp() {
-        CollisionObserver observer = new CollisionObserver(player, null, null, null, null, null);
+        CollisionObserver observer = new CollisionObserver(player, null, null,
+                null, null, null, null);
         int result = observer.powerUpCollision();
         assertEquals(-1, result);
     }

@@ -2,6 +2,7 @@ package com.example.views;
 
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -22,6 +23,7 @@ import com.example.model.PlayerMovement;
 import com.example.model.PowerUp;
 import com.example.model.ScorePowerUp;
 import com.example.model.SkipRoomPowerUp;
+import com.example.model.KeyPowerUp;
 import com.example.viewmodels.CollisionObserver;
 import com.example.viewmodels.RoomTwoViewModel;
 import com.example.model.Player;
@@ -44,38 +46,31 @@ public class RoomTwo extends AppCompatActivity {
     private PowerUp healthPowerUp;
     private PowerUp scorePowerUp;
     private PowerUp skipRoomPowerUp;
+    private PowerUp keyPowerUp;
     private Handler h = new Handler();
     private CollisionObserver collisionObserver;
     private RelativeLayout room2Layout;
     private PlayerMovement playerMovement;
     private ImageView skullImageView;
+    private boolean hasKey = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_room2);
         room2Layout = findViewById(R.id.room2Layout);
-        // Retrieve values from the Intent
         Intent receiverIntent = getIntent();
         player = (Player) receiverIntent.getSerializableExtra("player");
         viewModel = new RoomTwoViewModel(player, receiverIntent.getIntExtra("score", 1000), this);
-        // Initialize Score Display (update handled in Runnable)
         scoreTextView = findViewById(R.id.scoreTextView);
         scoreTextView.setText("Score: " + viewModel.getScore());
-        // TextViews (display name and HP)
         TextView playerNameTextView = findViewById(R.id.playerNameTextView);
         TextView healthPointsTextView = findViewById(R.id.healthPointsTextView);
         playerNameTextView.setText("Player Name: " + player.getPlayerName());
         healthPointsTextView.setText("Health Points: " + player.getHealthPoints());
-
-        //KEYMOVEMENT
         blackTilesList = new ArrayList<>();
         room2Layout.setFocusableInTouchMode(true);
-
-        // tile dimensions
         int tileWidth = 80;
         int tileHeight = 80;
-
-        // # rows and cols in room3 grid
         int numRows = 14;
         int numColumns = 12;
         int margin = 10;
@@ -125,9 +120,11 @@ public class RoomTwo extends AppCompatActivity {
         healthPowerUp = new HealthPowerUp(this, 110, 100);
         scorePowerUp = new ScorePowerUp(this, 380, 650); // 1000, 725
         skipRoomPowerUp = new SkipRoomPowerUp(this, 1010, 100); //500, 900
+        keyPowerUp = new KeyPowerUp(this, 300, 300);
         room2Layout.addView(healthPowerUp.getView());
         room2Layout.addView(scorePowerUp.getView());
         room2Layout.addView(skipRoomPowerUp.getView());
+        room2Layout.addView(keyPowerUp.getView());
         avatarImageView = findViewById(R.id.imageAvatar);
         avatarImageView.setImageResource(player.getAvatarId());
         ViewGroup.MarginLayoutParams playerLayout = (ViewGroup.MarginLayoutParams)
@@ -140,11 +137,13 @@ public class RoomTwo extends AppCompatActivity {
         weaponImageView = findViewById(R.id.weaponImageView);
         weaponImageView.setImageResource(player.getWeaponResourceId());
         collisionObserver = new CollisionObserver(player, yellowEnemy, greenEnemy,
-                healthPowerUp, scorePowerUp, skipRoomPowerUp);
+                healthPowerUp, scorePowerUp, skipRoomPowerUp, keyPowerUp);
         playerMovement = new PlayerMovement(blackTilesList, collisionObserver);
         playerMovement.setImageViews(avatarImageView, weaponImageView);
         // Start updating the score
         handler = new Handler();
+        MediaPlayer collisionSound = MediaPlayer.create(this, R.raw.collision);
+        MediaPlayer powerupSound = MediaPlayer.create(this, R.raw.powerup);
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -153,18 +152,17 @@ public class RoomTwo extends AppCompatActivity {
                 if (collisionObserver.enemyCollision()) {
                     if (player.getDifficulty() == 1.00) {
                         player.setHealthPoints(player.getHealthPoints() - 25);
+                        collisionSound.start();
                     } else if (player.getDifficulty() == 0.75) {
                         player.setHealthPoints(player.getHealthPoints() - 15);
+                        collisionSound.start();
                     } else {
                         player.setHealthPoints(player.getHealthPoints() - 10);
+                        collisionSound.start();
                     }
                     healthPointsTextView.setText("Health Points: " + player.getHealthPoints());
                     //collisionObserver.enemyAttacked();
                     viewModel.updateScore(-10); //decrement score by 10 each time HP is decremented
-                    /**
-                     * Automatically navigate to the game over screen if
-                     * player health (HP) reaches 0 (i.e the player dies)
-                     */
                     if (player.getHealthPoints() == 0) {
                         setContentView(R.layout.activity_game_end_lose);
                         Button restart = findViewById(R.id.restart);
@@ -182,13 +180,21 @@ public class RoomTwo extends AppCompatActivity {
                         player.setHealthPoints(player.getHealthPoints() + 20);
                         healthPowerUp.getView().setVisibility(View.INVISIBLE);
                         healthPointsTextView.setText("Health Points: " + player.getHealthPoints());
+                        powerupSound.start();
                     } else if (collision == 2) {
                         viewModel.updateScore(10);
                         scorePowerUp.getView().setVisibility(View.INVISIBLE);
                         scoreTextView.setText("Score: " + viewModel.getScore());
+                        powerupSound.start();
                     } else if (collision == 3) {
                         skipRoomPowerUp.getView().setVisibility(View.INVISIBLE);
                         viewModel.moveToNextRoom();
+                        powerupSound.start();
+                    } else if (collision == 4) {
+                        keyPowerUp.getView().setVisibility(View.INVISIBLE);
+                        playerNameTextView.setText("Player Name: " + player.getPlayerName()
+                                + " Has Key!!");
+                        hasKey = true;
                     }
                 }
                 viewModel.updateScore(0);
@@ -245,7 +251,7 @@ public class RoomTwo extends AppCompatActivity {
             playerMovement.initiateAttack();
         }
         updateWeaponPosition(keyCode);
-        if (viewModel.checkReachedGoal()) {
+        if (viewModel.checkReachedGoal() && hasKey) {
             viewModel.moveToNextRoom();
         }
         return super.onKeyDown(keyCode, event);

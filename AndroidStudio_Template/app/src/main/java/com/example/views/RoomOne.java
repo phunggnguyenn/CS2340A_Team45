@@ -3,6 +3,7 @@ package com.example.views;
 
 import android.content.Intent;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -24,6 +25,7 @@ import com.example.model.PowerUp;
 import com.example.model.ScorePowerUp;
 import com.example.model.SkipRoomPowerUp;
 
+import com.example.model.KeyPowerUp;
 import com.example.viewmodels.CollisionObserver;
 import com.example.viewmodels.RoomOneViewModel;
 
@@ -45,6 +47,7 @@ public class RoomOne extends AppCompatActivity {
     private PowerUp healthPowerUp;
     private PowerUp scorePowerUp;
     private PowerUp skipRoomPowerUp;
+    private PowerUp keyPowerUp;
     private TextView scoreTextView;
     private Handler handler;
     private ImageView avatarImageView;
@@ -55,30 +58,25 @@ public class RoomOne extends AppCompatActivity {
     private PlayerMovement playerMovement;
     private  RelativeLayout room1Layout;
     private static final String TAG = "RoomOne";
+    private boolean hasKey = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_room1);
-        Log.d(TAG, "onCreate");
         room1Layout = findViewById(R.id.room1Layout);
-        // Retrieve values from the Intent
         Intent receiverIntent = getIntent();
         player = (Player) receiverIntent.getSerializableExtra("player");
         viewModel = new RoomOneViewModel(player, this);
-        // Initialize Score Display (update handled in Runnable)
         scoreTextView = findViewById(R.id.scoreTextView);
         scoreTextView.setText("Score: " + viewModel.getScore());
-        // Initialize Bottom Display
         TextView playerNameTextView = findViewById(R.id.playerNameTextView);
         TextView healthPointsTextView = findViewById(R.id.healthPointsTextView);
         playerNameTextView.setText("Player Name: " + player.getPlayerName());
         healthPointsTextView.setText("Health Points: " + player.getHealthPoints());
         blackTilesList = new ArrayList<>();
         room1Layout.setFocusableInTouchMode(true);
-        // tile dimensions
         int tileWidth = 80;
         int tileHeight = 80;
-        // # rows and cols in room3 grid
         int numRows = 14;
         int numColumns = 12;
         int margin = 10;
@@ -114,7 +112,6 @@ public class RoomOne extends AppCompatActivity {
                 redTilesParams.topMargin = top;
                 room1Layout.addView(tilesImageView, redTilesParams);
             }
-
         }
         enemyFactory = new EnemyFactory();         //instantiating enemy factory
         blueEnemy = enemyFactory.createBlueEnemy(this, 715, 65);
@@ -123,10 +120,12 @@ public class RoomOne extends AppCompatActivity {
         room1Layout.addView(whiteEnemy.getView());
         healthPowerUp = new HealthPowerUp(this, 20, 460);      //Instantiate power ups
         scorePowerUp = new ScorePowerUp(this, 1010, 725);
-        skipRoomPowerUp = new SkipRoomPowerUp(this, 110, 100);
+        skipRoomPowerUp = new SkipRoomPowerUp(this, 100, 90);
+        keyPowerUp = new KeyPowerUp(this, 900, 300);
         room1Layout.addView(healthPowerUp.getView());
         room1Layout.addView(scorePowerUp.getView());
         room1Layout.addView(skipRoomPowerUp.getView());
+        room1Layout.addView(keyPowerUp.getView());
         avatarImageView = findViewById(R.id.imageAvatar);
         avatarImageView.setImageResource(player.getAvatarId());
         ViewGroup.MarginLayoutParams playerLayout = (ViewGroup.MarginLayoutParams)
@@ -139,27 +138,30 @@ public class RoomOne extends AppCompatActivity {
         weaponImageView = findViewById(R.id.weaponImageView);
         weaponImageView.setImageResource(player.getWeaponResourceId());
         collisionObserver = new CollisionObserver(player, blueEnemy, whiteEnemy, healthPowerUp,
-                scorePowerUp, skipRoomPowerUp);
+                scorePowerUp, skipRoomPowerUp, keyPowerUp);
         playerMovement = new PlayerMovement(blackTilesList, collisionObserver);
         playerMovement.setCollisionObserver(collisionObserver);
         playerMovement.setImageViews(avatarImageView, weaponImageView);
         // Start updating the score
         handler = new Handler();
+        MediaPlayer collisionSound = MediaPlayer.create(this, R.raw.collision);
+        MediaPlayer powerupSound = MediaPlayer.create(this, R.raw.powerup);
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Log.d(TAG, "Score update loop");
                 if (blueEnemy != null && whiteEnemy != null) {
                     blueEnemy.move();
                     whiteEnemy.move();
                     if (collisionObserver.enemyCollision()) {
-                        Log.d(TAG, "Enemy collision detected");
                         if (player.getDifficulty() == 1.00) {
                             player.setHealthPoints(player.getHealthPoints() - 25);
+                            collisionSound.start();
                         } else if (player.getDifficulty() == 0.75) {
                             player.setHealthPoints(player.getHealthPoints() - 15);
+                            collisionSound.start();
                         } else {
                             player.setHealthPoints(player.getHealthPoints() - 10);
+                            collisionSound.start();
                         }
                         healthPointsTextView.setText("Health Points: " + player.getHealthPoints());
                         //collisionObserver.enemyAttacked();
@@ -187,13 +189,21 @@ public class RoomOne extends AppCompatActivity {
                             healthPowerUp.getView().setVisibility(View.INVISIBLE);
                             healthPointsTextView.setText("Health Points: "
                                     + player.getHealthPoints());
+                            powerupSound.start();
                         } else if (collision == 2) {
                             viewModel.updateScore(10);
                             scorePowerUp.getView().setVisibility(View.INVISIBLE);
                             scoreTextView.setText("Score: " + viewModel.getScore());
+                            powerupSound.start();
                         } else if (collision == 3) {
                             skipRoomPowerUp.getView().setVisibility(View.INVISIBLE);
                             viewModel.moveToNextRoom();
+                            powerupSound.start();
+                        } else if (collision == 4) {
+                            keyPowerUp.getView().setVisibility(View.INVISIBLE);
+                            playerNameTextView.setText("Player Name: " + player.getPlayerName()
+                                    + " Has Key!!");
+                            hasKey = true;
                         }
                     }
                     viewModel.updateScore(0);
@@ -259,7 +269,7 @@ public class RoomOne extends AppCompatActivity {
                 playerMovement.initiateAttack();
             }
             updateWeaponPosition(keyCode);
-            if (viewModel.checkReachedGoal()) {
+            if (viewModel.checkReachedGoal() && hasKey) {
                 Log.d(TAG, "Player reached goal, moving to the next room");
                 viewModel.moveToNextRoom();
             }
