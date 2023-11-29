@@ -161,8 +161,9 @@ public class RoomTwo extends AppCompatActivity {
                         collisionSound.start();
                     }
                     healthPointsTextView.setText("Health Points: " + player.getHealthPoints());
-                    //collisionObserver.enemyAttacked();
-                    viewModel.updateScore(-10); //decrement score by 10 each time HP is decremented
+                    // collisionObserver.enemyAttacked();
+                    viewModel.updateScore(-player.getHealthPoints()); //decrement score by
+                    // same amount of HP affected each time HP is decremented.
                     if (player.getHealthPoints() == 0) {
                         setContentView(R.layout.activity_game_end_lose);
                         Button restart = findViewById(R.id.restart);
@@ -249,6 +250,7 @@ public class RoomTwo extends AppCompatActivity {
         viewModel.handleKeyEvent(keyCode, blackTilesList, avatarImageView);
         if (keyCode == KeyEvent.KEYCODE_SPACE) {
             playerMovement.initiateAttack();
+            viewModel.enemyDestroyed(); //add 50 points to score when the player destroys enemies.
         }
         updateWeaponPosition(keyCode);
         if (viewModel.checkReachedGoal() && hasKey) {

@@ -70,4 +70,8 @@ public class RoomThreeViewModel {
         context.startActivity(endIntent);
         ((Activity) context).finish();
     }
+
+    public void enemyDestroyed() {
+        updateScore(50);
+    }
 }

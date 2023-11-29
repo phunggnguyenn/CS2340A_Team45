@@ -72,4 +72,8 @@ public class RoomTwoViewModel {
         context.startActivity(room3Intent);
         ((Activity) context).finish();
     }
+
+    public void enemyDestroyed() {
+        updateScore(50);
+    }
 }

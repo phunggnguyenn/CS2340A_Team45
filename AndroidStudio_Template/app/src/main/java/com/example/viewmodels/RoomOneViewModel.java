@@ -77,4 +77,15 @@ public class RoomOneViewModel {
         context.startActivity(room2Intent);
         ((Activity) context).finish();
     }
+
+    public void enemyDestroyed() {
+        updateScore(50);
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+    public void setCollisionObserver(CollisionObserver collisionObserver) {
+        this.collisionObserver = collisionObserver;
+    }
 }

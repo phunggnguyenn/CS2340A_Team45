@@ -71,7 +71,6 @@ public class PlayerTest {
         assertEquals("X-coordinate should be updated to newX2", newX2, weapon.getX());
         assertEquals("Y-coordinate should be updated to newY2", newY2, weapon.getY());
     }
-
     // Member: Jaeung Woo
     // This method tests setting Player's goal location
     @Test
