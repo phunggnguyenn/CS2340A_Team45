@@ -262,4 +262,12 @@ public class PlayerTest {
         // Assuming player is initially at (0, 0) and playerWidth = 50, playerHeight = 50
         assertFalse(player1.isValidMove(blackTilesList, 1000, 1000));
     }
+    /**
+     * Member: EDMOND LI
+     * Test if difficulty is properly stored
+     */
+    @Test
+    public void testDifficulty() {
+        assertEquals(1.0, player1.getDifficulty(), 0);
+    }
 }
